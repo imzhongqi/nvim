@@ -3,7 +3,6 @@ return {
 
   {
     "windwp/nvim-autopairs",
-    enabled = true,
     event = "InsertEnter",
     opts = {
       ---@usage  modifies the function or method delimiter by filetypes
