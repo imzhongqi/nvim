@@ -6,21 +6,43 @@ return {
       {
         "s1n7ax/nvim-window-picker",
         version = "2.*",
-        event = "VeryLazy",
-        config = function()
-          require("window-picker").setup({
-            filter_rules = {
-              include_current_win = false,
-              autoselect_one = true,
-              bo = {
-                filetype = { "neo-tree", "neo-tree-popup", "notify" },
-                buftype = { "terminal", "quickfix" },
+        opts = {
+          filter_rules = {
+            include_current_win = false,
+            autoselect_one = true,
+            bo = {
+              filetype = { "neo-tree", "neo-tree-popup", "notify", "Trouble" },
+              buftype = { "terminal", "quickfix" },
+            },
+          },
+          show_prompt = false,
+          highlights = {
+            statusline = {
+              focused = {
+                fg = "#c8d3f5",
+                bg = "#1e2030",
+                bold = true,
+              },
+              unfocused = {
+                fg = "#c8d3f5",
+                bg = "#1e2030",
+                bold = true,
               },
             },
-
-            show_prompt = false,
-          })
-        end,
+            -- winbar = {
+            --   focused = {
+            --     fg = "#c8d3f5",
+            --     bg = "#1e2030",
+            --     bold = true,
+            --   },
+            --   unfocused = {
+            --     fg = "#c8d3f5",
+            --     bg = "#1e2030",
+            --     bold = true,
+            --   },
+            -- },
+          },
+        },
       },
     },
     opts = {

@@ -1,4 +1,10 @@
 return {
   "folke/which-key.nvim",
-  opts = {},
+
+  ---@type Options
+  opts = {
+    window = {
+      winblend = 20,
+    },
+  },
 }

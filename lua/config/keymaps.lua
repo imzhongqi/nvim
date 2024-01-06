@@ -10,3 +10,8 @@ keymaps.del({
   { "n", { "<C-Up>", "<C-Down>", "<C-Left>", "<C-Right>" } },
   { "t", { "<C-l>" } },
 })
+
+keymaps.set({
+  { { "n", "i" }, "<D-z>", "<Cmd>undo<CR>" },
+  { { "n", "i" }, "<D-Z>", "<Cmd>redo<CR>" },
+})

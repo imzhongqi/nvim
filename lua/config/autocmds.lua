@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = {
     "dap-float",
     "Jaq",
+    "vim",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
