@@ -11,7 +11,4 @@ return {
     "ColorizerReloadAllBuffers",
     "ColorizerToggle",
   },
-  keys = {
-    { "<leader>uct", "<cmd>ColorizerToggle<cr>", desc = "Toggle Colorizer" },
-  },
 }

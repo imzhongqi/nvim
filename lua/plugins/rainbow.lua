@@ -1,6 +1,6 @@
 return {
   "HiPhish/rainbow-delimiters.nvim",
-  event = "BufFilePre",
+  event = "BufRead",
   main = "rainbow-delimiters.setup",
   opts = {},
 }
