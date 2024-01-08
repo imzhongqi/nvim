@@ -3,6 +3,19 @@ return {
 
   ---@type NoiceConfig
   opts = {
+    presets = {
+      lsp_doc_border = {
+        views = {
+          hover = {
+            border = {
+              style = "rounded",
+            },
+            position = { row = 2, col = 3 },
+          },
+        },
+      },
+    },
+
     ---@type NoiceConfigViews
     views = {
       mini = {
@@ -11,7 +24,7 @@ return {
           foldenable = false,
           winblend = 60,
           winhighlight = {
-            -- Normal = "NoiceMini",
+            Normal = "NoiceMini",
             IncSearch = "",
             CurSearch = "",
             Search = "",
