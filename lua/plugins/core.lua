@@ -8,4 +8,12 @@ return {
       style = "moon",
     },
   },
+
+  {
+    "echasnovski/mini.ai",
+    opts = {
+      search_method = "cover",
+      silent = true,
+    },
+  },
 }

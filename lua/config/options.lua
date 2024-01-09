@@ -1,17 +1,10 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
-
-local opt = vim.opt
-
-opt.whichwrap:append("<,>,[,],h,l")
-opt.fillchars:append("eob: ,fold: ")
-
 require("core.options").set({
+  -- swapfile = false,
   foldcolumn = "1",
   foldlevel = 99,
   foldlevelstart = 99,
   foldenable = true,
+  list = true,
   listchars = {
     tab = "»·",
     nbsp = "+",
@@ -19,5 +12,13 @@ require("core.options").set({
     extends = "→",
     precedes = "←",
     space = "·",
+  },
+  fillchars = {
+    foldopen = "",
+    foldclose = "",
+    fold = " ",
+    foldsep = " ",
+    diff = "╱",
+    eob = " ",
   },
 })
