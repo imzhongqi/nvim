@@ -9,5 +9,5 @@ return {
     keep_quiet_on_no_binary = false,
     async_switch_im = true,
   },
-  enabled = vim.fn.executable("im-select"),
+  enabled = vim.fn.executable("im-select") == 1,
 }
