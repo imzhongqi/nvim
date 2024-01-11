@@ -4,7 +4,7 @@ require("core.options").set({
   foldlevel = 99,
   foldlevelstart = 99,
   foldenable = true,
-  list = true,
+  list = false,
   listchars = {
     tab = "»·",
     nbsp = "+",

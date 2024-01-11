@@ -8,6 +8,8 @@ keymaps.del({
 })
 
 keymaps.set({
+  { "i", "<C-p>", "<Nop>" },
+  { "i", "<C-n>", "<Nop>" },
   { { "n", "i" }, "<D-z>", "<Cmd>undo<CR>" },
   { { "n", "i" }, "<D-Z>", "<Cmd>redo<CR>" },
 })

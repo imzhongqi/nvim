@@ -1,6 +1,16 @@
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
+    opts = function(_, opts)
+      opts.window.mappings = {
+        ["<space>"] = "none",
+        ["l"] = "open",
+      }
+    end,
+  },
+
+  {
+    "nvim-neo-tree/neo-tree.nvim",
     dependencies = {
       "kwkarlwang/bufresize.nvim",
       {
@@ -103,17 +113,39 @@ return {
           end,
         },
       },
-    },
-  },
 
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    opts = function(_, opts)
-      opts.window.mappings = {
-        ["<space>"] = "none",
-        ["l"] = "open",
-      }
-      return opts
-    end,
+      filesystem = {
+        hijack_netrw_behavior = "open_current",
+        use_libuv_file_watcher = true,
+
+        filtered_items = {
+          visible = false, -- when true, they will just be displayed differently than normal items
+          force_visible_in_empty_folder = false, -- when true, hidden files will be shown if the root folder is otherwise empty
+          show_hidden_count = true, -- when true, the number of hidden items in each folder will be shown as the last entry
+          hide_dotfiles = true,
+          hide_gitignored = true,
+          hide_hidden = true, -- only works on Windows for hidden files/directories
+          hide_by_name = {
+            ".DS_Store",
+            "thumbs.db",
+            --"node_modules",
+          },
+          hide_by_pattern = { -- uses glob style patterns
+            --"*.meta",
+            --"*/src/*/tsconfig.json"
+          },
+          always_show = { -- remains visible even if other settings would normally hide it
+            ".gitignore",
+          },
+          never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
+            --".DS_Store",
+            --"thumbs.db"
+          },
+          never_show_by_pattern = { -- uses glob style patterns
+            --".null-ls_*",
+          },
+        },
+      },
+    },
   },
 }
