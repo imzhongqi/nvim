@@ -12,6 +12,7 @@ return {
           }, {}),
           f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
           c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
+          C = ai.gen_spec.treesitter({ a = "@call.outer", i = "@call.inner" }, {}),
           t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },
           ["/"] = ai.gen_spec.treesitter({ a = "@comment.outer", i = "@comment.inner" }, {}),
         },
@@ -39,21 +40,6 @@ return {
           goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
           goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer" },
           goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
-        },
-
-        select = {
-          enable = true,
-          keymaps = {
-            -- Your custom capture.
-            ["aF"] = "@custom_capture",
-
-            -- Built-in captures.
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-
-            ["i/"] = "@comment.inner",
-            ["a/"] = "@comment.outer",
-          },
         },
       },
     },
