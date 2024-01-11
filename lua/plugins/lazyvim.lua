@@ -3,6 +3,7 @@ return {
   version = false,
   opts = {
     colorscheme = "tokyonight",
+
     icons = {
       misc = {
         dots = "󰇘",

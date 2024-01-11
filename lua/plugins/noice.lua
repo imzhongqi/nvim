@@ -4,6 +4,7 @@ return {
   ---@type NoiceConfig
   opts = {
     presets = {
+      inc_rename = true,
       lsp_doc_border = {
         views = {
           hover = {
