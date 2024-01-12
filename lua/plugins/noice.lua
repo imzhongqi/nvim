@@ -4,7 +4,23 @@ return {
   ---@type NoiceConfig
   opts = {
     presets = {
-      inc_rename = true,
+      inc_rename = {
+        cmdline = {
+          format = {
+            IncRename = {
+              title = " Rename ",
+              pattern = "^:%s*IncRename%s+",
+              icon = "󰤌",
+              conceal = true,
+              opts = {
+                relative = "cursor",
+                size = { min_width = 20 },
+                position = { row = -2, col = 0 },
+              },
+            },
+          },
+        },
+      },
       lsp_doc_border = {
         views = {
           hover = {
