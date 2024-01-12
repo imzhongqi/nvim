@@ -9,6 +9,10 @@ vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 require("core.options").set({
   autowrite = true, -- Enable auto write
 
+  backup = false,
+  writebackup = false,
+  swapfile = false,
+
   clipboard = "unnamedplus", -- Sync with system clipboard
   completeopt = "menu,menuone,noselect",
   conceallevel = 3, -- Hide * markup for bold and italic
