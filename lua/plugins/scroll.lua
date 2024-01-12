@@ -1,10 +1,12 @@
 return {
   {
     "karb94/neoscroll.nvim",
+    event = "VeryLazy",
     opts = {},
   },
   {
     "petertriho/nvim-scrollbar",
+    event = "VeryLazy",
     opts = {
       show = true,
       show_in_active_only = false,
@@ -12,12 +14,13 @@ return {
       folds = 1000, -- handle folds, set to number to disable folds if no. of lines in buffer exceeds this
       max_lines = false, -- disables if no. of lines in buffer exceeds this
       hide_if_all_visible = true, -- Hides everything if all lines are visible
-      throttle_ms = 1000,
+      throttle_ms = 100,
       excluded_buftypes = {
         "terminal",
       },
 
       excluded_filetypes = {
+        "lazy",
         "neo-tree",
         "dashboard",
         "cmp_docs",
