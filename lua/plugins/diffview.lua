@@ -3,6 +3,12 @@ return {
   keys = {
     { "<leader>gd", "<Cmd>DiffviewOpen<CR>", desc = "Open Diffview" },
   },
+  cmd = {
+    "DiffviewOpen",
+    "DiffviewClose",
+    "DiffviewFileHistory",
+    "DiffviewRefresh",
+  },
   opts = {
     hooks = {
       ["view_opened"] = function()
