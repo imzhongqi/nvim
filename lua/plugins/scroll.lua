@@ -2,7 +2,26 @@ return {
   {
     "karb94/neoscroll.nvim",
     event = "VeryLazy",
-    opts = {},
+    opts = {
+      -- hide_cursor = false,
+    },
+    config = function(_, opts)
+      require("neoscroll").setup(opts)
+
+      local mappings = {}
+      -- Syntax: t[keys] = {function, {function arguments}}
+      mappings["<C-u>"] = { "scroll", { "-vim.wo.scroll", "true", "120" } }
+      mappings["<C-d>"] = { "scroll", { "vim.wo.scroll", "true", "120" } }
+      mappings["<C-b>"] = { "scroll", { "-vim.fn.winheight(0)", "true", "150" } }
+      mappings["<C-f>"] = { "scroll", { "vim.fn.winheight(0)", "true", "150" } }
+      mappings["<C-y>"] = { "scroll", { "-0.10", "false", "50" } }
+      mappings["<C-e>"] = { "scroll", { "0.10", "false", "50" } }
+      mappings["zt"] = { "zt", { "250" } }
+      mappings["zz"] = { "zz", { "250" } }
+      mappings["zb"] = { "zb", { "250" } }
+
+      require("neoscroll.config").set_mappings(mappings)
+    end,
   },
   {
     "petertriho/nvim-scrollbar",
@@ -14,7 +33,7 @@ return {
       folds = 1000, -- handle folds, set to number to disable folds if no. of lines in buffer exceeds this
       max_lines = false, -- disables if no. of lines in buffer exceeds this
       hide_if_all_visible = true, -- Hides everything if all lines are visible
-      throttle_ms = 100,
+      throttle_ms = 10,
       excluded_buftypes = {
         "terminal",
       },

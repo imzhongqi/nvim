@@ -5,7 +5,7 @@ return {
     opts = function()
       local ai = require("mini.ai")
       return {
-        search_method = "cover",
+        -- search_method = "cover",
         silent = true,
 
         custom_textobjects = {
