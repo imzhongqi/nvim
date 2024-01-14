@@ -62,9 +62,9 @@ return {
   opts = function()
     vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
     local cmp = require("cmp")
-    local defaults = require("cmp.config.default")()
     local cmp_window = require("cmp.config.window")
     local lspkind = require("lspkind")
+    local compare = require("cmp.config.compare")
 
     return {
       window = {
@@ -83,8 +83,8 @@ return {
       },
 
       mapping = cmp.mapping.preset.insert({
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-j>"] = cmp.mapping.select_next_item(),
+        ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+        ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 
@@ -131,7 +131,20 @@ return {
           hl_group = "CmpGhostText",
         },
       },
-      sorting = defaults.sorting,
+
+      sorting = {
+        comparators = {
+          compare.offset,
+          compare.exact,
+          compare.score,
+          compare.recently_used,
+          compare.locality,
+          compare.kind,
+          compare.sort_text,
+          compare.length,
+          compare.order,
+        },
+      },
     }
   end,
 
