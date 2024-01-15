@@ -5,23 +5,42 @@ return {
     opts = {
       -- hide_cursor = false,
       easing_function = "quadratic",
+      mappings = {},
     },
-    config = function(_, opts)
-      require("neoscroll").setup(opts)
+    keys = function()
+      local sc = require("neoscroll")
+      local scroll = function(lines, move_cursor, time, easing_function, info)
+        return function()
+          sc.scroll(lines, move_cursor, time, easing_function, info)
+        end
+      end
 
-      local mappings = {}
-      -- Syntax: t[keys] = {function, {function arguments}}
-      mappings["<C-u>"] = { "scroll", { "-vim.wo.scroll", "true", "100" } }
-      mappings["<C-d>"] = { "scroll", { "vim.wo.scroll", "true", "100" } }
-      mappings["<C-b>"] = { "scroll", { "-vim.fn.winheight(0)", "true", "120" } }
-      mappings["<C-f>"] = { "scroll", { "vim.fn.winheight(0)", "true", "120" } }
-      mappings["<C-y>"] = { "scroll", { "-0.10", "false", "50" } }
-      mappings["<C-e>"] = { "scroll", { "0.10", "false", "50" } }
-      mappings["zt"] = { "zt", { "250" } }
-      mappings["zz"] = { "zz", { "250" } }
-      mappings["zb"] = { "zb", { "250" } }
-
-      require("neoscroll.config").set_mappings(mappings)
+      return {
+        { "<C-u>", scroll(-vim.wo.scroll, true, 100), desc = "Scroll Up" },
+        { "<C-d>", scroll(vim.wo.scroll, true, 100), desc = "Scroll Down" },
+        { "<C-b>", scroll(-vim.fn.winheight(0), true, 120), desc = "Scroll Forward" },
+        { "<C-f>", scroll(vim.fn.winheight(0), true, 120), desc = "Scroll Forward" },
+        { "<C-y>", scroll(-0.10, false, 100), desc = "Scroll window upward in the buffer" },
+        { "<C-e>", scroll(0.10, false, 100), desc = "Scroll window downward in the buffer" },
+        {
+          "zt",
+          function()
+            sc.zt(250)
+          end,
+        },
+        {
+          "zz",
+          function()
+            sc.zz(250)
+          end,
+        },
+        {
+          "zb",
+          function()
+            sc.zb(250)
+          end,
+        },
+      }
     end,
   },
 

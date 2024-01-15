@@ -16,7 +16,7 @@ return {
       hi --[[ , color ]]
     )
       hi.Title.blend = 30
-      hi.FloatBorder.blend = 30
+      hi.FloatBorder.blend = 80
       hi.FloatTitle.blend = 30
       hi.DiagnosticInfo.blend = 30
     end,
