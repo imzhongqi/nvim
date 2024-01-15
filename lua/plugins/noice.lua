@@ -28,6 +28,10 @@ return {
               style = "rounded",
             },
             position = { row = 2, col = 3 },
+            win_options = {
+              winblend = 25,
+            },
+            scrollbar = false,
           },
         },
       },
@@ -46,6 +50,32 @@ return {
             CurSearch = "",
             Search = "",
           },
+        },
+      },
+
+      cmdline_popup = {
+        position = {
+          row = "15%",
+          col = "50%",
+        },
+        size = {
+          min_width = 60,
+          height = "auto",
+          width = "auto",
+        },
+        win_options = {
+          winblend = 20,
+        },
+      },
+
+      confirm = {
+        format = { "{confirm} " },
+        position = {
+          row = "50%",
+          col = "50%",
+        },
+        win_options = {
+          winblend = 20,
         },
       },
     },

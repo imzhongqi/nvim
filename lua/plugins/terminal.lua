@@ -15,12 +15,14 @@ return {
       direction = "float",
       -- start_in_insert = true,
       highlights = {
-        NormalFloat = {
-          link = "Normal",
-        },
-        FloatBorder = {
-          link = "FloatBorder",
-        },
+        Normal = { link = "Normal" },
+        NormalNC = { link = "NormalNC" },
+        NormalFloat = { link = "NormalFloat" },
+        FloatBorder = { link = "FloatBorder" },
+        StatusLine = { link = "StatusLine" },
+        StatusLineNC = { link = "StatusLineNC" },
+        WinBar = { link = "WinBar" },
+        WinBarNC = { link = "WinBarNC" },
       },
       float_opts = {
         -- border = 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open

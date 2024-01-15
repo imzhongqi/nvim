@@ -1,12 +1,13 @@
 return {
   "hrsh7th/nvim-cmp",
   version = false, -- last release is way too old
-  event = "InsertEnter",
+  event = "VeryLazy",
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "saadparwaiz1/cmp_luasnip",
+    "hrsh7th/cmp-cmdline",
     {
       "onsails/lspkind.nvim",
       opts = {
@@ -26,31 +27,31 @@ return {
         --
         -- default: {}
         symbol_map = {
-          Class = "",
-          Color = "󰏘",
-          Constant = "󰏿",
-          Constructor = "",
-          Enum = "",
-          Event = "",
-          EnumMember = "",
-          Field = "󰜢",
-          File = "󰈙",
-          Folder = "󰉋",
-          Function = "󰊕",
-          Interface = "",
-          Keyword = "󰌋",
-          Method = "󰆧",
-          Module = "",
-          Operator = "󰆕",
-          Property = "󰜢",
-          Snippet = "",
-          Struct = "󰙅",
-          Text = "󰉿",
-          TypeParameter = "",
-          Unit = "󰑭",
-          Value = "󰎠",
-          Variable = "",
-          Reference = "󰈇",
+          Class = " ",
+          Color = "󰏘 ",
+          Constant = "󰏿 ",
+          Constructor = " ",
+          Enum = " ",
+          Event = " ",
+          EnumMember = " ",
+          Field = "󰜢 ",
+          File = "󰈙 ",
+          Folder = "󰉋 ",
+          Function = "󰊕 ",
+          Interface = " ",
+          Keyword = "󰌋 ",
+          Method = "󰆧 ",
+          Module = " ",
+          Operator = "󰆕 ",
+          Property = "󰜢 ",
+          Snippet = " ",
+          Struct = "󰙅 ",
+          Text = "󰉿 ",
+          TypeParameter = " ",
+          Unit = "󰑭 ",
+          Value = "󰎠 ",
+          Variable = " ",
+          Reference = "󰈇 ",
         },
       },
       config = function(_, opts)
@@ -68,7 +69,7 @@ return {
 
     return {
       window = {
-        completion = cmp_window.bordered({ scrollbar = true }),
+        completion = cmp_window.bordered(),
         documentation = cmp_window.bordered(),
       },
 
@@ -150,9 +151,27 @@ return {
 
   ---@param opts cmp.ConfigSchema
   config = function(_, opts)
+    local cmp = require("cmp")
     for _, source in ipairs(opts.sources) do
       source.group_index = source.group_index or 1
     end
-    require("cmp").setup(opts)
+
+    cmp.setup.cmdline({ "/", "?" }, {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = "buffer" },
+      },
+    })
+
+    cmp.setup.cmdline(":", {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = "path" },
+      }, {
+        { name = "cmdline" },
+      }),
+    })
+
+    cmp.setup(opts)
   end,
 }
