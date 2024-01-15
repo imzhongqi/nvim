@@ -4,6 +4,7 @@ return {
     event = "VeryLazy",
     opts = {
       -- hide_cursor = false,
+      easing_function = "quadratic",
     },
     config = function(_, opts)
       require("neoscroll").setup(opts)
@@ -12,8 +13,8 @@ return {
       -- Syntax: t[keys] = {function, {function arguments}}
       mappings["<C-u>"] = { "scroll", { "-vim.wo.scroll", "true", "100" } }
       mappings["<C-d>"] = { "scroll", { "vim.wo.scroll", "true", "100" } }
-      mappings["<C-b>"] = { "scroll", { "-vim.fn.winheight(0)", "true", "180" } }
-      mappings["<C-f>"] = { "scroll", { "vim.fn.winheight(0)", "true", "180" } }
+      mappings["<C-b>"] = { "scroll", { "-vim.fn.winheight(0)", "true", "120" } }
+      mappings["<C-f>"] = { "scroll", { "vim.fn.winheight(0)", "true", "120" } }
       mappings["<C-y>"] = { "scroll", { "-0.10", "false", "50" } }
       mappings["<C-e>"] = { "scroll", { "0.10", "false", "50" } }
       mappings["zt"] = { "zt", { "250" } }
