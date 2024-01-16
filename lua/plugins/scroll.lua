@@ -16,10 +16,10 @@ return {
       end
 
       return {
-        { "<C-u>", scroll(-vim.wo.scroll, true, 100), desc = "Scroll Up" },
-        { "<C-d>", scroll(vim.wo.scroll, true, 100), desc = "Scroll Down" },
-        { "<C-b>", scroll(-vim.fn.winheight(0), true, 120), desc = "Scroll Forward" },
-        { "<C-f>", scroll(vim.fn.winheight(0), true, 120), desc = "Scroll Forward" },
+        { "<C-u>", scroll(-vim.wo.scroll, true, 80), desc = "Scroll Up" },
+        { "<C-d>", scroll(vim.wo.scroll, true, 80), desc = "Scroll Down" },
+        { "<C-b>", scroll(-vim.fn.winheight(0), true, 100), desc = "Scroll Forward" },
+        { "<C-f>", scroll(vim.fn.winheight(0), true, 100), desc = "Scroll Forward" },
         { "<C-y>", scroll(-0.10, false, 100), desc = "Scroll window upward in the buffer" },
         { "<C-e>", scroll(0.10, false, 100), desc = "Scroll window downward in the buffer" },
         {
