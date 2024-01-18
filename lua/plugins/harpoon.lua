@@ -2,8 +2,7 @@ return {
   "ThePrimeagen/harpoon",
   branch = "harpoon2",
   dependencies = { "nvim-lua/plenary.nvim" },
-  event = "VeryLazy",
-  opts = {},
+  -- event = "VeryLazy",
   keys = function()
     local harpoon = require("harpoon")
 
@@ -28,36 +27,45 @@ return {
 
     return {
       {
-        "<leader>sL",
+        "<leader>hl",
         function()
           toggle_telescope(harpoon:list())
         end,
+        desc = "Show the harpoon list",
       },
       {
-        "<leader>bL",
-        function() end,
-      },
-      {
-        "<leader>a",
+        "<leader>ha",
         function()
           harpoon:list():append()
         end,
+        desc = "Add to harpoon list",
       },
       {
-        "<C-P>",
+        "<leader>hd",
         function()
-          harpoon:list():prev()
+          harpoon:list():remove()
         end,
+        desc = "Delete harpoon list item",
       },
       {
-        "<C-N>",
+        "<C-p>",
         function()
-          harpoon:list():next()
+          harpoon:list():prepend():prev({ ui_nav_wrap = true })
         end,
+        desc = "Go to previous harpoon item",
+      },
+      {
+        "<C-n>",
+        function()
+          harpoon:list():prepend():next({ ui_nav_wrap = true })
+        end,
+        desc = "Go to next harpoon item",
       },
     }
   end,
+  opts = {},
   config = function(_, opts)
-    require("harpoon"):setup(opts)
+    local harpoon = require("harpoon")
+    harpoon:setup(opts)
   end,
 }
