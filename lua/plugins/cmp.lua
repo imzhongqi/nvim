@@ -157,8 +157,10 @@ return {
         source.group_index = source.group_index or 1
       end
 
+      local cmd_mapping = cmp.mapping.preset.cmdline()
+
       cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmd_mapping,
         sources = cmp.config.sources({
           { name = "buffer" },
         }, {
@@ -167,7 +169,7 @@ return {
       })
 
       cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmd_mapping,
         sources = cmp.config.sources({
           { name = "path" },
         }, {
@@ -199,7 +201,7 @@ return {
     -- stylua: ignore
     keys = {
       {
-        "<tab>", 
+        "<tab>",
         function() return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>" end, 
         expr = true, silent = true,
         mode = "i",
