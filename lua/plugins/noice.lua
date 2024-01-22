@@ -8,7 +8,7 @@ return {
         cmdline = {
           format = {
             IncRename = {
-              title = " Rename ",
+              title = "",
               pattern = "^:%s*IncRename%s+",
               icon = "󰤌",
               conceal = true,
