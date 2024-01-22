@@ -1,5 +1,5 @@
 return {
   "smjonas/inc-rename.nvim",
-  event = "VeryLazy",
+  event = "LspAttach",
   opts = {},
 }

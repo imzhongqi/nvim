@@ -1,7 +1,6 @@
 return {
   {
     "karb94/neoscroll.nvim",
-    event = "VeryLazy",
     opts = {
       -- hide_cursor = false,
       easing_function = "quadratic",
@@ -46,7 +45,7 @@ return {
 
   {
     "petertriho/nvim-scrollbar",
-    event = "VeryLazy",
+    event = "BufRead",
     opts = {
       show = true,
       show_in_active_only = false,
@@ -55,6 +54,15 @@ return {
       max_lines = false, -- disables if no. of lines in buffer exceeds this
       hide_if_all_visible = true, -- Hides everything if all lines are visible
       throttle_ms = 10,
+      handle = {
+        text = " ",
+        blend = 40, -- Integer between 0 and 100. 0 for fully opaque and 100 to full transparent. Defaults to 30.
+        color = nil,
+        color_nr = nil, -- cterm
+        highlight = "CursorColumn",
+        hide_if_all_visible = true, -- Hides handle if all lines are visible
+      },
+
       excluded_buftypes = {
         "terminal",
       },
@@ -71,7 +79,7 @@ return {
       },
 
       handlers = {
-        cursor = true,
+        cursor = false,
         diagnostic = true,
         gitsigns = true, -- Requires gitsigns
         handle = true,

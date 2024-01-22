@@ -1,5 +1,5 @@
 return {
   "nacro90/numb.nvim",
-  event = "VeryLazy",
+  event = "CmdlineEnter",
   opts = {},
 }
