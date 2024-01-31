@@ -36,6 +36,7 @@ require("lazy").setup({
   },
 
   ui = {
+    border = "rounded",
     size = { width = 0.95, height = 0.9 },
   },
 
@@ -48,6 +49,10 @@ require("lazy").setup({
   },
 
   performance = {
+    cache = {
+      enabled = true,
+    },
+    reset_packpath = true, -- reset the package path to improve startup time
     rtp = {
       -- disable some rtp plugins
       disabled_plugins = {
