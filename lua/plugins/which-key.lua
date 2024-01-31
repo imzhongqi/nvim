@@ -1,8 +1,8 @@
 return {
   "folke/which-key.nvim",
 
-  ---@type Options
   opts = function()
+    ---@type Options
     return {
       window = {
         winblend = 20,

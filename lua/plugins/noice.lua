@@ -3,6 +3,27 @@ return {
 
   ---@type NoiceConfig
   opts = {
+    cmdline = {
+      enabled = true, -- enables the Noice cmdline UI
+      view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+      opts = {}, -- global options for the cmdline. See section on views
+      ---@type table<string, CmdlineFormat>
+      format = {
+        -- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
+        -- view: (default is cmdline view)
+        -- opts: any options passed to the view
+        -- icon_hl_group: optional hl_group for the icon
+        -- title: set to anything or empty string to hide
+        cmdline = { title = "" },
+        search_down = { title = "" },
+        search_up = { title = "" },
+        filter = { title = "" },
+        lua = { title = "" },
+        help = { title = "" },
+        input = {}, -- Used by input()
+        -- lua = false, -- to disable a format, set to `false`
+      },
+    },
     presets = {
       inc_rename = {
         cmdline = {
@@ -69,10 +90,17 @@ return {
       },
 
       confirm = {
-        format = { "{confirm} " },
+        format = { " {confirm} " },
         position = {
           row = "50%",
           col = "50%",
+        },
+        border = {
+          style = "rounded",
+          padding = { 0, 1 },
+          text = {
+            top = "",
+          },
         },
         win_options = {
           winblend = 20,

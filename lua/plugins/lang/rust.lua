@@ -1,14 +1,18 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    opts = function(_, opts)
-      return opts
-    end,
+    opts = {
+      setup = {
+        rust_analyzer = function()
+          return true
+        end,
+      },
+    },
   },
 
   {
     "mrcjkb/rustaceanvim",
-    version = "^3", -- Recommended
+    version = "^4",
     ft = { "rust" },
     opts = function()
       return {

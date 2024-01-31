@@ -20,6 +20,9 @@ require("core.options").set({
   cursorline = true, -- Enable highlighting of the current line
 
   expandtab = true, -- Use spaces instead of tabs
+  tabstop = 2,
+  softtabstop = 2,
+  shiftwidth = 2,
 
   formatoptions = "jcroqlnt",
   foldcolumn = "1",
@@ -39,12 +42,10 @@ require("core.options").set({
 
   number = true,
 
-  tabstop = 2,
   timeoutlen = 300,
   termguicolors = true, -- True color support
 
   shiftround = true,
-  shiftwidth = 2,
   smartcase = true, -- Don't ignore case with capitals
   smartindent = true, -- Insert indents automatically
   spelllang = { "en" },
