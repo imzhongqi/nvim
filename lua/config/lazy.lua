@@ -1,16 +1,3 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
-
 require("lazy").setup({
   spec = {
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
@@ -30,14 +17,20 @@ require("lazy").setup({
   },
 
   install = {
+    missing = true,
     colorscheme = {
       "tokyonight",
+      "minimus",
     },
   },
 
+  diff = {
+    cmd = "diffview.nvim",
+  },
+
   ui = {
-    border = "rounded",
-    size = { width = 0.95, height = 0.9 },
+    border = "solid",
+    size = { width = 1, height = 0.9 },
   },
 
   checker = { enabled = false }, -- automatically check for plugin updates
@@ -57,13 +50,16 @@ require("lazy").setup({
       -- disable some rtp plugins
       disabled_plugins = {
         "gzip",
-        -- "matchit",
-        -- "matchparen",
-        -- "netrwPlugin",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",
+        "man",
         "zipPlugin",
+        "osc52", -- Wezterm doesn't support osc52 yet
+        "spellfile",
       },
     },
   },

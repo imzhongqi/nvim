@@ -19,6 +19,7 @@ return {
       hi.FloatTitle.blend = 30
       hi.DiagnosticInfo.bg = "none"
       hi.DiagnosticUnderlineWarn.sp = "#a5814d"
+      hi.LspInlayHint.bg = "none"
     end,
   },
 }

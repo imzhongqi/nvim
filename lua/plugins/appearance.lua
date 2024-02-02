@@ -1,5 +1,22 @@
 return {
   {
+    "folke/zen-mode.nvim",
+    opts = {
+      on_open = function(win)
+        vim.wo[win].fillchars = vim.go.fillchars
+      end,
+    },
+    cmd = "ZenMode",
+  },
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    event = "BufRead",
+    main = "rainbow-delimiters.setup",
+    submodules = false,
+    opts = {},
+  },
+
+  {
     "karb94/neoscroll.nvim",
     opts = {
       -- hide_cursor = false,
@@ -180,5 +197,27 @@ return {
         },
       },
     },
+  },
+
+  {
+    "Bekaboo/dropbar.nvim",
+    dependencies = {
+      "nvim-telescope/telescope-fzf-native.nvim",
+    },
+    event = "VeryLazy",
+    enabled = vim.fn.has("nvim-0.10") == 1,
+    opts = {
+      menu = {
+        scrollbar = {
+          enable = false,
+          background = true,
+        },
+      },
+    },
+    config = function(_, opts)
+      vim.cmd([[hi WinBar guisp=#665c54 guibg=none]])
+      vim.cmd([[hi WinBarNC guisp=#665c54 guibg=none]])
+      require("dropbar").setup(opts)
+    end,
   },
 }

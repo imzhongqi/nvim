@@ -50,7 +50,7 @@ return {
             },
             position = { row = 2, col = 3 },
             win_options = {
-              winblend = 25,
+              winblend = 0,
             },
             scrollbar = false,
           },
@@ -85,7 +85,7 @@ return {
           width = "auto",
         },
         win_options = {
-          winblend = 20,
+          winblend = 0,
         },
       },
 
@@ -103,7 +103,7 @@ return {
           },
         },
         win_options = {
-          winblend = 20,
+          winblend = 0,
         },
       },
     },

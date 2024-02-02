@@ -1,0 +1,12 @@
+{
+  "neoconf": {
+    "plugins": {
+      "lua_ls": {
+        "enabled": true
+      },
+      "lspconfig": {
+        "enabled": true
+      }
+    }
+  }
+}

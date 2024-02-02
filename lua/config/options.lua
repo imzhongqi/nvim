@@ -11,7 +11,8 @@ require("core.options").set({
 
   backup = false,
   writebackup = false,
-  swapfile = false,
+  swapfile = true,
+  undofile = true,
 
   clipboard = "unnamedplus", -- Sync with system clipboard
   completeopt = "menu,menuone,noselect",
@@ -30,7 +31,7 @@ require("core.options").set({
   foldlevelstart = 99,
   foldenable = true,
 
-  pumblend = 10,
+  pumblend = 0,
   pumheight = 10,
 
   ignorecase = true, -- Ignore case
@@ -41,6 +42,8 @@ require("core.options").set({
   relativenumber = true,
 
   number = true,
+
+  mousemoveevent = true,
 
   timeoutlen = 300,
   termguicolors = true, -- True color support

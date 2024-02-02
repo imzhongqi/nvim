@@ -7,6 +7,8 @@ return {
         search_method = "cover",
         silent = true,
 
+        n_lines = 1000,
+
         custom_textobjects = {
           o = ai.gen_spec.treesitter({
             a = { "@block.outer", "@conditional.outer", "@loop.outer", "@assignment.outer", "@call.outer" },

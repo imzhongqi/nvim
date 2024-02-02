@@ -60,6 +60,7 @@ return {
       require("lspkind").init(opts)
     end,
   },
+
   {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
