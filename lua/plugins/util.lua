@@ -62,4 +62,15 @@ return {
       "ColorizerToggle",
     },
   },
+  {
+    "mbbill/undotree",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>uu",
+        vim.cmd.UndotreeToggle,
+        desc = "Undotree Toggle",
+      },
+    },
+  },
 }

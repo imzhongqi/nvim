@@ -220,4 +220,53 @@ return {
       require("dropbar").setup(opts)
     end,
   },
+
+  {
+    "luukvbaal/statuscol.nvim",
+    event = "VeryLazy",
+    branch = "0.10",
+    opts = function()
+      local builtin = require("statuscol.builtin")
+      return {
+        bt_ignore = { "nofile", "terminal" },
+        segments = {
+          {
+            sign = {
+              name = { "Dap.*" },
+              text = { "Dap.*" },
+              maxwidth = 1,
+            },
+            condition = { true, builtin.not_empty },
+            click = "v:lua.ScSa",
+          },
+          {
+            text = { builtin.lnumfunc, " " },
+            condition = { true, builtin.not_empty },
+            click = "v:lua.ScLa",
+          },
+          {
+            sign = {
+              name = { ".*" },
+              text = { ".*" },
+              namespace = { ".*" },
+              maxwidth = 1,
+            },
+            click = "v:lua.ScSa",
+          },
+          {
+            text = {
+              function(args)
+                args.fold.close = ""
+                args.fold.open = ""
+                args.fold.sep = " "
+                return builtin.foldfunc(args)
+              end,
+              " ",
+            },
+            click = "v:lua.ScFa",
+          },
+        },
+      }
+    end,
+  },
 }
