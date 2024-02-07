@@ -89,7 +89,7 @@ return {
         fields = { "kind", "abbr", "menu" },
         format = lspkind.cmp_format({
           mode = "symbol",
-          maxwidth = 30,
+          maxwidth = 80,
           ellipsis_char = "...", -- 
           show_labelDetails = true,
           before = function(entry, vim_item)

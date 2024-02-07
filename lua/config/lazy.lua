@@ -20,7 +20,6 @@ require("lazy").setup({
     missing = true,
     colorscheme = {
       "tokyonight",
-      "minimus",
     },
   },
 

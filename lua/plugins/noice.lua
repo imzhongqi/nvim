@@ -108,7 +108,9 @@ return {
       },
     },
     lsp = {
-      progress = {},
+      progress = {
+        enabled = false,
+      },
     },
   },
 

@@ -1,9 +1,11 @@
 return {
-  {
-    "nmac427/guess-indent.nvim",
-    opts = { auto_cmd = true },
-    event = "VeryLazy",
-  },
+  -- {
+  --   "nmac427/guess-indent.nvim",
+  --   opts = { auto_cmd = true },
+  --   event = "VeryLazy",
+  -- },
+
+  { "tpope/vim-sleuth", event = "LazyFile" },
 
   {
     "gbprod/stay-in-place.nvim",

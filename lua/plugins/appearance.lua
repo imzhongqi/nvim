@@ -13,7 +13,28 @@ return {
     event = "BufRead",
     main = "rainbow-delimiters.setup",
     submodules = false,
-    opts = {},
+    opts = function()
+      local rainbow_delimiters = require("rainbow-delimiters")
+      return {
+        strategy = {
+          [""] = rainbow_delimiters.strategy["global"],
+          vim = rainbow_delimiters.strategy["local"],
+        },
+        query = {
+          [""] = "rainbow-delimiters",
+          lua = "rainbow-blocks",
+        },
+        highlight = {
+          "TSRainbowRed",
+          "TSRainbowYellow",
+          "TSRainbowBlue",
+          "TSRainbowOrange",
+          "TSRainbowGreen",
+          "TSRainbowViolet",
+          "TSRainbowCyan",
+        },
+      }
+    end,
   },
 
   {
@@ -223,20 +244,42 @@ return {
 
   {
     "luukvbaal/statuscol.nvim",
-    event = "VeryLazy",
+    event = "BufReadPost",
     branch = "0.10",
     opts = function()
       local builtin = require("statuscol.builtin")
+
+      local nu = function(args)
+        return args.nu
+      end
+
+      local dap_config = require("dap").configurations
+
       return {
-        bt_ignore = { "nofile", "terminal" },
+        relculright = true,
+        bt_ignore = { "terminal" },
+        ft_ignore = nil,
+        setopt = true,
         segments = {
           {
             sign = {
-              name = { "Dap.*" },
-              text = { "Dap.*" },
-              maxwidth = 1,
+              name = { "Dap*" },
             },
-            condition = { true, builtin.not_empty },
+            click = "v:lua.ScSa",
+            condition = {
+              function(args)
+                local ft = vim.bo.ft
+                return vim.api.nvim_get_current_win() == args.win and dap_config[ft] ~= nil
+              end,
+            },
+          },
+          {
+            sign = {
+              name = { ".*" },
+              text = { ".*" },
+              namespace = { ".*" },
+            },
+            condition = { nu },
             click = "v:lua.ScSa",
           },
           {
@@ -246,11 +289,10 @@ return {
           },
           {
             sign = {
-              name = { ".*" },
-              text = { ".*" },
-              namespace = { ".*" },
-              maxwidth = 1,
+              namespace = { "git" },
+              colwidth = 1,
             },
+            condition = { nu },
             click = "v:lua.ScSa",
           },
           {
@@ -259,14 +301,22 @@ return {
                 args.fold.close = ""
                 args.fold.open = ""
                 args.fold.sep = " "
+
                 return builtin.foldfunc(args)
               end,
               " ",
             },
+            condition = { nu, builtin.not_empty },
             click = "v:lua.ScFa",
           },
         },
       }
     end,
+  },
+
+  {
+    "j-hui/fidget.nvim",
+    event = "LspAttach",
+    opts = {},
   },
 }
