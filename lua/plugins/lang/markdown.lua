@@ -7,28 +7,23 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
-    opts = {},
+    opts = {
+      workspaces = {
+        {
+          name = "workspace",
+          path = "~/workspace",
+        },
+      },
+    },
   },
   {
     "lukas-reineke/headlines.nvim",
+    lazy = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
     opts = function()
-      local opts = {
-        yaml = {
-          query = vim.treesitter.query.parse(
-            "yaml",
-            [[
-                (
-                    (comment) @dash
-                    (#match? @dash "^# ---+$")
-                )
-            ]]
-          ),
-          dash_highlight = "Dash",
-        },
-      }
+      local opts = {}
 
       for _, ft in ipairs({ "markdown", "norg", "rmd", "org" }) do
         opts[ft] = {

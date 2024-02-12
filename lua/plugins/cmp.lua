@@ -80,8 +80,12 @@ return {
       local luasnip = require("luasnip")
 
       opts.window = {
-        completion = cmp_window.bordered(),
-        documentation = cmp_window.bordered(),
+        completion = cmp_window.bordered({
+          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+        }),
+        documentation = cmp_window.bordered({
+          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+        }),
       }
 
       opts.formatting = {

@@ -9,12 +9,13 @@ return {
       functions = {},
       variables = {},
       sidebars = "dark", -- style for sidebars, see below
-      floats = "dark", -- style for floating windows
+      floats = "moon", -- style for floating windows
     },
 
     on_highlights = function(hi)
       hi.DiagnosticUnderlineWarn.sp = "#a5814d"
       hi.LspInlayHint.link = "Comment"
+      hi.CmpItemMenu.link = "NormalFloat"
     end,
   },
 }

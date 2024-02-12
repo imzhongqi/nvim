@@ -9,7 +9,7 @@ return {
 
   {
     "gbprod/stay-in-place.nvim",
-    event = "VeryLazy",
+    event = "LazyFile",
     config = true,
   },
 
@@ -17,6 +17,11 @@ return {
     "nacro90/numb.nvim",
     event = "CmdlineEnter",
     opts = {},
+  },
+
+  {
+    "lambdalisue/suda.vim",
+    cmd = { "SudaWrite", "SudaRead" },
   },
 
   {
@@ -44,29 +49,31 @@ return {
     lazy = false,
     priority = 1001,
     opts = {
-      window = {
-        open = "alternate",
-      },
+      window = { open = "alternate" },
     },
   },
 
   {
     "NvChad/nvim-colorizer.lua",
-    opts = {
-      user_default_options = {
-        mode = "foreground",
-      },
-    },
     cmd = {
       "ColorizerAttachToBuffer",
       "ColorizerDetachFromBuffer",
       "ColorizerReloadAllBuffers",
       "ColorizerToggle",
     },
+    opts = {
+      user_default_options = {
+        mode = "foreground",
+      },
+    },
   },
   {
     "mbbill/undotree",
-    event = "VeryLazy",
+    cmd = {
+      "UndotreeToggle",
+      "UndotreeFocus",
+      "UndotreePersistUndo",
+    },
     keys = {
       {
         "<leader>uu",

@@ -225,7 +225,7 @@ return {
     dependencies = {
       "nvim-telescope/telescope-fzf-native.nvim",
     },
-    event = "VeryLazy",
+    event = "LazyFile",
     enabled = vim.fn.has("nvim-0.10") == 1,
     opts = {
       menu = {
@@ -258,13 +258,11 @@ return {
       return {
         relculright = true,
         bt_ignore = { "terminal" },
-        ft_ignore = nil,
+        ft_ignore = { "neo-tree" },
         setopt = true,
         segments = {
           {
-            sign = {
-              name = { "Dap*" },
-            },
+            sign = { name = { "Dap*" }, auto = true },
             click = "v:lua.ScSa",
             condition = {
               function(args)
@@ -279,7 +277,6 @@ return {
               text = { ".*" },
               namespace = { ".*" },
             },
-            condition = { nu },
             click = "v:lua.ScSa",
           },
           {

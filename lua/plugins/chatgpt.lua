@@ -1,6 +1,6 @@
 return {
   "jackMort/ChatGPT.nvim",
-  event = "VeryLazy",
+  version = false,
   dependencies = {
     "MunifTanjim/nui.nvim",
     "nvim-lua/plenary.nvim",
@@ -13,6 +13,13 @@ return {
     "ChatGPTEditWithInstructions",
     "ChatGPTCompleteCode",
     "ChatGPTActAs",
+  },
+  keys = {
+    {
+      "<leader>cc",
+      "<cmd>ChatGPT<CR>",
+      desc = "ChatGPT",
+    },
   },
   opts = {
     api_key_cmd = "security find-generic-password -w -s openai -a openai",
@@ -31,15 +38,15 @@ return {
     },
     chat = {
       loading_text = "Loading, please wait ...",
-      question_sign = "", -- 🙂
-      answer_sign = "ﮧ", -- 🤖
+      question_sign = "", -- 🙂
+      answer_sign = "󱙺", -- 🤖
       border_left_sign = "",
       border_right_sign = "",
       max_line_length = 120,
       sessions_window = {
-        active_sign = "  ",
-        inactive_sign = "  ",
-        current_line_sign = "",
+        active_sign = " ",
+        inactive_sign = " ",
+        current_line_sign = " ",
         border = {
           style = "rounded",
           text = {
@@ -47,7 +54,7 @@ return {
           },
         },
         win_options = {
-          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+          winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
         },
       },
       keymaps = {
@@ -70,7 +77,7 @@ return {
         toggle_settings = "<C-o>",
         toggle_sessions = "<C-p>",
         toggle_help = "<C-h>",
-        toggle_message_role = "<C-r>",
+        toggle_message_role = "<C-S-r>",
         toggle_system_role_open = "<C-s>",
         stop_generating = "<C-x>",
       },
@@ -98,11 +105,10 @@ return {
         wrap = true,
         linebreak = true,
         foldcolumn = "1",
-        winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
       },
       buf_options = {
         filetype = "markdown",
-        buftype = "",
       },
     },
     system_window = {
@@ -117,7 +123,7 @@ return {
         wrap = true,
         linebreak = true,
         foldcolumn = "2",
-        winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
       },
     },
     popup_input = {
@@ -131,7 +137,7 @@ return {
         },
       },
       win_options = {
-        winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
       },
       submit = "<C-Enter>",
       submit_n = "<Enter>",
@@ -146,7 +152,7 @@ return {
         },
       },
       win_options = {
-        winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
       },
     },
     help_window = {
@@ -162,26 +168,29 @@ return {
       },
     },
     openai_params = {
-      model = "gpt-4-0125-preview",
+      model = "gpt-4-turbo-preview",
       frequency_penalty = 0,
       presence_penalty = 0,
-      max_tokens = 3000,
+      max_tokens = 4096,
       temperature = 0,
       top_p = 1,
       n = 1,
     },
     openai_edit_params = {
-      model = "gpt-4-0125-preview",
+      model = "gpt-3.5-turbo",
       frequency_penalty = 0,
       presence_penalty = 0,
-      max_tokens = 3000,
       temperature = 0,
       top_p = 1,
       n = 1,
     },
     use_openai_functions_for_edits = false,
-    actions_paths = {
-      vim.fn.stdpath("config") .. "/actions.json",
+    actions_paths = {},
+    show_quickfixes_cmd = "Trouble quickfix",
+    predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
+    highlights = {
+      help_key = "@symbol",
+      help_description = "@comment",
     },
   },
 }

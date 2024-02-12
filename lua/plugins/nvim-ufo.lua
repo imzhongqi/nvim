@@ -16,7 +16,6 @@ return {
         scrollD = "<C-d>",
       },
     },
-
     provider_selector = function(_, filetype, buftype)
       local function handleFallbackException(bufnr, err, providerName)
         if type(err) == "string" and err:match("UfoFallbackException") then

@@ -1,0 +1,21 @@
+{
+  "translate": {
+    "type": "chat",
+    "opts": {
+      "title": "󰊿 Translate",
+      "template": "Translate this into {{lang}}:\n\n{{input}}",
+      "strategy": "display",
+      "params": {
+        "model": "gpt-3.5-turbo",
+        "temperature": 0.3
+      }
+    },
+    "args": {
+      "lang": {
+        "type": "string",
+        "optional": "true",
+        "default": "Chinese"
+      }
+    }
+  }
+}
