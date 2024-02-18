@@ -3,7 +3,7 @@
     "type": "chat",
     "opts": {
       "title": "󰊿 Translate",
-      "template": "Translate this into {{lang}}:\n\n{{input}}",
+      "template": "Translate this into {{lang}}, and make sure the sentence is smooth. If the sentence is not too smooth, please correct it:\n\n{{input}}",
       "strategy": "display",
       "params": {
         "model": "gpt-3.5-turbo",

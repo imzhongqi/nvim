@@ -10,5 +10,14 @@ return {
     inlay_hints = {
       enabled = true,
     },
+    servers = {
+      lua_ls = {
+        settings = {
+          Lua = {
+            hint = { enable = true },
+          },
+        },
+      },
+    },
   },
 }

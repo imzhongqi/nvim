@@ -253,8 +253,6 @@ return {
         return args.nu
       end
 
-      local dap_config = require("dap").configurations
-
       return {
         relculright = true,
         bt_ignore = { "terminal" },
@@ -264,12 +262,6 @@ return {
           {
             sign = { name = { "Dap*" }, auto = true },
             click = "v:lua.ScSa",
-            condition = {
-              function(args)
-                local ft = vim.bo.ft
-                return vim.api.nvim_get_current_win() == args.win and dap_config[ft] ~= nil
-              end,
-            },
           },
           {
             sign = {

@@ -68,134 +68,159 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
+
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-cmdline",
       "onsails/lspkind.nvim",
+      "lukas-reineke/cmp-under-comparator",
+      "hrsh7th/cmp-calc",
     },
-    opts = function(_, opts)
+
+    opts = function()
+      vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+
       local cmp = require("cmp")
-      local cmp_window = require("cmp.config.window")
-      local cmp_compare = require("cmp.config.compare")
       local lspkind = require("lspkind")
       local luasnip = require("luasnip")
+      local cmp_types = require("cmp.types.cmp")
+      local ConfirmBehavior = cmp_types.ConfirmBehavior
+      -- local SelectBehavior = cmp_types.SelectBehavior
 
-      opts.window = {
-        completion = cmp_window.bordered({
-          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-        }),
-        documentation = cmp_window.bordered({
-          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-        }),
-      }
+      return {
+        window = {
+          completion = cmp.config.window.bordered({
+            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+          }),
+          documentation = cmp.config.window.bordered({
+            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+          }),
+        },
 
-      opts.formatting = {
-        expandable_indicator = true,
-        fields = { "kind", "abbr", "menu" },
-        format = lspkind.cmp_format({
-          mode = "symbol",
-          maxwidth = 80,
-          ellipsis_char = "...", -- 
-          show_labelDetails = true,
-          before = function(entry, vim_item)
-            -- vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
-            return vim_item
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
           end,
+        },
+
+        mapping = cmp.mapping.preset.insert({
+          ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+          ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+          ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+          ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+
+          ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+          ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+
+          ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+          ["<C-e>"] = cmp.mapping({
+            i = cmp.mapping.close(),
+            c = cmp.mapping.close(),
+          }),
+          ["<C-y>"] = cmp.mapping({
+            i = cmp.mapping.confirm({ behavior = ConfirmBehavior.Replace, select = false }),
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.confirm({ behavior = ConfirmBehavior.Replace, select = false })
+              else
+                fallback()
+              end
+            end,
+          }),
+          ["<C-l>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+
+          ["<C-CR>"] = function(fallback)
+            cmp.abort()
+            fallback()
+          end,
+
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif luasnip.expand_or_locally_jumpable() then
+              luasnip.expand_or_jump()
+            -- elseif has_words_before() then
+            --   cmp.complete()
+            else
+              fallback() --Fallback to tabout of `ultimate-autopair` as expected
+            end
+          end, {
+            "i",
+            "s",
+            "c",
+          }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, {
+            "i",
+            "s",
+            "c",
+          }),
         }),
-      }
 
-      opts.sorting = {
-        comparators = {
-          cmp_compare.offset,
-          cmp_compare.exact,
-          cmp_compare.score,
-          cmp_compare.recently_used,
-          cmp_compare.locality,
-          cmp_compare.kind,
-          cmp_compare.sort_text,
-          cmp_compare.length,
-          cmp_compare.order,
+        formatting = {
+          expandable_indicator = true,
+          fields = { "kind", "abbr", "menu" },
+          format = lspkind.cmp_format({
+            mode = "symbol",
+            maxwidth = 80,
+            ellipsis_char = "...", -- 
+            show_labelDetails = true,
+            before = function(entry, vim_item)
+              -- vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
+              return vim_item
+            end,
+          }),
         },
-      }
 
-      local has_words_before = function()
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-      end
+        completion = {
+          completeopt = "menu,menuone,noinsert",
+        },
 
-      opts.mapping = cmp.mapping.preset.insert({
-        ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-        ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        sources = {
+          { name = "nvim_lsp" },
+          { name = "path" },
+          {
+            name = "buffer",
+            option = {
+              get_bufnrs = function()
+                local bufs = {}
+                for _, win in ipairs(vim.api.nvim_list_wins()) do
+                  bufs[vim.api.nvim_win_get_buf(win)] = true
+                end
+                return vim.tbl_keys(bufs)
+              end,
+            },
+          },
+          { name = "calc" },
+        },
 
-        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.abort(),
-
-        ["<Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
-          elseif luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
-          elseif has_words_before() then
-            -- cmp.complete()
-            fallback()
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-
-        ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ["<C-CR>"] = function(fallback)
-          cmp.abort()
-          fallback()
-        end,
-
-        ["<CR>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            local confirm_opts = { behavior = cmp.ConfirmBehavior.Replace, select = false }
-            local is_insert_mode = function()
-              return vim.api.nvim_get_mode().mode:sub(1, 1) == "i"
-            end
-            if is_insert_mode() then -- prevent overwriting brackets
-              confirm_opts.behavior = cmp.ConfirmBehavior.Insert
-            end
-            if cmp.confirm(confirm_opts) then
-              return -- success, exit early
-            end
-          end
-          fallback() -- if not exited early, always fallback
-        end),
-      })
-
-      opts.cmdline = {
-        {
-          type = ":",
-          sources = {
-            { name = "path" },
-            { name = "cmdline" },
+        experimental = {
+          ghost_text = {
+            hl_group = "CmpGhostText",
           },
         },
-        {
-          type = { "/", "?" },
-          sources = {
-            { name = "buffer" },
+
+        sorting = {
+          comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            require("cmp-under-comparator").under,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
           },
         },
       }
-
-      return opts
     end,
 
     ---@param opts cmp.ConfigSchema
@@ -204,17 +229,33 @@ return {
       for _, source in ipairs(opts.sources) do
         source.group_index = source.group_index or 1
       end
-
-      if opts.cmdline then
-        for _, o in ipairs(opts.cmdline) do
-          cmp.setup.cmdline(o.type, {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = o.sources,
-          })
-        end
-      end
-
       cmp.setup(opts)
+
+      cmp.setup.cmdline(":", {
+        sources = cmp.config.sources({
+          { name = "path" },
+        }, {
+          { name = "cmdline" },
+        }),
+      })
+
+      cmp.setup.cmdline({ "/", "?" }, {
+        sources = {
+          { name = "buffer" },
+        },
+      })
+
+      vim.api.nvim_create_autocmd("BufRead", {
+        desc = "Setup cmp buffer crates source",
+        pattern = "Cargo.toml",
+        callback = function()
+          cmp.setup.buffer({
+            sources = {
+              { name = "crates" },
+            },
+          })
+        end,
+      })
     end,
   },
 }

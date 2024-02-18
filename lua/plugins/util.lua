@@ -82,4 +82,18 @@ return {
       },
     },
   },
+
+  {
+    "cbochs/portal.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "cbochs/grapple.nvim",
+      "ThePrimeagen/harpoon",
+    },
+    keys = {
+      { "<leader>o", "<cmd>Portal jumplist backward<cr>", desc = "Portal jumplist backward" },
+      { "<leader>i", "<cmd>Portal jumplist forward<cr>", desc = "Portal jumplist forward" },
+    },
+    opts = {},
+  },
 }

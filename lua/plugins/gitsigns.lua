@@ -3,6 +3,7 @@ return {
   dependencies = "folke/which-key.nvim",
   event = "LazyFile",
   opts = {
+    attach_to_untracked = true,
     signs = {
       add = { text = "▍" },
       change = { text = "▍" },

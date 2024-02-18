@@ -19,6 +19,7 @@ require("core.options").set({
   conceallevel = 3, -- Hide * markup for bold and italic
   confirm = true, -- Confirm to save changes before exiting modified buffer
   cursorline = true, -- Enable highlighting of the current line
+  -- sessionoptions = "buffers,curdir,folds,help,winsize,terminal",
 
   expandtab = true, -- Use spaces instead of tabs
   tabstop = 4,
