@@ -68,7 +68,6 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-cmdline",
       "onsails/lspkind.nvim",
@@ -185,6 +184,11 @@ return {
         },
 
         sources = {
+          {
+            name = "codeium",
+            group_index = 1,
+            priority = 1000,
+          },
           { name = "nvim_lsp" },
           { name = "path" },
           {
@@ -226,9 +230,9 @@ return {
     ---@param opts cmp.ConfigSchema
     config = function(_, opts)
       local cmp = require("cmp")
-      for _, source in ipairs(opts.sources) do
-        source.group_index = source.group_index or 1
-      end
+      -- for _, source in ipairs(opts.sources) do
+      --   source.group_index = source.group_index or 1
+      -- end
       cmp.setup(opts)
 
       cmp.setup.cmdline(":", {
@@ -252,6 +256,18 @@ return {
           cmp.setup.buffer({
             sources = {
               { name = "crates" },
+            },
+          })
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("BufRead", {
+        desc = "Setup cmp buffer crates source",
+        pattern = "sql",
+        callback = function()
+          cmp.setup.buffer({
+            sources = {
+              { name = "vim-dadbod-completion" },
             },
           })
         end,
