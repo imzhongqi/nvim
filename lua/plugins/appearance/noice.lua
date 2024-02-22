@@ -1,6 +1,6 @@
 return {
   "folke/noice.nvim",
-  denpendencies = {
+  dependencies = {
     "nvim-lua/plenary.nvim",
     "hrsh7th/nvim-cmp",
   },
