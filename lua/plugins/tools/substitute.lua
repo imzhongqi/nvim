@@ -3,7 +3,7 @@ return {
 
   {
     "gbprod/substitute.nvim",
-    event = "VeryLazy",
+    event = "LazyFile",
     opts = {
       highlight_substituted_text = {
         enabled = true,

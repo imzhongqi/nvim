@@ -1,5 +1,9 @@
 return {
   "folke/noice.nvim",
+  denpendencies = {
+    "nvim-lua/plenary.nvim",
+    "hrsh7th/nvim-cmp",
+  },
 
   ---@type NoiceConfig
   opts = {
@@ -24,6 +28,7 @@ return {
         -- lua = false, -- to disable a format, set to `false`
       },
     },
+
     presets = {
       inc_rename = {
         cmdline = {
@@ -42,6 +47,7 @@ return {
           },
         },
       },
+
       lsp_doc_border = {
         views = {
           hover = {
@@ -64,7 +70,7 @@ return {
         win_options = {
           winbar = "",
           foldenable = false,
-          winblend = 60,
+          winblend = 30,
           winhighlight = {
             Normal = "NoiceMini",
             IncSearch = "",
@@ -107,9 +113,52 @@ return {
         },
       },
     },
+
     lsp = {
       progress = {
         enabled = false,
+      },
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true, -- requires
+      },
+
+      signature = {
+        enabled = true,
+        auto_open = {
+          enabled = true,
+          trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
+          luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
+          throttle = 50,
+        },
+      },
+
+      documentation = {
+        view = "hover",
+        ---@type NoiceViewOptions
+        opts = {
+          lang = "markdown",
+          replace = true,
+          render = "plain",
+          format = { "{message}" },
+          win_options = { concealcursor = "n", conceallevel = 3 },
+        },
+      },
+    },
+
+    messages = {},
+
+    ---@type NoiceRouteConfig[]
+    routes = {
+      {
+        view = "notify",
+        filter = { event = "msg_show", kind = { "echo", "echomsg" }, find = "image" },
+        opts = { replace = true },
+      },
+      {
+        view = "mini",
+        filter = { event = "msg_show", kind = { "echo", "echomsg", "" } },
       },
     },
   },

@@ -25,13 +25,31 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd({
-  "BufLeave",
-  "FocusLost",
-}, {
+vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
   callback = function()
     if vim.bo.modified and not vim.bo.readonly and vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
       vim.api.nvim_command("silent w")
     end
+  end,
+})
+
+local function lazyvim_augroup(name)
+  return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = lazyvim_augroup("wrap_spell"),
+  pattern = { "gitcommit" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("markdown_with_wrap"),
+  pattern = { "markdown" },
+  callback = function()
+    vim.opt_local.wrap = true
   end,
 })

@@ -2,7 +2,8 @@ return {
   "LazyVim/LazyVim",
   version = false,
   opts = {
-    colorscheme = "tokyonight",
+    -- colorscheme = "tokyonight",
+    colorscheme = "catppuccin",
 
     icons = {
       misc = {

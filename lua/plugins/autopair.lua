@@ -1,30 +1,20 @@
 return {
   { "echasnovski/mini.pairs", enabled = false },
 
-  {
-    "altermo/ultimate-autopair.nvim",
-    event = { "InsertEnter", "CmdlineEnter" },
-    branch = "v0.6", --recommended as each new version will have breaking changes
-    opts = {
-      tabout = { -- *ultimate-autopair-map-tabout-config*
-        enable = true,
-        map = "<A-tab>", --string or table
-        cmap = "<A-tab>", --string or table
-        conf = {},
-        --contains extension config
-        multi = false,
-        --use multiple configs (|ultimate-autopair-map-multi-config|)
-        hopout = false,
-        -- (|) > tabout > ()|
-        do_nothing_if_fail = true,
-        --add a module so that if close fails
-        --then a `\t` will not be inserted
-      },
-    },
-  },
+  -- {
+  --   "altermo/ultimate-autopair.nvim",
+  --   event = { "InsertEnter", "CmdlineEnter" },
+  --   branch = "v0.6", --recommended as each new version will have breaking changes
+  --   opts = {
+  --     tabout = {
+  --       enable = true,
+  --       map = "<A-tab>", --string or table
+  --       cmap = "<A-tab>", --string or table
+  --     },
+  --   },
+  -- },
   {
     "windwp/nvim-autopairs",
-    enabled = false,
     event = "InsertEnter",
     opts = {
       ---@usage  modifies the function or method delimiter by filetypes

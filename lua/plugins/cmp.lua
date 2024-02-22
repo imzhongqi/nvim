@@ -1,4 +1,23 @@
 return {
+  -- {
+  --   "Exafunction/codeium.vim",
+  --   event = "LazyFile",
+  --   config = function()
+  --     vim.keymap.set("i", "<C-a>", function()
+  --       return vim.fn["codeium#Accept"]()
+  --     end, { expr = true, silent = true })
+  --     vim.keymap.set("i", "<c-;>", function()
+  --       return vim.fn["codeium#CycleCompletions"](1)
+  --     end, { expr = true, silent = true })
+  --     vim.keymap.set("i", "<c-,>", function()
+  --       return vim.fn["codeium#CycleCompletions"](-1)
+  --     end, { expr = true, silent = true })
+  --     vim.keymap.set("i", "<c-x>", function()
+  --       return vim.fn["codeium#Clear"]()
+  --     end, { expr = true, silent = true })
+  --   end,
+  -- },
+
   {
     "L3MON4D3/LuaSnip",
     keys = function()
@@ -63,7 +82,10 @@ return {
 
   {
     "hrsh7th/nvim-cmp",
-    event = { "InsertEnter", "CmdlineEnter" },
+    event = {
+      "InsertEnter",
+      "CmdlineEnter",
+    },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -84,15 +106,19 @@ return {
       local cmp_types = require("cmp.types.cmp")
       local ConfirmBehavior = cmp_types.ConfirmBehavior
       -- local SelectBehavior = cmp_types.SelectBehavior
-
+      --
       return {
         window = {
-          completion = cmp.config.window.bordered({
-            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-          }),
-          documentation = cmp.config.window.bordered({
-            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-          }),
+          completion = {
+            border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
+            winhighlight = "Normal:CmpPmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+            col_offset = -3,
+          },
+          documentation = {
+            max_width = 50,
+            border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
+            winhighlight = "Normal:CmpPmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+          },
         },
 
         snippet = {
@@ -185,9 +211,35 @@ return {
 
         sources = {
           {
-            name = "codeium",
-            group_index = 1,
-            priority = 1000,
+            name = "copilot",
+            -- keyword_length = 0,
+            max_item_count = 3,
+            priority = 10,
+            trigger_characters = {
+              {
+                ".",
+                ":",
+                "(",
+                "'",
+                '"',
+                "[",
+                ",",
+                "#",
+                "*",
+                "@",
+                "|",
+                "=",
+                "-",
+                "{",
+                "/",
+                "\\",
+                "+",
+                "?",
+                " ",
+                -- "\t",
+                -- "\n",
+              },
+            },
           },
           { name = "nvim_lsp" },
           { name = "path" },
@@ -230,9 +282,9 @@ return {
     ---@param opts cmp.ConfigSchema
     config = function(_, opts)
       local cmp = require("cmp")
-      -- for _, source in ipairs(opts.sources) do
-      --   source.group_index = source.group_index or 1
-      -- end
+      for _, source in ipairs(opts.sources) do
+        source.group_index = source.group_index or 1
+      end
       cmp.setup(opts)
 
       cmp.setup.cmdline(":", {

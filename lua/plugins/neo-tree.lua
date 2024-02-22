@@ -5,6 +5,23 @@ return {
       opts.window.mappings = vim.tbl_extend("force", opts.window.mappings, {
         ["<space>"] = "none",
         ["l"] = "open",
+
+        ["O"] = {
+          command = function(state)
+            local node = state.tree:get_node()
+            local filepath = node.path
+            local osType = vim.loop.os_uname().sysname
+
+            local command = "start " .. filepath
+            if osType == "Darwin" then
+              command = "open " .. filepath
+            elseif osType == "Linux" then
+              command = "xdg-open " .. filepath
+            end
+            os.execute(command)
+          end,
+          desc = "open_with_system_defaults",
+        },
       })
     end,
   },

@@ -1,6 +1,7 @@
 return {
   "jbyuki/one-small-step-for-vimkind",
-  enabled = false,
+  cond = os.getenv("DEBUG") == "1",
+  event = "VeryLazy",
   keys = function()
     return {
       {

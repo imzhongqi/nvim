@@ -67,25 +67,78 @@ return {
       },
     },
   },
+
   {
     "mbbill/undotree",
     cmd = {
       "UndotreeToggle",
       "UndotreeFocus",
+      "UndotreeShow",
+      "UndotreeHide",
       "UndotreePersistUndo",
     },
     keys = {
       {
         "<leader>uu",
         vim.cmd.UndotreeToggle,
-        desc = "Undotree Toggle",
+        desc = "Toggle Undotree",
       },
     },
+    opts = {
+      HelpLine = 0,
+      DiffAutoOpen = 0,
+      HighlightChangedWithSign = 0,
+      TreeNodeShape = "",
+      TreeReturnShape = "╲",
+      TreeVertShape = "│",
+      TreeSplitShape = "╱",
+    },
+    config = function(_, opts)
+      for k, v in pairs(opts) do
+        vim.g["undotree_" .. k] = v
+      end
+    end,
+  },
+
+  {
+    "folke/persistence.nvim",
+    event = "BufReadPre",
+    opts = {
+      options = vim.opt.sessionoptions:get(),
+      pre_save = function()
+        vim.cmd([[ UndotreeHide ]])
+      end,
+    },
+    keys = function()
+      return {
+        {
+          "<leader>qs",
+          function()
+            require("persistence").load()
+          end,
+          desc = "Restore Session",
+        },
+        {
+          "<leader>ql",
+          function()
+            require("persistence").load({ last = true })
+          end,
+          desc = "Restore Last Session",
+        },
+        {
+          "<leader>qd",
+          function()
+            require("persistence").stop()
+          end,
+          desc = "Don't Save Current Session",
+        },
+      }
+    end,
   },
 
   {
     "cbochs/portal.nvim",
-    event = "VeryLazy",
+    event = "LazyFile",
     dependencies = {
       "cbochs/grapple.nvim",
       "ThePrimeagen/harpoon",

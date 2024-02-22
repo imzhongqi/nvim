@@ -16,7 +16,7 @@ require("core.options").set({
 
   clipboard = "unnamedplus", -- Sync with system clipboard
   completeopt = "menu,menuone,noselect",
-  conceallevel = 3, -- Hide * markup for bold and italic
+  conceallevel = 2, -- Hide * markup for bold and italic
   confirm = true, -- Confirm to save changes before exiting modified buffer
   cursorline = true, -- Enable highlighting of the current line
   -- sessionoptions = "buffers,curdir,folds,help,winsize,terminal",
@@ -49,10 +49,12 @@ require("core.options").set({
   timeoutlen = 300,
   termguicolors = true, -- True color support
 
+  sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions",
   shiftround = true,
   smartcase = true, -- Don't ignore case with capitals
   smartindent = true, -- Insert indents automatically
   spelllang = { "en" },
+  spell = false,
   showmode = false, -- Dont show mode since we have a statusline
   sidescrolloff = 8, -- Columns of context
   signcolumn = "yes", -- Always show the signcolumn, otherwise it would shift the text each time
