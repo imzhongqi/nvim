@@ -71,4 +71,7 @@ return {
       },
     },
   },
+  keys = {
+    { "<leader>L", false },
+  },
 }

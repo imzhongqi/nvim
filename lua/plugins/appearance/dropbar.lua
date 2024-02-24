@@ -14,8 +14,6 @@ return {
     },
   },
   config = function(_, opts)
-    vim.cmd([[hi WinBar guisp=#665c54 guibg=none]])
-    vim.cmd([[hi WinBarNC guisp=#665c54 guibg=none]])
     require("dropbar").setup(opts)
   end,
 }

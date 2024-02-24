@@ -16,4 +16,6 @@ keymaps.set({
   { { "n", "i" }, "<D-Z>", "<Cmd>redo<CR>" },
 
   { "n", "<leader>wc", "<C-W>c", { desc = "Close window" } },
+
+  { "n", "<leader>mlr", "<cmd>LspRestart<CR>", { desc = "Lsp Restart" } },
 })

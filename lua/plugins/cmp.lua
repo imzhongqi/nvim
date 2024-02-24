@@ -87,7 +87,7 @@ return {
       local cmp_types = require("cmp.types.cmp")
       local ConfirmBehavior = cmp_types.ConfirmBehavior
       -- local SelectBehavior = cmp_types.SelectBehavior
-      --
+
       return {
         window = {
           completion = {
@@ -219,7 +219,7 @@ return {
           priority_weight = 2,
           comparators = {
             cmp.config.compare.offset,
-            cmp.config.compare.scopes,
+            -- cmp.config.compare.scopes,
             cmp.config.compare.exact,
             cmp.config.compare.score,
             cmp.config.compare.recently_used,
@@ -267,9 +267,9 @@ return {
         end,
       })
 
-      vim.api.nvim_create_autocmd("BufRead", {
+      vim.api.nvim_create_autocmd("FileType", {
         desc = "Setup cmp buffer crates source",
-        pattern = "sql",
+        pattern = { "mysql", "sql" },
         callback = function()
           cmp.setup.buffer({
             sources = {

@@ -10,11 +10,26 @@ return {
     "DBUIAddConnection",
     "DBUIFindBuffer",
   },
+  keys = {
+    {
+      "<leader>mdd",
+      "<cmd>DBUIToggle<CR>",
+      desc = "Database UI",
+    },
+    {
+      "<leader>mda",
+      "<cmd>DBUIAddConnection<CR>",
+      desc = "Add Connection",
+    },
+  },
   init = function()
-    -- Your DBUI configuration
     vim.g.db_ui_save_location = vim.fn.stdpath("data") .. "/db_ui"
     vim.g.db_ui_use_nerd_fonts = 1
+    vim.g.db_ui_show_database_icon = 1
+    vim.g.db_ui_use_nvim_notify = 1
+    vim.g.db_ui_notification_width = 20
     vim.g.db_ui_auto_execute_table_helpers = 1
+    -- vim.g.db_ui_hide_schemas = {}
     vim.g.db_ui_icons = {
       expanded = "",
       collapsed = "",

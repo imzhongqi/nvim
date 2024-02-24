@@ -49,7 +49,7 @@ require("core.options").set({
   timeoutlen = 300,
   termguicolors = true, -- True color support
 
-  sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions",
+  -- sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions",
   shiftround = true,
   smartcase = true, -- Don't ignore case with capitals
   smartindent = true, -- Insert indents automatically

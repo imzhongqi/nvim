@@ -19,7 +19,7 @@ return {
     dependencies = {
       "kwkarlwang/bufresize.nvim",
     },
-    event = "VeryLazy",
+    -- event = "VeryLazy",
     keys = function()
       return {
         { "<leader>ux", require("smart-splits").start_resize_mode, desc = "Start Resize Mode", mode = { "n" } },

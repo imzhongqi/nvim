@@ -60,6 +60,9 @@ require("lazy").setup({
         "man",
         "zipPlugin",
         "osc52", -- Wezterm doesn't support osc52 yet
+        "shada",
+        "nvim",
+        "rplugin",
         "spellfile",
       },
     },
