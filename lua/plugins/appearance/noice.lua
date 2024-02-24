@@ -2,7 +2,6 @@ return {
   "folke/noice.nvim",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "hrsh7th/nvim-cmp",
   },
 
   ---@type NoiceConfig

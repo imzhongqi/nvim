@@ -2,8 +2,9 @@ return {
   "catppuccin/nvim",
   name = "catppuccin",
   opts = {
-    flavour = "mocha", -- latte, frappe, macchiato, mocha
+    flavour = "mocha", -- latte, frappe, macchiato,
     integrations = {
+      treesitter = true,
       native_lsp = {
         enabled = true,
         virtual_text = {

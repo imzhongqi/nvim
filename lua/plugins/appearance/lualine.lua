@@ -1,7 +1,6 @@
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
-  dependencies = { "catppuccin/nvim" },
   init = function()
     vim.g.lualine_laststatus = vim.o.laststatus
     if vim.fn.argc(-1) > 0 then
@@ -14,7 +13,7 @@ return {
   end,
   opts = {
     options = {
-      theme = "catppuccin",
+      theme = "nightfox",
       globalstatus = true,
       disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
       component_separators = " ",

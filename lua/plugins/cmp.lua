@@ -1,23 +1,4 @@
 return {
-  -- {
-  --   "Exafunction/codeium.vim",
-  --   event = "LazyFile",
-  --   config = function()
-  --     vim.keymap.set("i", "<C-a>", function()
-  --       return vim.fn["codeium#Accept"]()
-  --     end, { expr = true, silent = true })
-  --     vim.keymap.set("i", "<c-;>", function()
-  --       return vim.fn["codeium#CycleCompletions"](1)
-  --     end, { expr = true, silent = true })
-  --     vim.keymap.set("i", "<c-,>", function()
-  --       return vim.fn["codeium#CycleCompletions"](-1)
-  --     end, { expr = true, silent = true })
-  --     vim.keymap.set("i", "<c-x>", function()
-  --       return vim.fn["codeium#Clear"]()
-  --     end, { expr = true, silent = true })
-  --   end,
-  -- },
-
   {
     "L3MON4D3/LuaSnip",
     keys = function()
@@ -210,41 +191,11 @@ return {
         },
 
         sources = {
-          {
-            name = "copilot",
-            -- keyword_length = 0,
-            max_item_count = 3,
-            priority = 10,
-            trigger_characters = {
-              {
-                ".",
-                ":",
-                "(",
-                "'",
-                '"',
-                "[",
-                ",",
-                "#",
-                "*",
-                "@",
-                "|",
-                "=",
-                "-",
-                "{",
-                "/",
-                "\\",
-                "+",
-                "?",
-                " ",
-                -- "\t",
-                -- "\n",
-              },
-            },
-          },
-          { name = "nvim_lsp" },
-          { name = "path" },
+          { name = "nvim_lsp", group_index = 1 },
+          { name = "path", group_index = 2 },
           {
             name = "buffer",
+            group_index = 3,
             option = {
               get_bufnrs = function()
                 local bufs = {}
@@ -255,7 +206,7 @@ return {
               end,
             },
           },
-          { name = "calc" },
+          { name = "calc", group_index = 4 },
         },
 
         experimental = {

@@ -3,7 +3,7 @@ return {
   version = false,
   opts = {
     -- colorscheme = "tokyonight",
-    colorscheme = "catppuccin",
+    colorscheme = "nightfox",
 
     icons = {
       misc = {

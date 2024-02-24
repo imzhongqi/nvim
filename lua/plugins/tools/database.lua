@@ -22,8 +22,8 @@ return {
       new_query = "󰐕",
       tables = "",
       buffers = "»",
-      connection_ok = "",
-      connection_error = "",
+      connection_ok = "✔",
+      connection_error = "✘",
     }
   end,
 }
