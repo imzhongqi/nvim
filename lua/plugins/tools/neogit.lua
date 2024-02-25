@@ -6,7 +6,6 @@ return {
 
     -- Only one of these is needed, not both.
     "nvim-telescope/telescope.nvim", -- optional
-    "ibhagwan/fzf-lua", -- optional
   },
   cmd = {
     "Neogit",

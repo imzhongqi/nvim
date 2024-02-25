@@ -32,7 +32,7 @@ require("core.options").set({
   foldlevelstart = 99,
   foldenable = true,
 
-  pumblend = 0,
+  pumblend = 10,
   pumheight = 10,
 
   ignorecase = true, -- Ignore case

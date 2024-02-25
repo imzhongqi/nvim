@@ -51,11 +51,15 @@ return {
         views = {
           hover = {
             border = {
-              style = "rounded",
+              style = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
             },
             position = { row = 2, col = 3 },
             win_options = {
-              winblend = 0,
+              winblend = 10,
+              winhighlight = {
+                Normal = "Normal",
+                FloatBorder = "NoiceCmdlinePopupBorder",
+              },
             },
             scrollbar = false,
           },

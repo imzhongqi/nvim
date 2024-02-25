@@ -57,7 +57,7 @@ require("lazy").setup({
         "tarPlugin",
         "tohtml",
         "tutor",
-        "man",
+        -- "man",
         "zipPlugin",
         "osc52", -- Wezterm doesn't support osc52 yet
         "shada",
