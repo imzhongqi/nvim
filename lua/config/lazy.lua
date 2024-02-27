@@ -5,9 +5,10 @@ require("lazy").setup({
     { import = "plugins" },
     { import = "plugins.appearance" },
     { import = "plugins.lsp" },
+    { import = "plugins.treesitter" },
     { import = "plugins.lang" },
     { import = "plugins.filetype" },
-    { import = "plugins.tools" },
+    { import = "plugins.tool" },
   },
 
   defaults = {

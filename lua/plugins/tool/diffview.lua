@@ -21,6 +21,10 @@ return {
       folder_open = Icons.ui.FolderOpen,
     },
 
-    enhanced_diff_hl = false,
+    signs = {
+      fold_closed = Icons.ui.Collapsed,
+      fold_open = Icons.ui.Expanded,
+      done = Icons.misc.ok,
+    },
   },
 }

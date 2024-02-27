@@ -12,6 +12,8 @@ local icons = {
 
   misc = {
     dots = "󰇘",
+    ok = "✔",
+    err = "✘"
   },
 
   dap = {

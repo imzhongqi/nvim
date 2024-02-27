@@ -1,6 +1,6 @@
 return {
   "kevinhwang91/nvim-ufo",
-  event = { "VeryLazy" },
+  event = { "LazyFile" },
   dependencies = "kevinhwang91/promise-async",
   keys = function()
     return {
@@ -9,6 +9,12 @@ return {
   end,
   opts = {
     preview = {
+      win_config = {
+        border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
+        -- border = { "", "─", "", "", "", "─", "", "" },
+        winhighlight = "Normal:Folded",
+        winblend = 0,
+      },
       mappings = {
         scrollB = "<C-b>",
         scrollF = "<C-f>",

@@ -55,8 +55,8 @@ return {
       new_query = "󰐕",
       tables = "",
       buffers = "»",
-      connection_ok = "✔",
-      connection_error = "✘",
+      connection_ok = Icons.misc.ok,
+      connection_error = Icons.misc.err,
     }
   end,
 }
