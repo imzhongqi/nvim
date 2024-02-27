@@ -4,7 +4,15 @@ return {
     diagnostics = {
       virtual_text = false,
       float = {
-        border = "rounded",
+        -- border = "rounded",
+        border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
+        focusable = false,
+        focus = false,
+        win_options = {
+          winhighlight = {
+            Normal = "Normal",
+          },
+        },
       },
     },
     inlay_hints = {

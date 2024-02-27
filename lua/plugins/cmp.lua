@@ -158,7 +158,13 @@ return {
               end
             end,
           }),
-          ["<C-l>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
+          ["<C-l>"] = cmp.mapping(function()
+            if cmp.visible() then
+              cmp.confirm({ select = false })
+            else
+              cmp.complete()
+            end
+          end, { "i", "c" }),
           ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
           ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 

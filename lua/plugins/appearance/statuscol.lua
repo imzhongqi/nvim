@@ -12,11 +12,19 @@ return {
     return {
       relculright = true,
       bt_ignore = { "terminal" },
-      ft_ignore = { "neo-tree" },
+      ft_ignore = {
+        "neo-tree",
+        "dbui",
+        "undotree",
+      },
       setopt = true,
       segments = {
         {
-          sign = { name = { "Dap*" }, auto = true },
+          sign = {
+            name = { "Dap*" },
+            auto = true,
+          },
+          condition = { nu },
           click = "v:lua.ScSa",
         },
         {
@@ -25,6 +33,7 @@ return {
             text = { ".*" },
             namespace = { ".*" },
           },
+          condition = { nu },
           click = "v:lua.ScSa",
         },
         {

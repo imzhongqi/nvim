@@ -12,11 +12,11 @@ return {
         dots = Icons.misc.dots,
       },
       dap = {
-        Stopped = { Icons.dap.Stopped_, "DiagnosticWarn", "DapStoppedLine" },
-        Breakpoint = { Icons.dap.Breakpoint_, "DiagnosticError" },
-        BreakpointCondition = { Icons.dap.BreakpointCondition_, "DiagnosticError" },
-        BreakpointRejected = { Icons.dap.BreakpointRejected_, "DiagnosticError" },
-        LogPoint = Icons.dap.LogPoint_,
+        Stopped = { Icons.dap.Stopped, "DiagnosticWarn", "DapStoppedLine" },
+        Breakpoint = { Icons.dap.Breakpoint, "DiagnosticError" },
+        BreakpointCondition = { Icons.dap.BreakpointCondition, "DiagnosticError" },
+        BreakpointRejected = { Icons.dap.BreakpointRejected, "DiagnosticError" },
+        LogPoint = Icons.dap.LogPoint,
       },
       diagnostics = {
         Error = Icons.diagnostics.Error_,

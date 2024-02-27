@@ -50,6 +50,7 @@ return {
     priority = 1001,
     opts = {
       window = { open = "alternate" },
+      -- nest_if_no_args = true,
     },
   },
 
@@ -79,7 +80,7 @@ return {
     },
     keys = {
       {
-        "<leader>uu",
+        "<leader>mu",
         vim.cmd.UndotreeToggle,
         desc = "Toggle Undotree",
       },
