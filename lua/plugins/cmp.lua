@@ -28,33 +28,7 @@ return {
       -- override preset symbols
       --
       -- default: {}
-      symbol_map = {
-        Class = " ",
-        Color = "󰏘 ",
-        Constant = "󰏿 ",
-        Constructor = " ",
-        Enum = " ",
-        Event = " ",
-        EnumMember = " ",
-        Field = "󰜢 ",
-        File = "󰈙 ",
-        Folder = "󰉋 ",
-        Function = "󰊕 ",
-        Interface = " ",
-        Keyword = "󰌋 ",
-        Method = "󰆧 ",
-        Module = " ",
-        Operator = "󰆕 ",
-        Property = "󰜢 ",
-        Snippet = " ",
-        Struct = "󰙅 ",
-        Text = "󰉿 ",
-        TypeParameter = " ",
-        Unit = "󰑭 ",
-        Value = "󰎠 ",
-        Variable = " ",
-        Reference = "󰈇 ",
-      },
+      symbol_map = Icons.kinds,
     },
     config = function(_, opts)
       require("lspkind").init(opts)
@@ -75,7 +49,10 @@ return {
       "hrsh7th/cmp-cmdline",
       "onsails/lspkind.nvim",
       "lukas-reineke/cmp-under-comparator",
-      "hrsh7th/cmp-calc",
+      "davidsierradz/cmp-conventionalcommits",
+      "hrsh7th/cmp-nvim-lsp-document-symbol",
+      "lukas-reineke/cmp-rg",
+      "rcarriga/cmp-dap",
     },
 
     opts = function()
@@ -89,6 +66,13 @@ return {
       -- local SelectBehavior = cmp_types.SelectBehavior
 
       return {
+        completion = {
+          completeopt = "menu,menuone,noinsert",
+          autocomplete = {
+            cmp_types.TriggerEvent.TextChanged,
+          },
+        },
+
         window = {
           completion = {
             border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
@@ -106,6 +90,48 @@ return {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
+        },
+
+        formatting = {
+          expandable_indicator = true,
+          fields = { "kind", "abbr", "menu" },
+          format = lspkind.cmp_format({
+            mode = "symbol",
+            maxwidth = 80,
+            ellipsis_char = "...", -- 
+            show_labelDetails = true,
+            before = function(entry, vim_item)
+              -- vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
+              return vim_item
+            end,
+          }),
+        },
+
+        sources = cmp.config.sources({
+          { name = "nvim_lsp", keyword_length = 0 },
+        }, {
+          { name = "rg", keyword_length = 3 },
+          { name = "buffer", keyword_length = 3 },
+        }, {
+          {
+            name = "path",
+          },
+        }),
+
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            cmp.config.compare.offset,
+            -- cmp.config.compare.scopes,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            require("cmp-under-comparator").under,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          },
         },
 
         mapping = cmp.mapping.preset.insert({
@@ -171,63 +197,9 @@ return {
           }),
         }),
 
-        formatting = {
-          expandable_indicator = true,
-          fields = { "kind", "abbr", "menu" },
-          format = lspkind.cmp_format({
-            mode = "symbol",
-            maxwidth = 80,
-            ellipsis_char = "...", -- 
-            show_labelDetails = true,
-            before = function(entry, vim_item)
-              -- vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
-              return vim_item
-            end,
-          }),
-        },
-
-        completion = {
-          completeopt = "menu,menuone,noinsert",
-        },
-
-        sources = {
-          { name = "nvim_lsp", group_index = 1 },
-          { name = "path", group_index = 2 },
-          {
-            name = "buffer",
-            group_index = 3,
-            option = {
-              get_bufnrs = function()
-                local bufs = {}
-                for _, win in ipairs(vim.api.nvim_list_wins()) do
-                  bufs[vim.api.nvim_win_get_buf(win)] = true
-                end
-                return vim.tbl_keys(bufs)
-              end,
-            },
-          },
-          { name = "calc", group_index = 4 },
-        },
-
         experimental = {
           ghost_text = {
             hl_group = "CmpGhostText",
-          },
-        },
-
-        sorting = {
-          priority_weight = 2,
-          comparators = {
-            cmp.config.compare.offset,
-            -- cmp.config.compare.scopes,
-            cmp.config.compare.exact,
-            cmp.config.compare.score,
-            cmp.config.compare.recently_used,
-            require("cmp-under-comparator").under,
-            cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
-            cmp.config.compare.length,
-            cmp.config.compare.order,
           },
         },
       }
@@ -242,6 +214,10 @@ return {
       cmp.setup(opts)
 
       cmp.setup.cmdline(":", {
+        completion = {
+          completeopt = "menu,menuone,noinsert",
+          autocomplete = false,
+        },
         sources = cmp.config.sources({
           { name = "path" },
         }, {
@@ -250,9 +226,33 @@ return {
       })
 
       cmp.setup.cmdline({ "/", "?" }, {
-        sources = {
+        sources = cmp.config.sources({
+          { name = "nvim_lsp_document_symbol" },
+        }, {
+          { name = "buffer", keyword_length = 3 },
+        }),
+      })
+
+      cmp.setup.filetype({ "gitcommit", "NeogitCommitMessage" }, {
+        sources = cmp.config.sources({
+          { name = "conventionalcommits" },
           { name = "buffer" },
-        },
+        }),
+      })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        desc = "Setup cmp buffer dap source",
+        pattern = { "dap-repl", "dapui_watches", "dapui_hover" },
+        callback = function()
+          cmp.setup.buffer({
+            enabled = function()
+              return vim.bo[0].buftype ~= "prompt" or require("cmp_dap").is_dap_buffer()
+            end,
+            sources = {
+              { name = "dap" },
+            },
+          })
+        end,
       })
 
       vim.api.nvim_create_autocmd("BufRead", {
@@ -268,13 +268,15 @@ return {
       })
 
       vim.api.nvim_create_autocmd("FileType", {
-        desc = "Setup cmp buffer crates source",
+        desc = "Setup cmp buffer sql source",
         pattern = { "mysql", "sql" },
         callback = function()
           cmp.setup.buffer({
-            sources = {
+            sources = cmp.config.sources({
               { name = "vim-dadbod-completion" },
-            },
+            }, {
+              { name = "buffer" },
+            }),
           })
         end,
       })

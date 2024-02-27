@@ -6,7 +6,7 @@ vim.g.autoformat = true
 
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
-require("core.options").set({
+require("util").options_set({
   autowrite = true, -- Enable auto write
 
   backup = false,

@@ -15,5 +15,12 @@ return {
         vim.keymap.set("n", "q", "<cmd>tabclose<cr>", { silent = true })
       end,
     },
+
+    icons = {
+      folder_closed = Icons.ui.FolderClosed,
+      folder_open = Icons.ui.FolderOpen,
+    },
+
+    enhanced_diff_hl = false,
   },
 }

@@ -1,9 +1,8 @@
 return {
   "EdenEast/nightfox.nvim",
+  priority = 1000,
+  lazy = false,
   opts = function()
-    local Color = require("nightfox.lib.color")
-    local palette = require("nightfox.palette").load("nightfox")
-
     return {
       options = {
         -- Compiled file's destination location
@@ -25,11 +24,11 @@ return {
           types = "NONE",
           variables = "NONE",
         },
-        -- inverse = { -- Inverse highlight for different types
-        --   match_paren = false,
-        --   visual = false,
-        --   search = false,
-        -- },
+        inverse = { -- Inverse highlight for different types
+          match_paren = true,
+          visual = false,
+          search = false,
+        },
         modules = {
           native_lsp = {
             background = false,
@@ -38,8 +37,12 @@ return {
       },
       groups = {
         all = {
-          ["@property"] = { fg = "palette.green.bright" },
+          ["@variable"] = { fg = "palette.white.dim" },
+          ["@variable.member"] = { fg = "palette.orange" },
+          ["@property"] = { fg = "palette.orange" },
+          ["@parameter"] = { fg = "palette.cyan.dim" },
           ["@module"] = { fg = "palette.blue" },
+          ["@type.builtin"] = { fg = "palette.yellow" },
         },
       },
     }

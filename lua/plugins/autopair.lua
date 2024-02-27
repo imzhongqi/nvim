@@ -13,6 +13,7 @@ return {
   --     },
   --   },
   -- },
+
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
@@ -23,13 +24,13 @@ return {
         tex = "{",
       },
       ---@usage check bracket in same line
-      enable_check_bracket_line = false,
+      enable_check_bracket_line = true,
       ---@usage check treesitter
       check_ts = true,
       ts_config = {
         lua = { "string", "source" },
         javascript = { "string", "template_string" },
-        java = false,
+        go = { "string" },
       },
       disable_filetype = { "TelescopePrompt", "spectre_panel" },
       ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]], "%s+", ""),

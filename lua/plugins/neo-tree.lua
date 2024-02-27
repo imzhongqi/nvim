@@ -75,10 +75,10 @@ return {
     opts = {
       default_component_configs = {
         icon = {
-          folder_closed = "",
-          folder_open = "",
-          folder_empty = "",
-          default = "󰈙",
+          folder_closed = Icons.ui.FolderClosed,
+          folder_open = Icons.ui.FolderOpen,
+          folder_empty = Icons.ui.FolderEmpty,
+          default = Icons.ui.FileDefault,
           highlight = "NeoTreeFileIcon",
         },
         modified = {
@@ -87,15 +87,15 @@ return {
         },
         git_status = {
           symbols = {
-            added = "",
-            modified = "",
-            deleted = "",
-            renamed = "",
-            untracked = "",
-            ignored = "◌",
-            unstaged = "󰄱",
-            staged = "",
-            conflict = "",
+            added = Icons.git.added,
+            modified = Icons.git.modified,
+            deleted = Icons.git.deleted,
+            renamed = Icons.git.renamed,
+            untracked = Icons.git.untracked,
+            ignored = Icons.git.ignored,
+            unstaged = Icons.git.unstaged,
+            staged = Icons.git.staged,
+            conflict = Icons.git.conflict,
           },
         },
       },

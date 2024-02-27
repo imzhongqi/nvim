@@ -4,12 +4,12 @@ return {
     version = "*",
     keys = function()
       local util = require("lazyvim.util")
-      local lazygit_toggle = function(dir)
+      local lazygit_toggle = function(root)
         local Terminal = require("toggleterm.terminal").Terminal
         return function()
           local lazygit = Terminal:new({
             cmd = "lazygit",
-            dir = dir,
+            dir = root and util.root() or nil,
             hidden = true,
             close_on_exit = true,
             direction = "float",
@@ -30,8 +30,8 @@ return {
 
       return {
         { [[<C-\>]] },
-        { "<leader>gg", lazygit_toggle(util.root()), desc = "Lazygit (root)" },
-        { "<leader>gG", lazygit_toggle(), desc = "Lazygit (cwd)" },
+        -- { "<leader>gg", lazygit_toggle(true), desc = "Lazygit (root)" },
+        -- { "<leader>gG", lazygit_toggle(), desc = "Lazygit (cwd)" },
       }
     end,
     opts = {

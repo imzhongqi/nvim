@@ -1,8 +1,6 @@
 return {
   "folke/noice.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  },
+  dependencies = { "nvim-lua/plenary.nvim" },
 
   ---@type NoiceConfig
   opts = {
@@ -70,15 +68,15 @@ return {
     ---@type NoiceConfigViews
     views = {
       mini = {
+        position = {
+          row = 1,
+          col = "100%",
+          -- col = 0,
+        },
         win_options = {
-          winbar = "",
-          foldenable = false,
-          winblend = 30,
+          winblend = 100,
           winhighlight = {
-            Normal = "NoiceMini",
-            IncSearch = "",
-            CurSearch = "",
-            Search = "",
+            Normal = "Comment",
           },
         },
       },
@@ -155,14 +153,18 @@ return {
     ---@type NoiceRouteConfig[]
     routes = {
       {
+        view = "split",
+        filter = { event = { "msg_show" }, kind = "history_show" },
+      },
+      {
         view = "notify",
         filter = { event = "msg_show", kind = { "echo", "echomsg" }, find = "image" },
         opts = { replace = true },
       },
-      {
-        view = "mini",
-        filter = { event = "msg_show", kind = { "echo", "echomsg", "" } },
-      },
+      -- {
+      --   view = "mini",
+      --   filter = { event = "msg_show", kind = { "echo", "echomsg", "" } },
+      -- },
     },
   },
 

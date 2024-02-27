@@ -89,9 +89,6 @@ return {
       DiffAutoOpen = 0,
       HighlightChangedWithSign = 0,
       TreeNodeShape = "",
-      TreeReturnShape = "╲",
-      TreeVertShape = "│",
-      TreeSplitShape = "╱",
     },
     config = function(_, opts)
       for k, v in pairs(opts) do

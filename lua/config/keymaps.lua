@@ -1,6 +1,7 @@
-local keymaps = require("core.keymaps")
+local keymaps_del = require("util").keymaps_del
+local keymaps_set = require("util").keymaps_set
 
-keymaps.del({
+keymaps_del({
   { "n", "<leader>wd" },
   { "n", "<leader>K" },
   { "n", { "<leader>fT", "<leader>ft", "<C-/>", "<C-_>" } },
@@ -8,7 +9,7 @@ keymaps.del({
   { "t", "<C-l>" },
 })
 
-keymaps.set({
+keymaps_set({
   { "i", "<C-p>", "<Nop>" },
   { "i", "<C-n>", "<Nop>" },
   { "c", "<C-d>", "<Nop>" },

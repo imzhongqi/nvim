@@ -3,24 +3,20 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim", -- required
     "sindrets/diffview.nvim", -- optional - Diff integration
-
-    -- Only one of these is needed, not both.
-    "nvim-telescope/telescope.nvim", -- optional
+    "nvim-telescope/telescope.nvim",
   },
   cmd = {
     "Neogit",
   },
   keys = {
-    { "<leader>gu", "<cmd>Neogit<CR>", desc = "Open Neogit" },
+    { "<leader>gg", "<cmd>Neogit cwd=%:p:h<CR>", desc = "Open Neogit (root)" },
+    { "<leader>gG", "<cmd>Neogit<CR>", desc = "Open Neogit(cwd)" },
   },
   opts = {
     signs = {
-      -- { CLOSED, OPENED }
       hunk = { "", "" },
-      item = { "", "" },
-      -- buffers = "  ",
-      -- db = "  󰆼",
-      section = { "", "" },
+      item = { Icons.ui.Collapsed, Icons.ui.Expanded },
+      section = { Icons.ui.Collapsed, Icons.ui.Expanded },
     },
   },
   config = true,

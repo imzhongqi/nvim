@@ -1,8 +1,10 @@
+local create_autocmd = vim.api.nvim_create_autocmd
+
 local function augroup(name)
   return vim.api.nvim_create_augroup("user_" .. name, { clear = true })
 end
 
-vim.api.nvim_create_autocmd("FileType", {
+create_autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
     "dap-float",
@@ -16,7 +18,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
+create_autocmd("FileType", {
   pattern = {
     "Jaq",
   },
@@ -25,7 +27,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
+create_autocmd({ "BufLeave", "FocusLost" }, {
   callback = function()
     if vim.bo.modified and not vim.bo.readonly and vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
       vim.api.nvim_command("silent w")
@@ -37,7 +39,7 @@ local function lazyvim_augroup(name)
   return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
 end
 
-vim.api.nvim_create_autocmd("FileType", {
+create_autocmd("FileType", {
   group = lazyvim_augroup("wrap_spell"),
   pattern = { "gitcommit" },
   callback = function()
@@ -46,10 +48,19 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
+create_autocmd("FileType", {
   group = augroup("markdown_with_wrap"),
   pattern = { "markdown" },
   callback = function()
     vim.opt_local.wrap = true
   end,
 })
+
+---@type table<any, vim.api.keyset.create_autocmd>
+local auto_cmds = {
+  markdown_with_wrap = {
+  }
+}
+
+
+

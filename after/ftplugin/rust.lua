@@ -1,6 +1,4 @@
-local bufnr = vim.api.nvim_get_current_buf()
-
-require("core.keymaps").set({
+require("util").keymaps_set({
   {
     "n",
     "<leader>ca",
@@ -8,18 +6,16 @@ require("core.keymaps").set({
       vim.cmd.RustLsp("codeAction")
     end,
     {
-      buffer = bufnr,
       desc = "Code Action",
     },
   },
   {
     "n",
-    "<localleader>cd",
+    "<localleader>dc",
     function()
       vim.cmd.RustLsp("debuggables")
     end,
     {
-      buffer = bufnr,
       desc = "Run Debug",
     },
   },
