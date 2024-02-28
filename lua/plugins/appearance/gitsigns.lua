@@ -15,10 +15,34 @@ return {
     on_attach = function(buffer)
       local gs = package.loaded.gitsigns
       local wk = require("which-key")
+      local next_integrations = require("nvim-next.integrations")
+      local ngs = next_integrations.gitsigns(gs)
 
       wk.register({
-        ["]h"] = { gs.next_hunk, "Next Hunk" },
-        ["[h"] = { gs.preview_hunk, "Prev Hunk" },
+        ["]h"] = {
+          function()
+            if vim.wo.diff then
+              return "[h"
+            end
+            vim.schedule(function()
+              ngs.prev_hunk()
+            end)
+            return "<Ignore>"
+          end,
+          "Next Hunk",
+        },
+        ["[h"] = {
+          function()
+            if vim.wo.diff then
+              return "[h"
+            end
+            vim.schedule(function()
+              ngs.prev_hunk()
+            end)
+            return "<Ignore>"
+          end,
+          "Prev Hunk",
+        },
         ["<leader>ghS"] = { gs.stage_buffer, "Stage Buffer" },
         ["<leader>ghu"] = { gs.undo_stage_hunk, "Undo Stage Hunk" },
         ["<leader>ghR"] = { gs.reset_buffer, "Reset Buffer" },
