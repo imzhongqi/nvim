@@ -1,6 +1,5 @@
 local Util = require("lazyvim.util")
 local map = vim.keymap.set
-local keymaps_del = require("util").keymaps_del
 local keymaps_set = require("util").keymaps_set
 
 keymaps_set({
@@ -9,6 +8,9 @@ keymaps_set({
   { "c", "<C-d>", "<Nop>" },
   { { "n", "i" }, "<D-z>", "<Cmd>undo<CR>" },
   { { "n", "i" }, "<D-Z>", "<Cmd>redo<CR>" },
+
+  -- Clear search with <esc>
+  { { "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" } },
 
   { "n", "<leader>wc", "<C-W>c", { desc = "Close window" } },
 
@@ -19,10 +21,10 @@ keymaps_set({
   { { "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true } },
 
   -- Move to window using the <ctrl> hjkl keys
-  -- { "n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true } },
-  -- { "n", "<C-j>", "<C-w>j", { desc = "Go to lower window", remap = true } },
-  -- { "n", "<C-k>", "<C-w>k", { desc = "Go to upper window", remap = true } },
-  -- { "n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true } },
+  { "n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true } },
+  { "n", "<C-j>", "<C-w>j", { desc = "Go to lower window", remap = true } },
+  { "n", "<C-k>", "<C-w>k", { desc = "Go to upper window", remap = true } },
+  { "n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true } },
 
   -- Move Lines
   { "n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" } },
@@ -39,6 +41,7 @@ keymaps_set({
   { "n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" } },
   { "n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" } },
   { "n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" } },
+
   -- Clear search, diff update and redraw
   -- taken from runtime/lua/_editor.lua
   {
@@ -92,8 +95,8 @@ keymaps_set({
     "n",
     "<leader>cd",
     function()
-      local bufnr = vim.diagnostic.open_float()
-      vim.api.nvim_set_option_value("winhighlight", "NormalFloat:Normal", { buf = bufnr })
+      local _, win = vim.diagnostic.open_float()
+      vim.api.nvim_set_option_value("winhighlight", "NormalFloat:Normal", { win = win })
     end,
     { desc = "Line Diagnostics" },
   },

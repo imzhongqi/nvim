@@ -55,12 +55,3 @@ create_autocmd("FileType", {
     vim.opt_local.wrap = true
   end,
 })
-
----@type table<any, vim.api.keyset.create_autocmd>
-local auto_cmds = {
-  markdown_with_wrap = {
-  }
-}
-
-
-

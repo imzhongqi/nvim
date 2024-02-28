@@ -1,6 +1,9 @@
 return {
   {
     "robitx/gp.nvim",
+    event = {
+      "BufRead */gp/chats/**.md",
+    },
     cmd = {
       "GpChatNew",
       "GpChatPaste",
@@ -37,8 +40,6 @@ return {
       style_chat_finder_border = "rounded",
       style_popup_border = "rounded",
       hooks = {
-        --@param gp
-        --@param params table
         Translator = function(gp, params)
           local agent = gp.get_command_agent()
           local chat_system_prompt = "You are a Translator, please translate between English and Chinese."
