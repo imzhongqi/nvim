@@ -17,9 +17,11 @@ return {
     })
 
     -- Diagnostic
-    local diag = integrations.diagnostic()
-    vim.keymap.set("n", "[d", diag.goto_prev(), { desc = "Previous diagnostic" })
-    vim.keymap.set("n", "]d", diag.goto_next(), { desc = "Next diagnostic" })
+    vim.schedule(function()
+      local diag = integrations.diagnostic()
+      vim.keymap.set("n", "[d", diag.goto_prev(), { desc = "Previous diagnostic" })
+      vim.keymap.set("n", "]d", diag.goto_next(), { desc = "Next diagnostic" })
+    end)
 
     -- Quickfix
     local nqf = integrations.quickfix()

@@ -28,7 +28,7 @@ return {
       -- override preset symbols
       --
       -- default: {}
-      symbol_map = Icons.kinds,
+      symbol_map = _Icons.kinds,
     },
     config = function(_, opts)
       require("lspkind").init(opts)

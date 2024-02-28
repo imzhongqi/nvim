@@ -10,10 +10,15 @@ local icons = {
     Collapsed = "",
   },
 
+  telescope = {
+    prompt_prefix = "  ",
+    selection_caret = " ",
+  },
+
   misc = {
     dots = "󰇘",
     ok = "✔",
-    err = "✘"
+    err = "✘",
   },
 
   dap = {

@@ -15,8 +15,8 @@ return {
   opts = {
     signs = {
       hunk = { "", "" },
-      item = { Icons.ui.Collapsed, Icons.ui.Expanded },
-      section = { Icons.ui.Collapsed, Icons.ui.Expanded },
+      item = { _Icons.ui.Collapsed, _Icons.ui.Expanded },
+      section = { _Icons.ui.Collapsed, _Icons.ui.Expanded },
     },
   },
   config = true,

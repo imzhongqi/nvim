@@ -52,8 +52,8 @@ return {
         {
           text = {
             function(args)
-              args.fold.close = Icons.ui.Collapsed
-              args.fold.open = Icons.ui.Expanded
+              args.fold.close = _Icons.ui.Collapsed
+              args.fold.open = _Icons.ui.Expanded
               args.fold.sep = " "
 
               return builtin.foldfunc(args)

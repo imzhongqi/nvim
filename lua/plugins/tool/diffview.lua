@@ -17,14 +17,14 @@ return {
     },
 
     icons = {
-      folder_closed = Icons.ui.FolderClosed,
-      folder_open = Icons.ui.FolderOpen,
+      folder_closed = _Icons.ui.FolderClosed,
+      folder_open = _Icons.ui.FolderOpen,
     },
 
     signs = {
-      fold_closed = Icons.ui.Collapsed,
-      fold_open = Icons.ui.Expanded,
-      done = Icons.misc.ok,
+      fold_closed = _Icons.ui.Collapsed,
+      fold_open = _Icons.ui.Expanded,
+      done = _Icons.misc.ok,
     },
   },
 }

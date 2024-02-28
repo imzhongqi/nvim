@@ -55,8 +55,8 @@ return {
       new_query = "󰐕",
       tables = "",
       buffers = "»",
-      connection_ok = Icons.misc.ok,
-      connection_error = Icons.misc.err,
+      connection_ok = _Icons.misc.ok,
+      connection_error = _Icons.misc.err,
     }
 
     vim.api.nvim_create_autocmd("Filetype", {

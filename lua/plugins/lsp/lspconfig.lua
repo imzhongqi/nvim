@@ -4,15 +4,8 @@ return {
     diagnostics = {
       virtual_text = false,
       float = {
-        -- border = "rounded",
+        update_in_insert = true,
         border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
-        focusable = false,
-        focus = false,
-        win_options = {
-          winhighlight = {
-            Normal = "Normal",
-          },
-        },
       },
     },
     inlay_hints = {

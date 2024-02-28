@@ -43,6 +43,7 @@ return {
           ["@parameter"] = { fg = "palette.cyan.dim" },
           ["@module"] = { fg = "palette.blue" },
           ["@type.builtin"] = { fg = "palette.yellow" },
+          -- ["NormalFloat"] = { bg = "palette.black" },
         },
       },
     }

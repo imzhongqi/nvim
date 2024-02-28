@@ -11,6 +11,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
-_G.Icons = require("icons")
+_G._Icons = require("icons")
 
 require("config.lazy")
