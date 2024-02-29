@@ -2,6 +2,12 @@ local Util = require("lazyvim.util")
 local map = vim.keymap.set
 local keymaps_set = require("util").keymaps_set
 
+local open_float = vim.diagnostic.open_float
+vim.diagnostic.open_float = function(...)
+  local _, win = open_float(...)
+  vim.api.nvim_set_option_value("winhighlight", "NormalFloat:Normal", { win = win })
+end
+
 keymaps_set({
   { "i", "<C-p>", "<Nop>" },
   { "i", "<C-n>", "<Nop>" },
@@ -81,14 +87,14 @@ keymaps_set({
   { "n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" } },
 
   -- stylua: ignore start
-{"n", "<leader>uf", function() Util.format.toggle() end, { desc = "Toggle auto format (global)" }},
-{"n", "<leader>uF", function() Util.format.toggle(true) end, { desc = "Toggle auto format (buffer)" }},
-{"n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" }},
-{"n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" }},
-{"n", "<leader>uL", function() Util.toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" }},
-{"n", "<leader>ul", function() Util.toggle.number() end, { desc = "Toggle Line Numbers" }},
-{"n", "<leader>ud", function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" }},
-{"n", "<leader>uT", function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end, { desc = "Toggle Treesitter Highlight" }},
+  {"n", "<leader>uf", function() Util.format.toggle() end, { desc = "Toggle auto format (global)" }},
+  {"n", "<leader>uF", function() Util.format.toggle(true) end, { desc = "Toggle auto format (buffer)" }},
+  {"n", "<leader>us", function() Util.toggle("spell") end, { desc = "Toggle Spelling" }},
+  {"n", "<leader>uw", function() Util.toggle("wrap") end, { desc = "Toggle Word Wrap" }},
+  {"n", "<leader>uL", function() Util.toggle("relativenumber") end, { desc = "Toggle Relative Line Numbers" }},
+  {"n", "<leader>ul", function() Util.toggle.number() end, { desc = "Toggle Line Numbers" }},
+  {"n", "<leader>ud", function() Util.toggle.diagnostics() end, { desc = "Toggle Diagnostics" }},
+  {"n", "<leader>uT", function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end, { desc = "Toggle Treesitter Highlight" }},
   -- stylua: ignore end
 
   {

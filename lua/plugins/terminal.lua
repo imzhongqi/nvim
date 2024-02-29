@@ -48,7 +48,7 @@ return {
       highlights = {
         Normal = { link = "Normal" },
         NormalNC = { link = "NormalNC" },
-        NormalFloat = { link = "NormalFloat" },
+        NormalFloat = { link = "Normal" },
         FloatBorder = { link = "FloatBorder" },
         StatusLine = { link = "StatusLine" },
         StatusLineNC = { link = "StatusLineNC" },
