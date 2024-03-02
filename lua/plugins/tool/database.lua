@@ -30,6 +30,7 @@ return {
     vim.g.db_ui_winwidth = 30
     vim.g.db_ui_notification_width = 20
     vim.g.db_ui_auto_execute_table_helpers = 1
+    vim.g.db_ui_show_help = 0
     -- vim.g.db_ui_hide_schemas = {}
     vim.g.db_ui_icons = {
       expanded = {
@@ -58,13 +59,5 @@ return {
       connection_ok = _Icons.misc.ok,
       connection_error = _Icons.misc.err,
     }
-
-    vim.api.nvim_create_autocmd("Filetype", {
-      group = vim.api.nvim_create_augroup("on_dbui_open", { clear = true }),
-      pattern = "dbui",
-      callback = function()
-        vim.wo.foldenable = false
-      end,
-    })
   end,
 }

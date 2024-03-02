@@ -134,6 +134,7 @@ return {
           },
         },
 
+        preselect = cmp_types.PreselectMode.Item,
         mapping = cmp.mapping.preset.insert({
           ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
           ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
@@ -160,7 +161,7 @@ return {
           }),
           ["<C-l>"] = cmp.mapping(function()
             if cmp.visible() then
-              cmp.confirm({ select = false })
+              cmp.confirm({ behavior = ConfirmBehavior.Replace, select = false })
             else
               cmp.complete()
             end
@@ -256,18 +257,6 @@ return {
             end,
             sources = {
               { name = "dap" },
-            },
-          })
-        end,
-      })
-
-      vim.api.nvim_create_autocmd("BufRead", {
-        desc = "Setup cmp buffer crates source",
-        pattern = "Cargo.toml",
-        callback = function()
-          cmp.setup.buffer({
-            sources = {
-              { name = "crates" },
             },
           })
         end,

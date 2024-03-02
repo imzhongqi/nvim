@@ -25,7 +25,7 @@ return {
       { "<C-g>p", ":<C-u>'<,'>GpChatPaste<CR>", mode = { "v" }, desc = "Chat Paste" },
     },
     opts = {
-      openai_api_key = {
+      openai_api_key = os.getenv("OPENAI_API_KEY") or {
         "security",
         "find-generic-password",
         "-w",
@@ -37,6 +37,7 @@ return {
       chat_conceal_model_params = false,
       whisper_language = "",
       toggle_target = "vsplit",
+      chat_confirm_delete = false,
       style_chat_finder_border = "rounded",
       style_popup_border = "rounded",
       hooks = {

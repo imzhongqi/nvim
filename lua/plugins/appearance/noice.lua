@@ -151,23 +151,31 @@ return {
       },
     },
 
-    messages = {},
-
     ---@type NoiceRouteConfig[]
     routes = {
-      {
-        view = "split",
-        filter = { event = { "msg_show" }, kind = "history_show" },
-      },
       {
         view = "notify",
         filter = { event = "msg_show", kind = { "echo", "echomsg" }, find = "image" },
         opts = { replace = true },
       },
-      -- {
-      --   view = "mini",
-      --   filter = { event = "msg_show", kind = { "echo", "echomsg", "" } },
-      -- },
+
+      {
+        view = "mini",
+        filter = { event = "msg_show", find = "DB:" },
+        opts = { skip = true },
+      },
+
+      {
+        view = "mini",
+        filter = { event = "notify" },
+        opts = { title = "[DBUI]", skip = true },
+      },
+
+      {
+        view = "mini",
+        filter = { event = "msg_show" },
+        opts = { replace = true },
+      },
     },
   },
 

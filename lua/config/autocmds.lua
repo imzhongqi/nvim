@@ -1,3 +1,4 @@
+local api = vim.api
 local create_autocmd = vim.api.nvim_create_autocmd
 
 local function augroup(name)

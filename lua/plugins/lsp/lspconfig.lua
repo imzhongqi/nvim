@@ -11,9 +11,6 @@ return {
     inlay_hints = {
       enabled = true,
     },
-    capabilities = {
-      semanticTokens = false,
-    },
     servers = {
       lua_ls = {
         settings = {
