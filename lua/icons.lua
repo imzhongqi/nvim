@@ -22,7 +22,7 @@ local icons = {
   },
 
   dap = {
-    Stopped = "󰁕",
+    Stopped = "",
     Breakpoint = "",
     BreakpointCondition = "",
     BreakpointRejected = "",

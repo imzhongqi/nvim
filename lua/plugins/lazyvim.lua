@@ -26,7 +26,7 @@ return {
         dots = _Icons.misc.dots,
       },
       dap = {
-        Stopped = { _Icons.dap.Stopped, "DiagnosticWarn", "DapStoppedLine" },
+        Stopped = { _Icons.dap.Stopped, "DapSignStopped", "DapStoppedLine" },
         Breakpoint = { _Icons.dap.Breakpoint, "DiagnosticError" },
         BreakpointCondition = { _Icons.dap.BreakpointCondition, "DiagnosticError" },
         BreakpointRejected = { _Icons.dap.BreakpointRejected, "DiagnosticError" },

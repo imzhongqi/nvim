@@ -170,12 +170,6 @@ return {
         filter = { event = "notify" },
         opts = { title = "[DBUI]", skip = true },
       },
-
-      {
-        view = "mini",
-        filter = { event = "msg_show" },
-        opts = { replace = true },
-      },
     },
   },
 

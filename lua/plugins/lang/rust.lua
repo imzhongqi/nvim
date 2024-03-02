@@ -47,7 +47,7 @@ return {
     keys = {
       { "K", "<cmd>RustLsp hover<cr>", desc = "Hover Actions (Rust)" },
       { "<leader>cR", "<cmd>RustLsp codeAction<cr>", desc = "Code Action (Rust)" },
-      { "<leader>dr", "<cmd>RustLsp debuggables<cr>", desc = "Run Debuggables (Rust)" },
+      { "<localleader>dr", "<cmd>RustLsp debuggables<cr>", desc = "Run Debuggables (Rust)" },
     },
     opts = function()
       local ok, mason_registry = pcall(require, "mason-registry")
@@ -85,7 +85,9 @@ return {
 
         dap = {
           adapter = adapter,
-          configuration = {},
+          configuration = {
+            type = "codelldb",
+          },
         },
         server = {
           default_settings = {
@@ -97,7 +99,7 @@ return {
               },
               -- Add clippy lints for Rust.
               checkOnSave = {
-                enable = false,
+                enable = true,
                 allFeatures = true,
                 command = "clippy",
                 extraArgs = { "--no-deps" },
@@ -129,13 +131,12 @@ return {
 
   {
     "nvim-neotest/neotest",
-    optional = true,
     dependencies = {
-      "rouge8/neotest-rust",
+      "mrcjkb/rustaceanvim",
     },
     opts = {
       adapters = {
-        ["neotest-rust"] = {},
+        ["rustaceanvim.neotest"] = {},
       },
     },
   },

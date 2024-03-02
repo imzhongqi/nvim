@@ -7,6 +7,7 @@ require("lazy").setup({
     { import = "plugins.lsp" },
     { import = "plugins.treesitter" },
     { import = "plugins.lang" },
+    { import = "plugins.dap" },
     { import = "plugins.filetype" },
     { import = "plugins.tool" },
   },

@@ -6,7 +6,7 @@ return {
     local builtin = require("statuscol.builtin")
 
     local nu = function(args)
-      return args.nu
+      return args.nu or args.rnu
     end
 
     return {
@@ -21,14 +21,6 @@ return {
       segments = {
         {
           sign = {
-            name = { "Dap*" },
-            auto = true,
-          },
-          condition = { nu },
-          click = "v:lua.ScSa",
-        },
-        {
-          sign = {
             name = { ".*" },
             text = { ".*" },
             namespace = { ".*" },
@@ -38,7 +30,7 @@ return {
         },
         {
           text = { builtin.lnumfunc, " " },
-          condition = { true, builtin.not_empty },
+          condition = { true, nu },
           click = "v:lua.ScLa",
         },
         {
@@ -58,10 +50,23 @@ return {
 
               return builtin.foldfunc(args)
             end,
-            " ",
           },
-          condition = { nu, builtin.not_empty },
+          condition = { nu },
           click = "v:lua.ScFa",
+        },
+
+        {
+          text = { " " },
+          condition = { nu },
+        },
+
+        {
+          sign = {
+            name = { "Dap*" },
+            auto = true,
+          },
+          condition = { nu },
+          click = "v:lua.ScSa",
         },
       },
     }
