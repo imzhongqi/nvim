@@ -14,18 +14,26 @@ function M.keymaps_del(keymaps)
   end
 end
 
-local keymap_set = function(mode, lhs, rhs, opts)
-  local modes = type(mode) == "string" and { mode } or mode
+local keymap_set = function(entry)
+  local mode = entry.mode or "n"
+  local lhs = entry[1]
+  local rhs = entry[2]
+  local opts = M.opts(entry) ---@type vim.api.keyset.keymap
 
-  if #modes > 0 then
-    opts = opts or {}
-    opts.silent = opts.silent ~= false
-    if opts.remap and not vim.g.vscode then
-      opts.remap = nil
+  opts.silent = opts.silent ~= false
+  pcall(vim.keymap.set, mode, lhs, rhs, opts)
+end
+
+local skip = { mode = true, cond = true }
+
+function M.opts(keys)
+  local opts = {}
+  for k, v in pairs(keys) do
+    if type(k) ~= "number" and not skip[k] then
+      opts[k] = v
     end
   end
-
-  vim.keymap.set(modes, lhs, rhs, opts)
+  return opts
 end
 
 function M.keymaps_set(keymaps)
@@ -33,10 +41,10 @@ function M.keymaps_set(keymaps)
     if entry.cond ~= nil then
       local condt = type(entry.cond)
       if (condt == "boolean" and entry.cond ~= false) or (condt == "function" and entry.cond() ~= nil) then
-        keymap_set(entry[1], entry[2], entry[3], entry[4])
+        keymap_set(entry)
       end
     else
-      keymap_set(entry[1], entry[2], entry[3], entry[4])
+      keymap_set(entry)
     end
   end
 end

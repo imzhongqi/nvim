@@ -22,7 +22,7 @@ return {
       --     args = { "-tags=integration" },
       --   },
       -- },
-      status = { virtual_text = true },
+      status = { virtual_text = false },
       output = { open_on_run = true },
       quickfix = {
         open = function()
@@ -151,6 +151,10 @@ return {
       end
 
       require("neotest").setup(opts)
+
+      vim.api.nvim_set_hl(0, "NeotestTest", { bg = "none" })
+      vim.api.nvim_set_hl(0, "NeotestUnknown", { bg = "none" })
+      vim.api.nvim_set_hl(0, "NeotestUnknown", { bg = "none" })
     end,
     -- stylua: ignore
     keys = {

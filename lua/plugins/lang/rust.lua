@@ -41,14 +41,17 @@ return {
     dependencies = {
       "mfussenegger/nvim-dap",
       "neovim/nvim-lspconfig",
+      {
+        "nvim-neotest/neotest",
+        opts = {
+          adapters = {
+            ["rustaceanvim.neotest"] = {},
+          },
+        },
+      },
     },
     version = "^4",
     ft = { "rust" },
-    keys = {
-      { "K", "<cmd>RustLsp hover<cr>", desc = "Hover Actions (Rust)" },
-      { "<leader>cR", "<cmd>RustLsp codeAction<cr>", desc = "Code Action (Rust)" },
-      { "<localleader>dr", "<cmd>RustLsp debuggables<cr>", desc = "Run Debuggables (Rust)" },
-    },
     opts = function()
       local ok, mason_registry = pcall(require, "mason-registry")
       local adapter ---@type any
@@ -90,6 +93,18 @@ return {
           },
         },
         server = {
+          on_attach = function(_, bufnr)
+            require("util").keymaps_set({
+              { "n", "K", "<cmd>RustLsp hover<cr>", { desc = "Hover Actions (Rust)", buffer = bufnr } },
+              { "n", "<leader>cR", "<cmd>RustLsp codeAction<cr>", { desc = "Code Action (Rust)", buffer = bufnr } },
+              {
+                "n",
+                "<leader>dr",
+                "<cmd>RustLsp debuggables<cr>",
+                { desc = "Run Debuggables (Rust)", buffer = bufnr },
+              },
+            })
+          end,
           default_settings = {
             ["rust-analyzer"] = {
               cargo = {
@@ -127,17 +142,5 @@ return {
         vim.list_extend(opts.ensure_installed, { "ron", "rust", "toml" })
       end
     end,
-  },
-
-  {
-    "nvim-neotest/neotest",
-    dependencies = {
-      "mrcjkb/rustaceanvim",
-    },
-    opts = {
-      adapters = {
-        ["rustaceanvim.neotest"] = {},
-      },
-    },
   },
 }
