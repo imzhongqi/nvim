@@ -54,6 +54,7 @@ local icons = {
     staged = "",
     conflict = "",
   },
+
   kinds = {
     Codeium = "󰘦",
     Control = "",
