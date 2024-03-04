@@ -6,7 +6,7 @@ vim.g.autoformat = true
 
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
-require("util").options_set({
+require("util").options_set {
   autowrite = true, -- Enable auto write
 
   backup = false,
@@ -59,7 +59,7 @@ require("util").options_set({
   sidescrolloff = 8, -- Columns of context
   signcolumn = "yes", -- Always show the signcolumn, otherwise it would shift the text each time
   shortmess = function(opt)
-    opt:append({ W = true, I = true, c = true, C = true })
+    opt:append { W = true, I = true, c = true, C = true }
   end,
 
   undolevels = 10000,
@@ -89,4 +89,4 @@ require("util").options_set({
     diff = "╱",
     eob = " ",
   },
-})
+}

@@ -14,8 +14,8 @@ return {
     },
     on_attach = function(buffer)
       local gs = package.loaded.gitsigns
-      local wk = require("which-key")
-      local next_integrations = require("nvim-next.integrations")
+      local wk = require "which-key"
+      local next_integrations = require "nvim-next.integrations"
       local ngs = next_integrations.gitsigns(gs)
 
       wk.register({
@@ -49,14 +49,14 @@ return {
         ["<leader>ghp"] = { gs.preview_hunk, "Preview Buffer" },
         ["<leader>ghb"] = {
           function()
-            gs.blame_line({ full = true })
+            gs.blame_line { full = true }
           end,
           "Blame Line",
         },
         ["<leader>ghd"] = { gs.diffthis, "Diff This" },
         ["<leader>ghD"] = {
           function()
-            gs.diffthis("~")
+            gs.diffthis "~"
           end,
           "Diff This ~",
         },

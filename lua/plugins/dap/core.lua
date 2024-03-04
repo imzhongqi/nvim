@@ -31,17 +31,17 @@ return {
       config = function(_, opts)
         -- setup dap config by VsCode launch.json file
         -- require("dap.ext.vscode").load_launchjs()
-        local dap = require("dap")
-        local dapui = require("dapui")
+        local dap = require "dap"
+        local dapui = require "dapui"
         dapui.setup(opts)
         dap.listeners.after.event_initialized["dapui_config"] = function()
-          dapui.open({})
+          dapui.open {}
         end
         dap.listeners.before.event_terminated["dapui_config"] = function()
-          dapui.close({})
+          dapui.close {}
         end
         dap.listeners.before.event_exited["dapui_config"] = function()
-          dapui.close({})
+          dapui.close {}
         end
       end,
     },
@@ -108,9 +108,8 @@ return {
   },
 
   config = function()
-    local Config = require("lazyvim.config")
+    local Config = require "lazyvim.config"
     vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, bg = "#40423e" })
-    vim.api.nvim_set_hl(0, "DapSignStopped", { fg = "#dbc074", bg = "#40423e" })
 
     for name, sign in pairs(Config.icons.dap) do
       sign = type(sign) == "table" and sign or { sign }

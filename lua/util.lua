@@ -20,8 +20,19 @@ local keymap_set = function(entry)
   local rhs = entry[2]
   local opts = M.opts(entry) ---@type vim.api.keyset.keymap
 
-  opts.silent = opts.silent ~= false
-  pcall(vim.keymap.set, mode, lhs, rhs, opts)
+  opts.silent = opts.silent or true
+
+  if entry.cond ~= nil then
+    local condt = type(entry.cond)
+    if (condt == "boolean" and entry.cond == false) or (condt == "function" and entry.cond() ~= nil) then
+      return
+    end
+  end
+
+  local ok, result = pcall(vim.keymap.set, mode, lhs, rhs, opts)
+  if not ok then
+    vim.notify "not ok "
+  end
 end
 
 local skip = { mode = true, cond = true }
@@ -38,14 +49,7 @@ end
 
 function M.keymaps_set(keymaps)
   for _, entry in pairs(keymaps) do
-    if entry.cond ~= nil then
-      local condt = type(entry.cond)
-      if (condt == "boolean" and entry.cond ~= false) or (condt == "function" and entry.cond() ~= nil) then
-        keymap_set(entry)
-      end
-    else
-      keymap_set(entry)
-    end
+    keymap_set(entry)
   end
 end
 

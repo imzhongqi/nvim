@@ -6,7 +6,7 @@ local function augroup(name)
 end
 
 create_autocmd("FileType", {
-  group = augroup("close_with_q"),
+  group = augroup "close_with_q",
   pattern = {
     "dap-float",
     "Jaq",
@@ -30,8 +30,8 @@ create_autocmd("FileType", {
 
 create_autocmd({ "BufLeave", "FocusLost" }, {
   callback = function()
-    if vim.bo.modified and not vim.bo.readonly and vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
-      vim.api.nvim_command("silent w")
+    if vim.bo.modified and not vim.bo.readonly and vim.fn.expand "%" ~= "" and vim.bo.buftype == "" then
+      vim.api.nvim_command "silent w"
     end
   end,
 })
@@ -41,7 +41,7 @@ local function lazyvim_augroup(name)
 end
 
 create_autocmd("FileType", {
-  group = lazyvim_augroup("wrap_spell"),
+  group = lazyvim_augroup "wrap_spell",
   pattern = { "gitcommit" },
   callback = function()
     vim.opt_local.wrap = true
@@ -50,7 +50,7 @@ create_autocmd("FileType", {
 })
 
 create_autocmd("FileType", {
-  group = augroup("markdown_with_wrap"),
+  group = augroup "markdown_with_wrap",
   pattern = { "markdown" },
   callback = function()
     vim.opt_local.wrap = true

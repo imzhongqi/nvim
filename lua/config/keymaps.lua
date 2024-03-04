@@ -1,4 +1,4 @@
-local Util = require("lazyvim.util")
+local Util = require "lazyvim.util"
 local keymaps_set = require("util").keymaps_set
 
 local open_float = vim.diagnostic.open_float
@@ -9,10 +9,10 @@ end
 
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
 
-keymaps_set({
-  { "<Nop>", mode = "i", "<C-p>" },
-  { "<Nop>", mode = "i", "<C-n>" },
-  { "<Nop>", mode = "c", "<C-d>" },
+keymaps_set {
+  { "<C-p>", "", mode = "i" },
+  { "<C-n>", "", mode = "i" },
+  { "<C-d>", "", mode = "c" },
   { "<Cmd>undo<CR>", "<D-z>", mode = { "n", "i" } },
   { "<Cmd>redo<CR>", "<D-Z>", mode = { "n", "i" } },
 
@@ -29,16 +29,18 @@ keymaps_set({
   { "<leader>wc", "<C-W>c", { desc = "Close window" } },
 
   -- better up/down
-  { "j", "v:count == 0 ? 'gj' : 'j'", mode = { "n", "x" }, expr = true, silent = true },
-  { "<Down>", "v:count == 0 ? 'gj' : 'j'", mode = { "n", "x" }, expr = true, silent = true },
-  { "k", "v:count == 0 ? 'gk' : 'k'", mode = { "n", "x" }, expr = true, silent = true },
-  { "<Up>", "v:count == 0 ? 'gk' : 'k'", mode = { "n", "x" }, expr = true, silent = true },
+  -- { "j", "v:count == 0 ? 'gj' : 'j'", mode = { "n", "x" }, expr = true },
+  { "<Down>", "v:count == 0 ? 'gj' : 'j'", mode = { "n", "x" }, expr = true },
+  -- { "k", "v:count == 0 ? 'gk' : 'k'", mode = { "n", "x" }, expr = true },
+  { "<Up>", "v:count == 0 ? 'gk' : 'k'", mode = { "n", "x" }, expr = true },
+  { "j", [[v:count ? (v:count >= 3 ? "m'" . v:count : '') . 'j' : 'gj']], mode = "n", expr = true },
+  { "k", [[v:count ? (v:count >= 3 ? "m'" . v:count : '') . 'k' : 'gk']], mode = "n", expr = true },
 
   -- Move to window using the <ctrl> hjkl keys
-  { "<C-h>", "<C-w>h", desc = "Go to left window", remap = true },
-  { "<C-j>", "<C-w>j", desc = "Go to lower window", remap = true },
-  { "<C-k>", "<C-w>k", desc = "Go to upper window", remap = true },
-  { "<C-l>", "<C-w>l", desc = "Go to right window", remap = true },
+  { "<C-h>", "<cmd>wincmd h<CR>", desc = "Go to left window" },
+  { "<C-j>", "<cmd>wincmd j<CR>", desc = "Go to lower window" },
+  { "<C-k>", "<cmd>wincmd k<CR>", desc = "Go to upper window" },
+  { "<C-l>", "<cmd>wincmd l<CR>", desc = "Go to right window" },
 
   -- Move Lines
   { "<A-j>", "<cmd>m .+1<cr>==", desc = "Move down" },
@@ -90,12 +92,15 @@ keymaps_set({
 
   -- save file
   { "<C-s>", "<cmd>w<cr><esc>", mode = { "i", "x", "n", "s" }, desc = "Save file" },
-
-  { "<c-z><c-z>", "<cmd>qa<cr>", desc = "Quit all" },
+  { "<C-q><C-q>", "<cmd>qa<cr>", mode = "n", desc = "Quit all" },
 
   { "<leader><tab>l", "<cmd>tablast<cr>", desc = "Last Tab" },
   { "<leader><tab>f", "<cmd>tabfirst<cr>", desc = "First Tab" },
-  { "<leader><tab><tab>", [[<cmd> if expand("%") != "" | tabnew % | else | tabnew | endif <CR>]], desc = "New Tab" },
+  {
+    "<leader><tab><tab>",
+    [[<cmd> if expand("%") != "" | tabnew % | else | tabnew | endif <CR>]],
+    desc = "New Tab",
+  },
   { "<leader><tab>]", "<cmd>tabnext<cr>", desc = "Next Tab" },
   { "<leader><tab>d", "<cmd>tabclose<cr>", desc = "Close Tab" },
   { "<leader><tab>[", "<cmd>tabprevious<cr>", desc = "Previous Tab" },
@@ -128,4 +133,4 @@ keymaps_set({
     desc = "Toggle Inlay Hints",
     cond = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint,
   },
-})
+}

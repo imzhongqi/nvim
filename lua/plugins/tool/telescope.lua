@@ -1,5 +1,6 @@
 return {
   "nvim-telescope/telescope.nvim",
+  enabled = false,
   dependencies = {
     {
       "nvim-telescope/telescope-live-grep-args.nvim",
@@ -14,9 +15,9 @@ return {
     },
   },
   opts = function()
-    local actions = require("telescope.actions")
+    local actions = require "telescope.actions"
 
-    local Util = require("lazyvim.util")
+    local Util = require "lazyvim.util"
 
     local open_with_trouble = function(...)
       return require("trouble.providers.telescope").open_with_trouble(...)
@@ -25,18 +26,18 @@ return {
       return require("trouble.providers.telescope").open_selected_with_trouble(...)
     end
     local find_files_no_ignore = function()
-      local action_state = require("telescope.actions.state")
+      local action_state = require "telescope.actions.state"
       local line = action_state.get_current_line()
       Util.telescope("find_files", { no_ignore = true, default_text = line })()
     end
     local find_files_with_hidden = function()
-      local action_state = require("telescope.actions.state")
+      local action_state = require "telescope.actions.state"
       local line = action_state.get_current_line()
       Util.telescope("find_files", { hidden = true, default_text = line })()
     end
 
     Util.on_load("telescope.nvim", function()
-      require("telescope").load_extension("live_grep_args")
+      require("telescope").load_extension "live_grep_args"
     end)
     return {
 

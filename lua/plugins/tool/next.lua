@@ -2,11 +2,11 @@ return {
   "ghostbuster91/nvim-next",
   event = "VeryLazy",
   config = function()
-    local next = require("nvim-next")
-    local builtins = require("nvim-next.builtins")
-    local integrations = require("nvim-next.integrations")
+    local next = require "nvim-next"
+    local builtins = require "nvim-next.builtins"
+    local integrations = require "nvim-next.integrations"
 
-    next.setup({
+    next.setup {
       default_mappings = {
         repeat_style = "original",
       },
@@ -14,7 +14,7 @@ return {
         builtins.f,
         builtins.t,
       },
-    })
+    }
 
     -- Diagnostic
     local diag = integrations.diagnostic()

@@ -31,6 +31,21 @@ return {
   },
 
   {
+    "tzachar/highlight-undo.nvim",
+    event = "VeryLazy",
+    config = true,
+  },
+
+  {
+    "krady21/compiler-explorer.nvim",
+    config = true,
+    cmd = {
+      "CECompile",
+      "CECompileLive",
+    },
+  },
+
+  {
     "keaising/im-select.nvim",
     event = "InsertEnter",
     opts = {
@@ -41,7 +56,7 @@ return {
       keep_quiet_on_no_binary = false,
       async_switch_im = true,
     },
-    enabled = vim.fn.executable("im-select") == 1,
+    enabled = vim.fn.executable "im-select" == 1,
   },
 
   {
@@ -104,7 +119,7 @@ return {
     opts = {
       options = vim.opt.sessionoptions:get(),
       pre_save = function()
-        vim.cmd([[ UndotreeHide ]])
+        vim.cmd [[ UndotreeHide ]]
       end,
     },
     keys = function()
@@ -119,7 +134,7 @@ return {
         {
           "<leader>ql",
           function()
-            require("persistence").load({ last = true })
+            require("persistence").load { last = true }
           end,
           desc = "Restore Last Session",
         },

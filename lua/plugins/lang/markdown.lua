@@ -57,7 +57,7 @@ return {
     opts = function()
       local opts = {}
 
-      for _, ft in ipairs({ "markdown", "norg", "rmd", "org" }) do
+      for _, ft in ipairs { "markdown", "norg", "rmd", "org" } do
         opts[ft] = {
           headline_highlights = {},
         }

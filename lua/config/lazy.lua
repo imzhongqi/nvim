@@ -1,4 +1,4 @@
-require("lazy").setup({
+require("lazy").setup {
   spec = {
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "plugins.colorscheme" },
@@ -66,4 +66,4 @@ require("lazy").setup({
       },
     },
   },
-})
+}

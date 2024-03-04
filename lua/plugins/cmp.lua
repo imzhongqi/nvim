@@ -58,10 +58,10 @@ return {
     opts = function()
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 
-      local cmp = require("cmp")
-      local lspkind = require("lspkind")
-      local luasnip = require("luasnip")
-      local cmp_types = require("cmp.types.cmp")
+      local cmp = require "cmp"
+      local lspkind = require "lspkind"
+      local luasnip = require "luasnip"
+      local cmp_types = require "cmp.types.cmp"
       local ConfirmBehavior = cmp_types.ConfirmBehavior
       -- local SelectBehavior = cmp_types.SelectBehavior
 
@@ -95,7 +95,7 @@ return {
         formatting = {
           expandable_indicator = true,
           fields = { "kind", "abbr", "menu" },
-          format = lspkind.cmp_format({
+          format = lspkind.cmp_format {
             mode = "symbol",
             maxwidth = 80,
             ellipsis_char = "...", -- 
@@ -104,7 +104,7 @@ return {
               -- vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
               return vim_item
             end,
-          }),
+          },
         },
 
         sources = cmp.config.sources({
@@ -135,7 +135,7 @@ return {
         },
 
         preselect = cmp_types.PreselectMode.Item,
-        mapping = cmp.mapping.preset.insert({
+        mapping = cmp.mapping.preset.insert {
           ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
           ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
           ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
@@ -145,29 +145,29 @@ return {
           ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 
           ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-          ["<C-e>"] = cmp.mapping({
+          ["<C-e>"] = cmp.mapping {
             i = cmp.mapping.close(),
             c = cmp.mapping.close(),
-          }),
-          ["<C-y>"] = cmp.mapping({
-            i = cmp.mapping.confirm({ behavior = ConfirmBehavior.Replace, select = false }),
+          },
+          ["<C-y>"] = cmp.mapping {
+            i = cmp.mapping.confirm { behavior = ConfirmBehavior.Replace, select = false },
             c = function(fallback)
               if cmp.visible() then
-                cmp.confirm({ behavior = ConfirmBehavior.Replace, select = false })
+                cmp.confirm { behavior = ConfirmBehavior.Replace, select = false }
               else
                 fallback()
               end
             end,
-          }),
+          },
           ["<C-l>"] = cmp.mapping(function()
             if cmp.visible() then
-              cmp.confirm({ behavior = ConfirmBehavior.Replace, select = false })
+              cmp.confirm { behavior = ConfirmBehavior.Replace, select = false }
             else
               cmp.complete()
             end
           end, { "i", "c" }),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ["<S-CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<CR>"] = cmp.mapping.confirm { select = true }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<S-CR>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 
           ["<C-CR>"] = function(fallback)
             cmp.abort()
@@ -202,7 +202,7 @@ return {
             "s",
             "c",
           }),
-        }),
+        },
 
         experimental = {
           ghost_text = {
@@ -214,7 +214,7 @@ return {
 
     ---@param opts cmp.ConfigSchema
     config = function(_, opts)
-      local cmp = require("cmp")
+      local cmp = require "cmp"
       for _, source in ipairs(opts.sources) do
         source.group_index = source.group_index or 1
       end
@@ -241,24 +241,24 @@ return {
       })
 
       cmp.setup.filetype({ "gitcommit", "NeogitCommitMessage" }, {
-        sources = cmp.config.sources({
+        sources = cmp.config.sources {
           { name = "conventionalcommits" },
           { name = "buffer" },
-        }),
+        },
       })
 
       vim.api.nvim_create_autocmd("FileType", {
         desc = "Setup cmp buffer dap source",
         pattern = { "dap-repl", "dapui_watches", "dapui_hover" },
         callback = function()
-          cmp.setup.buffer({
+          cmp.setup.buffer {
             enabled = function()
               return vim.bo[0].buftype ~= "prompt" or require("cmp_dap").is_dap_buffer()
             end,
             sources = {
               { name = "dap" },
             },
-          })
+          }
         end,
       })
 
@@ -266,13 +266,13 @@ return {
         desc = "Setup cmp buffer sql source",
         pattern = { "mysql", "sql" },
         callback = function()
-          cmp.setup.buffer({
+          cmp.setup.buffer {
             sources = cmp.config.sources({
               { name = "vim-dadbod-completion" },
             }, {
               { name = "buffer" },
             }),
-          })
+          }
         end,
       })
     end,

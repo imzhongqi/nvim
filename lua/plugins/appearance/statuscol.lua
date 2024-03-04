@@ -3,7 +3,7 @@ return {
   event = "BufReadPost",
   branch = "0.10",
   opts = function()
-    local builtin = require("statuscol.builtin")
+    local builtin = require "statuscol.builtin"
 
     local nu = function(args)
       return args.nu or args.rnu
@@ -19,6 +19,14 @@ return {
       },
       setopt = true,
       segments = {
+        -- {
+        --   sign = {
+        --     name = { "Dap*" },
+        --   },
+        --   condition = { nu },
+        --   click = "v:lua.ScSa",
+        -- },
+
         {
           sign = {
             name = { ".*" },
@@ -54,20 +62,7 @@ return {
           condition = { nu },
           click = "v:lua.ScFa",
         },
-
-        {
-          text = { " " },
-          condition = { nu },
-        },
-
-        {
-          sign = {
-            name = { "Dap*" },
-            auto = true,
-          },
-          condition = { nu },
-          click = "v:lua.ScSa",
-        },
+        { text = { " " }, condition = { nu } },
       },
     }
   end,

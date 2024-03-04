@@ -1,4 +1,4 @@
-local Util = require("util")
+local Util = require "util"
 
 local icons = {
   ui = {
@@ -13,6 +13,13 @@ local icons = {
   telescope = {
     prompt_prefix = "  ",
     selection_caret = " ",
+  },
+
+  fzflua = {
+    suffix = " ",
+    pointer = " ",
+    scrollbar = "▊",
+    marker = "",
   },
 
   misc = {
@@ -63,8 +70,8 @@ local icons = {
     Enum = "",
     EnumMember = "",
     Event = "",
-    Field = "",
-    File = "",
+    Field = "󰜢",
+    File = "󰈙",
     Folder = "󰉋",
     Function = "",
     Interface = "",
@@ -78,7 +85,7 @@ local icons = {
     Object = "",
     Operator = "",
     Package = "",
-    Property = "",
+    Property = "󰜢",
     Reference = "",
     Snippet = "",
     String = "",

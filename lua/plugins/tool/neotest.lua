@@ -26,10 +26,10 @@ return {
       output = { open_on_run = true },
       quickfix = {
         open = function()
-          if require("lazyvim.util").has("trouble.nvim") then
-            require("trouble").open({ mode = "quickfix", focus = false })
+          if require("lazyvim.util").has "trouble.nvim" then
+            require("trouble").open { mode = "quickfix", focus = false }
           else
-            vim.cmd("copen")
+            vim.cmd "copen"
           end
         end,
       },
@@ -82,7 +82,7 @@ return {
       },
     },
     config = function(_, opts)
-      local neotest_ns = vim.api.nvim_create_namespace("neotest")
+      local neotest_ns = vim.api.nvim_create_namespace "neotest"
       vim.diagnostic.config({
         virtual_text = {
           format = function(diagnostic)
@@ -93,7 +93,7 @@ return {
         },
       }, neotest_ns)
 
-      if require("lazyvim.util").has("trouble.nvim") then
+      if require("lazyvim.util").has "trouble.nvim" then
         opts.consumers = opts.consumers or {}
         -- Refresh and auto close trouble after running tests
         ---@type neotest.Consumer
@@ -111,7 +111,7 @@ return {
               end
             end
             vim.schedule(function()
-              local trouble = require("trouble")
+              local trouble = require "trouble"
               if trouble.is_open() then
                 trouble.refresh()
                 if failed == 0 then

@@ -4,7 +4,7 @@ return {
     "nvim-telescope/telescope-fzf-native.nvim",
   },
   event = "LazyFile",
-  enabled = vim.fn.has("nvim-0.10") == 1,
+  enabled = vim.fn.has "nvim-0.10" == 1,
   opts = {
     menu = {
       scrollbar = {

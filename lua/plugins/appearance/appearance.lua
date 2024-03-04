@@ -5,7 +5,7 @@ return {
     main = "rainbow-delimiters.setup",
     submodules = false,
     opts = function()
-      local rainbow_delimiters = require("rainbow-delimiters")
+      local rainbow_delimiters = require "rainbow-delimiters"
       return {
         strategy = {
           [""] = rainbow_delimiters.strategy["global"],
@@ -87,6 +87,7 @@ return {
           "toggleterm",
           "lazyterm",
           "dbui",
+          "fzf",
         },
         callback = function()
           vim.b.miniindentscope_disable = true

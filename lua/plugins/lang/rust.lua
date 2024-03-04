@@ -17,7 +17,7 @@ return {
             {
               "K",
               function()
-                if vim.fn.expand("%:t") == "Cargo.toml" and require("crates").popup_available() then
+                if vim.fn.expand "%:t" == "Cargo.toml" and require("crates").popup_available() then
                   require("crates").show_popup()
                 else
                   vim.lsp.buf.hover()
@@ -40,7 +40,7 @@ return {
     "mrcjkb/rustaceanvim",
     dependencies = {
       "mfussenegger/nvim-dap",
-      "neovim/nvim-lspconfig",
+      "folke/noice.nvim",
       {
         "nvim-neotest/neotest",
         opts = {
@@ -53,24 +53,6 @@ return {
     version = "^4",
     ft = { "rust" },
     opts = function()
-      local ok, mason_registry = pcall(require, "mason-registry")
-      local adapter ---@type any
-      if ok then
-        -- rust tools configuration for debugging support
-        local codelldb = mason_registry.get_package("codelldb")
-        local extension_path = codelldb:get_install_path() .. "/extension/"
-        local codelldb_path = extension_path .. "adapter/codelldb"
-        local liblldb_path = ""
-        if vim.loop.os_uname().sysname:find("Windows") then
-          liblldb_path = extension_path .. "lldb\\bin\\liblldb.dll"
-        elseif vim.fn.has("mac") == 1 then
-          liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
-        else
-          liblldb_path = extension_path .. "lldb/lib/liblldb.so"
-        end
-        adapter = require("rustaceanvim.config").get_codelldb_adapter(codelldb_path, liblldb_path)
-      end
-
       vim.g.rustaceanvim = {
         tools = {
           code_actions = {
@@ -86,24 +68,17 @@ return {
           },
         },
 
-        dap = {
-          adapter = adapter,
-          configuration = {
-            type = "codelldb",
-          },
-        },
         server = {
           on_attach = function(_, bufnr)
-            require("util").keymaps_set({
-              { "n", "K", "<cmd>RustLsp hover<cr>", { desc = "Hover Actions (Rust)", buffer = bufnr } },
-              { "n", "<leader>cR", "<cmd>RustLsp codeAction<cr>", { desc = "Code Action (Rust)", buffer = bufnr } },
+            require("util").keymaps_set {
+              { "K", "<cmd>RustLsp hover<cr>", { desc = "Hover Actions (Rust)", buffer = bufnr } },
+              { "<leader>cR", "<cmd>RustLsp codeAction<cr>", { desc = "Code Action (Rust)", buffer = bufnr } },
               {
-                "n",
                 "<leader>dr",
                 "<cmd>RustLsp debuggables<cr>",
                 { desc = "Run Debuggables (Rust)", buffer = bufnr },
               },
-            })
+            }
           end,
           default_settings = {
             ["rust-analyzer"] = {
@@ -114,7 +89,7 @@ return {
               },
               -- Add clippy lints for Rust.
               checkOnSave = {
-                enable = true,
+                enable = false,
                 allFeatures = true,
                 command = "clippy",
                 extraArgs = { "--no-deps" },

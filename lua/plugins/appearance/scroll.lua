@@ -6,7 +6,7 @@ return {
     mappings = {},
   },
   keys = function()
-    local sc = require("neoscroll")
+    local sc = require "neoscroll"
     local scroll = function(lines, move_cursor, time, easing_function, info)
       return function()
         sc.scroll(lines, move_cursor, time, easing_function, info)

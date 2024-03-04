@@ -3,11 +3,11 @@ return {
     "akinsho/toggleterm.nvim",
     version = "*",
     keys = function()
-      local util = require("lazyvim.util")
+      local util = require "lazyvim.util"
       local lazygit_toggle = function(root)
         local Terminal = require("toggleterm.terminal").Terminal
         return function()
-          local lazygit = Terminal:new({
+          local lazygit = Terminal:new {
             cmd = "lazygit",
             dir = root and util.root() or nil,
             hidden = true,
@@ -19,11 +19,11 @@ return {
               height = 100000,
             },
             on_open = function(_)
-              vim.cmd("startinsert!")
+              vim.cmd "startinsert!"
             end,
             on_close = function(_) end,
             count = 99,
-          })
+          }
           lazygit:toggle()
         end
       end

@@ -2,7 +2,7 @@ return {
   {
     "echasnovski/mini.ai",
     opts = function()
-      local ai = require("mini.ai")
+      local ai = require "mini.ai"
       return {
         search_method = "cover",
         silent = true,
