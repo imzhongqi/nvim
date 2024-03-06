@@ -14,11 +14,8 @@ return {
     },
 
     news = {
-      -- When enabled, NEWS.md will be shown when changed.
-      -- This only contains big new features and breaking changes.
-      lazyvim = true,
-      -- Same but for Neovim's news.txt
-      neovim = true,
+      lazyvim = false,
+      neovim = false,
     },
 
     icons = {
@@ -43,7 +40,7 @@ return {
         modified = _Icons.git.modified_,
         removed = _Icons.git.deleted_,
       },
-      kinds = icons.kinds,
+      kinds = icons.kinds_with_space,
     },
   },
 }

@@ -49,7 +49,6 @@ return {
       "hrsh7th/cmp-cmdline",
       "onsails/lspkind.nvim",
       "lukas-reineke/cmp-under-comparator",
-      "davidsierradz/cmp-conventionalcommits",
       "hrsh7th/cmp-nvim-lsp-document-symbol",
       "lukas-reineke/cmp-rg",
       "rcarriga/cmp-dap",
@@ -108,7 +107,8 @@ return {
         },
 
         sources = cmp.config.sources({
-          { name = "nvim_lsp", keyword_length = 0 },
+          { name = "nvim_lsp", keyword_length = 1 },
+          { name = "luasnip" },
         }, {
           { name = "rg", keyword_length = 3 },
           { name = "buffer", keyword_length = 3 },
@@ -237,7 +237,6 @@ return {
 
       cmp.setup.filetype({ "gitcommit", "NeogitCommitMessage" }, {
         sources = cmp.config.sources {
-          { name = "conventionalcommits" },
           { name = "buffer" },
         },
       })

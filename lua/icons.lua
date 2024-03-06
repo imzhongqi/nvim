@@ -16,10 +16,16 @@ local icons = {
   },
 
   fzflua = {
-    suffix = " ",
-    pointer = " ",
+    suffix = "❯ ",
+    pointer = "  ",
     scrollbar = "▊",
-    marker = "",
+    marker = " ",
+
+    git = {
+      added = "+",
+      modified = "M",
+      deleted = "-",
+    },
   },
 
   misc = {
@@ -29,7 +35,7 @@ local icons = {
   },
 
   dap = {
-    Stopped = "",
+    Stopped = "",
     Breakpoint = "",
     BreakpointCondition = "",
     BreakpointRejected = "",
@@ -41,6 +47,11 @@ local icons = {
     Warn = "",
     Hint = "󰌵",
     Info = "",
+
+    Error_ = " ",
+    Warn_ = " ",
+    Hint_ = "󰌵 ",
+    Info_ = " ",
   },
 
   git = {
@@ -53,6 +64,10 @@ local icons = {
     unstaged = "",
     staged = "",
     conflict = "",
+
+    added_ = " ",
+    modified_ = " ",
+    deleted_ = " ",
   },
 
   kinds = {
@@ -97,23 +112,49 @@ local icons = {
     Value = "",
     Variable = "",
   },
+
+  kinds_with_space = {
+    Codeium = "󰘦 ",
+    Control = " ",
+    Collapsed = " ",
+    Copilot = " ",
+    TabNine = "󰏚 ",
+
+    Array = " ",
+    Boolean = " ",
+    Class = " ",
+    Color = " ",
+    Constant = " ",
+    Constructor = " ",
+    Enum = " ",
+    EnumMember = " ",
+    Event = " ",
+    Field = "󰜢 ",
+    File = "󰈙 ",
+    Folder = "󰉋 ",
+    Function = " ",
+    Interface = " ",
+    Key = " ",
+    Keyword = " ",
+    Method = " ",
+    Module = " ",
+    Namespace = " ",
+    Null = "󰟢 ",
+    Number = " ",
+    Object = " ",
+    Operator = " ",
+    Package = " ",
+    Property = "󰜢 ",
+    Reference = " ",
+    Snippet = " ",
+    String = " ",
+    Struct = " ",
+    Text = " ",
+    TypeParameter = " ",
+    Unit = " ",
+    Value = " ",
+    Variable = " ",
+  },
 }
 
-return setmetatable(icons, {
-  __index = function(t, k)
-    if t[k] == nil then
-      return nil
-    end
-
-    return setmetatable(t[k], {
-      __index = function(_t, key)
-        if Util.has_suffix(key, "_") then
-          local icon = _t[string.sub(key, 0, string.len(key) - 1)]
-          if icon ~= nil then
-            return icon .. " "
-          end
-        end
-      end,
-    })
-  end,
-})
+return icons

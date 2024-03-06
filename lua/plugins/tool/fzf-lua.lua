@@ -4,15 +4,35 @@ end
 
 return {
   "ibhagwan/fzf-lua",
-  event = "VeryLazy",
+  cmd = { "FzfLua" },
   keys = function()
     local f = require "fzf-lua"
+    local Util = require "lazyvim.util"
     return {
-      { "<leader>ff", f.files, desc = "FzfLua files" },
-      { "<Tab><Tab>", f.resume, desc = "FzfLua resume" },
-      { "<Tab>k", f.buffers, desc = "FzfLua buffers" },
-      { "<Tab>l", f.builtin, desc = "FzfLua builtin" },
-      { "<Tab>f", f.git_files, desc = "FzfLua git files" },
+      { "<leader>f<leader>", f.resume, desc = "FzfLua resume" },
+      { "<leader>fl", f.builtin, desc = "FzfLua builtin" },
+      {
+        "<leader>ff",
+        function()
+          f.git_files { cwd = Util.root() }
+        end,
+        desc = "FzfLua git files",
+      },
+      {
+        "<leader>fg",
+        function()
+          f.live_grep_glob { cwd = Util.root() }
+        end,
+        desc = "FzfLua live grep",
+      },
+      {
+        "<leader><leader>",
+        function()
+          f.files { cwd = Util.root() }
+        end,
+        desc = "FzfLua files",
+      },
+      { "<leader>,", f.buffers, desc = "FzfLua buffers" },
     }
   end,
   opts = function()
@@ -37,10 +57,9 @@ return {
       fzf_opts = {
         ["--ansi"] = true,
         ["--info"] = "right",
-        ["--pointer"] = " ",
+        ["--pointer"] = _Icons.fzflua.pointer,
         ["--scrollbar"] = _Icons.fzflua.scrollbar,
         ["--height"] = "100%",
-        ["--tabstop"] = 1,
         ["--marker"] = _Icons.fzflua.marker,
         ["--layout"] = "reverse",
         ["--border"] = "none",
@@ -69,11 +88,12 @@ return {
         ["gutter"] = { "bg", "Normal" },
         ["separator"] = { "fg", "FzfLuaBorder" },
         ["scrollbar"] = { "fg", "FzfLuaBorder" },
+        ["border"] = { "fg", "FzfLuaBorder" },
       },
 
       keymap = {
         builtin = {
-          ["<F1>"] = "toggle-help",
+          ["<C-S-H>"] = "toggle-help",
           ["<F2>"] = "toggle-fullscreen",
           -- Only valid with the 'builtin' previewer
           ["<F3>"] = "toggle-preview-wrap",
@@ -88,7 +108,7 @@ return {
           ["ctrl-z"] = "abort",
           ["ctrl-u"] = "unix-line-discard",
           ["ctrl-f"] = "half-page-down",
-          ["ctrl-b"] = "half-page-up",
+          ["ctrl-d"] = "half-page-up",
           ["ctrl-a"] = "beginning-of-line",
           ["ctrl-e"] = "end-of-line",
           ["alt-a"] = "toggle-all",
@@ -109,6 +129,12 @@ return {
           ["alt-l"] = actions.file_sel_to_ll,
         },
         buffers = {
+          ["default"] = actions.buf_edit,
+          ["ctrl-s"] = actions.buf_split,
+          ["ctrl-v"] = actions.buf_vsplit,
+          ["ctrl-t"] = actions.buf_tabedit,
+        },
+        highlights = {
           ["default"] = actions.buf_edit,
           ["ctrl-s"] = actions.buf_split,
           ["ctrl-v"] = actions.buf_vsplit,
@@ -160,9 +186,29 @@ return {
       grep = {
         prompt = with_suffix "Rg",
         input_prompt = with_suffix "Grep For",
+        search = "",
+        actions = {
+          -- actions inherit from 'actions.files' and merge
+          -- this action toggles between 'grep' and 'live_grep'
+          ["ctrl-g"] = { actions.grep_lgrep },
+          -- uncomment to enable '.gitignore' toggle for grep
+          ["ctrl-r"] = { actions.toggle_ignore },
+          ["ctrl-x"] = {
+            function(selected, opts)
+              vim.print(selected, opts)
+              require("trouble").open(selected)
+            end,
+          },
+        },
       },
 
       git = {
+        icons = {
+          ["A"] = { icon = _Icons.fzflua.git.added, color = "green" },
+          ["M"] = { icon = _Icons.fzflua.git.modified, color = "yellow" },
+          ["D"] = { icon = _Icons.fzflua.git.deleted, color = "red" },
+        },
+
         files = {
           prompt = with_suffix "GitFiles",
         },
@@ -172,10 +218,19 @@ return {
         prompt = with_suffix "Changes",
       },
 
+      diagnostics = {
+        prompt = with_suffix "Diagnostics",
+      },
+
+      highlights = {
+        prompt = with_suffix "Highlights",
+      },
+
       lsp = {
         prompt_postfix = _Icons.fzflua.suffix,
         cwd_only = false,
         symbols = {
+          prompt_postfix = _Icons.fzflua.suffix,
           symbol_icons = _Icons.kinds,
         },
         finder = {

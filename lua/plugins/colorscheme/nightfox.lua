@@ -44,6 +44,7 @@ return {
           ["@module"] = { fg = "palette.blue" },
           ["@type.builtin"] = { fg = "palette.yellow" },
           ["FzfLuaBorder"] = { fg = "#39506d" },
+          ["TreesitterContext"] = { bg = "#222f40" },
         },
       },
     }

@@ -26,7 +26,6 @@ keymaps_set {
     end,
     desc = "Toggle Conceal",
   },
-  { "<leader>wc", "<C-W>c", { desc = "Close window" } },
 
   -- better up/down
   -- { "j", "v:count == 0 ? 'gj' : 'j'", mode = { "n", "x" }, expr = true },
@@ -98,7 +97,7 @@ keymaps_set {
   { "<leader><tab>f", "<cmd>tabfirst<cr>", desc = "First Tab" },
   {
     "<leader><tab><tab>",
-    [[<cmd> if expand("%") != "" | tabnew % | else | tabnew | endif <CR>]],
+    [[<cmd>if expand("%") != "" | tabnew % | else | tabnew | endif <CR>]],
     desc = "New Tab",
   },
   { "<leader><tab>]", "<cmd>tabnext<cr>", desc = "Next Tab" },

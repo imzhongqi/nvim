@@ -30,11 +30,11 @@ return {
     opts = {},
   },
 
-  {
-    "tzachar/highlight-undo.nvim",
-    event = "VeryLazy",
-    config = true,
-  },
+  -- {
+  --   "tzachar/highlight-undo.nvim",
+  --   event = "VeryLazy",
+  --   config = true,
+  -- },
 
   {
     "krady21/compiler-explorer.nvim",
@@ -49,7 +49,7 @@ return {
     "keaising/im-select.nvim",
     event = "InsertEnter",
     opts = {
-      default_im_select = "com.apple.keylayout.US",
+      default_im_select = "com.apple.keylayout.ABC",
       default_command = "/usr/local/bin/im-select",
       set_default_events = { "VimEnter", "FocusGained", "InsertLeave", "CmdlineLeave" },
       set_previous_events = { "InsertEnter" },

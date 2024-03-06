@@ -1,8 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = function()
-    return "LazyFile"
-  end,
+  event = "VeryLazy",
   opts = {
     highlight = {
       disable = function(lang, buf)

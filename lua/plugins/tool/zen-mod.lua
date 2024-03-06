@@ -28,7 +28,7 @@ return {
   cmd = "ZenMode",
   keys = {
     {
-      "<leader>wz",
+      "<C-w>z",
       "<cmd>ZenMode<CR>",
       desc = "Enter Zen Mode",
     },

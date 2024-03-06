@@ -59,5 +59,13 @@ return {
       connection_ok = _Icons.misc.ok,
       connection_error = _Icons.misc.err,
     }
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "dbui",
+      callback = function()
+        vim.wo.foldenable = false
+        vim.wo.foldcolumn = "0"
+      end,
+    })
   end,
 }
