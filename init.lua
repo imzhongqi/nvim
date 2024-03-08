@@ -14,3 +14,4 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 _G._Icons = require "icons"
 
 require "config.lazy"
+require "config.config"

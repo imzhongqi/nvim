@@ -10,15 +10,16 @@ return {
           command = function(state)
             local node = state.tree:get_node()
             local filepath = node.path
-            local osType = vim.loop.os_uname().sysname
 
-            local command = "start " .. filepath
+            local osType = vim.uv.os_uname().sysname
+            local command = "start"
             if osType == "Darwin" then
-              command = "open " .. filepath
+              command = "open"
             elseif osType == "Linux" then
-              command = "xdg-open " .. filepath
+              command = "xdg-open"
             end
-            os.execute(command)
+
+            vim.uv.spawn(command, { args = { filepath }, deatched = true })
           end,
           desc = "open_with_system_defaults",
         },
@@ -114,6 +115,7 @@ return {
         {
           event = "neo_tree_window_after_open",
           handler = function()
+            vim.g.neotree_opened = true
             require("bufresize").resize_open()
           end,
         },
@@ -126,6 +128,7 @@ return {
         {
           event = "neo_tree_window_after_close",
           handler = function()
+            vim.g.neotree_opened = false
             require("bufresize").resize_close()
           end,
         },
@@ -153,13 +156,6 @@ return {
           },
           always_show = { -- remains visible even if other settings would normally hide it
             ".gitignore",
-          },
-          never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-            --".DS_Store",
-            --"thumbs.db"
-          },
-          never_show_by_pattern = { -- uses glob style patterns
-            --".null-ls_*",
           },
         },
       },

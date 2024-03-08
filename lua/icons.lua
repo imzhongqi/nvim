@@ -28,6 +28,12 @@ local icons = {
     },
   },
 
+  neotest = {
+    passed = "󰄴",
+    failed = "",
+    running = "",
+  },
+
   misc = {
     dots = "󰇘",
     ok = "✔",

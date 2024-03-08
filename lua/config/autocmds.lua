@@ -1,3 +1,4 @@
+local util = require "util"
 local api = vim.api
 local create_autocmd = vim.api.nvim_create_autocmd
 
@@ -54,5 +55,13 @@ create_autocmd("FileType", {
   pattern = { "markdown" },
   callback = function()
     vim.opt_local.wrap = true
+  end,
+})
+
+create_autocmd("FileType", {
+  group = augroup "set_window_highlight_with_filetype",
+  pattern = { "neotest-output" },
+  callback = function()
+    vim.wo.winhighlight = "NormalFloat:Normal"
   end,
 })

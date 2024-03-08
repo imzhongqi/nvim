@@ -9,7 +9,7 @@ return {
     local f = require "fzf-lua"
     local Util = require "lazyvim.util"
     return {
-      { "<leader>f<leader>", f.resume, desc = "FzfLua resume" },
+      { "<leader>fr", f.resume, desc = "FzfLua resume" },
       { "<leader>fl", f.builtin, desc = "FzfLua builtin" },
       {
         "<leader>ff",
@@ -60,6 +60,7 @@ return {
         ["--pointer"] = _Icons.fzflua.pointer,
         ["--scrollbar"] = _Icons.fzflua.scrollbar,
         ["--height"] = "100%",
+        ["--tabstop"] = 2,
         ["--marker"] = _Icons.fzflua.marker,
         ["--layout"] = "reverse",
         ["--border"] = "none",
@@ -148,7 +149,7 @@ return {
 
       previewers = {
         codeaction_native = {
-          pager = [[delta --width=$COLUMNS --hunk-header-style="omit" --file-style="omit"]],
+          pager = [[delta --width=$COLUMNS --hunk-header-style="omit" --file-style="omit" --syntax-theme=TwoDark --minus-style='#ffffff "#2f2837"' --plus-style='#ffffff "#26343c"']],
         },
       },
 
@@ -187,18 +188,12 @@ return {
         prompt = with_suffix "Rg",
         input_prompt = with_suffix "Grep For",
         search = "",
+        rg_glob = true, -- default to glob parsing?
+        glob_flag = "--iglob", -- for case sensitive globs use '--glob'
+        glob_separator = "%s%-%-", -- query separator pattern (lua): ' --'
         actions = {
-          -- actions inherit from 'actions.files' and merge
-          -- this action toggles between 'grep' and 'live_grep'
           ["ctrl-g"] = { actions.grep_lgrep },
-          -- uncomment to enable '.gitignore' toggle for grep
           ["ctrl-r"] = { actions.toggle_ignore },
-          ["ctrl-x"] = {
-            function(selected, opts)
-              vim.print(selected, opts)
-              require("trouble").open(selected)
-            end,
-          },
         },
       },
 

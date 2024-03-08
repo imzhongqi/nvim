@@ -1,11 +1,6 @@
 local Util = require "lazyvim.util"
 local keymaps_set = require("util").keymaps_set
-
-local open_float = vim.diagnostic.open_float
-vim.diagnostic.open_float = function(...)
-  local _, win = open_float(...)
-  vim.api.nvim_set_option_value("winhighlight", "NormalFloat:Normal", { win = win })
-end
+local get_selected_text = require("util").get_selected_text
 
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
 
@@ -18,7 +13,7 @@ keymaps_set {
 
   -- Clear search with <esc>
   { "<esc>", "<cmd>noh<cr><esc>", mode = { "i", "n" }, desc = "Escape and clear hlsearch" },
-  --
+
   {
     "<leader>uc",
     function()
@@ -28,12 +23,29 @@ keymaps_set {
   },
 
   -- better up/down
-  -- { "j", "v:count == 0 ? 'gj' : 'j'", mode = { "n", "x" }, expr = true },
+  { "j", "v:count == 0 ? 'gj' : 'j'", mode = { "n", "x" }, expr = true },
   { "<Down>", "v:count == 0 ? 'gj' : 'j'", mode = { "n", "x" }, expr = true },
-  -- { "k", "v:count == 0 ? 'gk' : 'k'", mode = { "n", "x" }, expr = true },
+  { "k", "v:count == 0 ? 'gk' : 'k'", mode = { "n", "x" }, expr = true },
   { "<Up>", "v:count == 0 ? 'gk' : 'k'", mode = { "n", "x" }, expr = true },
-  { "j", [[v:count ? (v:count >= 3 ? "m'" . v:count : '') . 'j' : 'gj']], mode = "n", expr = true },
-  { "k", [[v:count ? (v:count >= 3 ? "m'" . v:count : '') . 'k' : 'gk']], mode = "n", expr = true },
+  {
+    "<C-w>c",
+    function()
+      require("mini.bufremove").delete()
+      local winc = #vim
+        .iter(vim.api.nvim_list_wins())
+        :map(vim.api.nvim_win_get_config)
+        :filter(function(wc)
+          return wc.split
+        end)
+        :totable()
+      if (not vim.g.neotree_opened and winc > 1) or (vim.g.neotree_opened and winc > 2) then
+        pcall(vim.api.nvim_win_close, 0, true)
+      end
+    end,
+    desc = "Remove buffer and close window",
+  },
+  -- { "j", [[v:count ? (v:count >= 3 ? "m'" . v:count : '') . 'j' : 'gj']], mode = "n", expr = true },
+  -- { "k", [[v:count ? (v:count >= 3 ? "m'" . v:count : '') . 'k' : 'gk']], mode = "n", expr = true },
 
   -- Move to window using the <ctrl> hjkl keys
   { "<C-h>", "<cmd>wincmd h<CR>", desc = "Go to left window" },
@@ -95,6 +107,7 @@ keymaps_set {
 
   { "<leader><tab>l", "<cmd>tablast<cr>", desc = "Last Tab" },
   { "<leader><tab>f", "<cmd>tabfirst<cr>", desc = "First Tab" },
+
   {
     "<leader><tab><tab>",
     [[<cmd>if expand("%") != "" | tabnew % | else | tabnew | endif <CR>]],
@@ -131,5 +144,39 @@ keymaps_set {
     end,
     desc = "Toggle Inlay Hints",
     cond = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint,
+  },
+
+  {
+    "<leader>mt",
+    function()
+      local handle
+      handle = vim.uv.spawn("osascript", {
+        args = {
+          "-l",
+          "JavaScript",
+          "-e",
+          string.format(
+            'Application("com.hezongyidev.Bob").request(JSON.stringify(%s))',
+            vim.json.encode {
+              path = "translate",
+              body = {
+                action = "translateText",
+                windowLocation = "last",
+                text = get_selected_text(),
+              },
+            }
+          ),
+        },
+      }, function(exit_code)
+        if exit_code ~= 0 then
+          vim.notify(string.format("failed to run script, exit code: %d", exit_code), vim.log.levels.ERROR)
+        end
+        if handle and not handle:is_closing() then
+          handle:close()
+        end
+      end)
+    end,
+    mode = "v",
+    desc = "Call Bob translator",
   },
 }

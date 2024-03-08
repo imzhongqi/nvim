@@ -74,4 +74,19 @@ return {
     end,
     ft = { "markdown", "norg", "rmd", "org" },
   },
+
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    opts = {
+      linters_by_ft = {
+        markdown = { "markdownlint" },
+      },
+      linters = {
+        markdownlint = {
+          args = { "-i", "*/gp/chats/**.md" },
+        },
+      },
+    },
+  },
 }
