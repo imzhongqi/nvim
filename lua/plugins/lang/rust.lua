@@ -1,6 +1,4 @@
 return {
-  -- { "simrat39/rust-tools.nvim", enabled = false },
-
   {
     "Saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
@@ -37,77 +35,78 @@ return {
   },
 
   {
+    "nvim-neotest/neotest",
+    optional = true,
+    opts = function(_, opts)
+      opts.adapters = opts.adapters or {}
+      vim.list_extend(opts.adapters, {
+        require "rustaceanvim.neotest",
+      })
+    end,
+  },
+
+  {
     "mrcjkb/rustaceanvim",
     dependencies = {
       "mfussenegger/nvim-dap",
-      "folke/noice.nvim",
-      {
-        "nvim-neotest/neotest",
-        opts = {
-          adapters = {
-            ["rustaceanvim.neotest"] = {},
-          },
-        },
-      },
     },
     version = "^4",
     ft = { "rust" },
-    opts = function()
-      vim.g.rustaceanvim = {
-        tools = {
-          code_actions = {
-            --- whether to fall back to `vim.ui.select` if there are no grouped code actions
-            ---@type boolean
-            ui_select_fallback = true,
-          },
-
-          float_win_config = {
-            border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
-            max_width = 120,
-            max_height = 20,
-          },
+    opts = {
+      tools = {
+        code_actions = {
+          --- whether to fall back to `vim.ui.select` if there are no grouped code actions
+          ---@type boolean
+          ui_select_fallback = true,
         },
 
-        server = {
-          on_attach = function(_, bufnr)
-            require("util").keymaps_set {
-              { "K", "<cmd>RustLsp hover<cr>", { desc = "Hover Actions (Rust)", buffer = bufnr } },
-              { "<leader>cR", "<cmd>RustLsp codeAction<cr>", { desc = "Code Action (Rust)", buffer = bufnr } },
-              {
-                "<leader>dr",
-                "<cmd>RustLsp debuggables<cr>",
-                { desc = "Run Debuggables (Rust)", buffer = bufnr },
-              },
-            }
-          end,
-          default_settings = {
-            ["rust-analyzer"] = {
-              cargo = {
-                allFeatures = true,
-                loadOutDirsFromCheck = true,
-                runBuildScripts = true,
-              },
-              -- Add clippy lints for Rust.
-              checkOnSave = {
-                enable = false,
-                allFeatures = true,
-                command = "clippy",
-                extraArgs = { "--no-deps" },
-              },
-              procMacro = {
-                enable = true,
-                ignored = {
-                  ["async-trait"] = { "async_trait" },
-                  ["napi-derive"] = { "napi" },
-                  ["async-recursion"] = { "async_recursion" },
-                },
+        float_win_config = {
+          border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
+          max_width = 120,
+          max_height = 20,
+        },
+      },
+
+      server = {
+        on_attach = function(_, bufnr)
+          require("util").keymaps_set {
+            { "K", "<cmd>RustLsp hover<cr>", { desc = "Hover Actions (Rust)", buffer = bufnr } },
+            { "<leader>cR", "<cmd>RustLsp codeAction<cr>", { desc = "Code Action (Rust)", buffer = bufnr } },
+            {
+              "<leader>dr",
+              "<cmd>RustLsp debuggables<cr>",
+              { desc = "Run Debuggables (Rust)", buffer = bufnr },
+            },
+          }
+        end,
+        default_settings = {
+          ["rust-analyzer"] = {
+            cargo = {
+              allFeatures = true,
+              loadOutDirsFromCheck = true,
+              runBuildScripts = true,
+            },
+            -- Add clippy lints for Rust.
+            checkOnSave = {
+              allFeatures = true,
+              command = "clippy",
+              extraArgs = { "--no-deps" },
+            },
+            procMacro = {
+              enable = true,
+              ignored = {
+                ["async-trait"] = { "async_trait" },
+                ["napi-derive"] = { "napi" },
+                ["async-recursion"] = { "async_recursion" },
               },
             },
           },
         },
-      }
+      },
+    },
+    config = function(_, opts)
+      vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
     end,
-    config = function() end,
   },
 
   {

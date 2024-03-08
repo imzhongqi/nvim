@@ -32,6 +32,9 @@ local icons = {
     passed = "󰄴",
     failed = "",
     running = "",
+    skipped = "",
+    unknown = "",
+    watching = "",
   },
 
   misc = {
