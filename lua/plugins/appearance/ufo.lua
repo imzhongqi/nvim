@@ -30,11 +30,9 @@ return {
   "kevinhwang91/nvim-ufo",
   event = { "LazyFile" },
   dependencies = "kevinhwang91/promise-async",
-  keys = function()
-    return {
-      { "zp", require("ufo").peekFoldedLinesUnderCursor, desc = "Fold Preivew" },
-    }
-  end,
+  keys = {
+    { "zp", function() require("ufo").peekFoldedLinesUnderCursor() end, desc = "Fold Preivew" },
+  },
   opts = {
     fold_virt_text_handler = handler,
     close_fold_kinds = { "imports" },
@@ -65,12 +63,8 @@ return {
         or function(bufnr)
           return require("ufo")
             .getFolds(bufnr, "lsp")
-            :catch(function(err)
-              return handleFallbackException(bufnr, err, "treesitter")
-            end)
-            :catch(function(err)
-              return handleFallbackException(bufnr, err, "indent")
-            end)
+            :catch(function(err) return handleFallbackException(bufnr, err, "treesitter") end)
+            :catch(function(err) return handleFallbackException(bufnr, err, "indent") end)
         end
     end,
   },

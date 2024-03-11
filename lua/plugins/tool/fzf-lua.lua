@@ -1,40 +1,28 @@
-local with_suffix = function(name)
-  return name .. _Icons.fzflua.suffix
-end
+local with_suffix = function(name) return name .. _Icons.fzflua.suffix end
 
 return {
   "ibhagwan/fzf-lua",
   cmd = { "FzfLua" },
-  keys = function()
-    local f = require "fzf-lua"
-    local Util = require "lazyvim.util"
-    return {
-      { "<leader>fr", f.resume, desc = "FzfLua resume" },
-      { "<leader>fl", f.builtin, desc = "FzfLua builtin" },
-      {
-        "<leader>ff",
-        function()
-          f.git_files { cwd = Util.root() }
-        end,
-        desc = "FzfLua git files",
-      },
-      {
-        "<leader>fg",
-        function()
-          f.live_grep_glob { cwd = Util.root() }
-        end,
-        desc = "FzfLua live grep",
-      },
-      {
-        "<leader><leader>",
-        function()
-          f.files { cwd = Util.root() }
-        end,
-        desc = "FzfLua files",
-      },
-      { "<leader>,", f.buffers, desc = "FzfLua buffers" },
-    }
-  end,
+  keys = {
+    { "<leader>fr", "<cmd>FzfLua resume<CR>", desc = "FzfLua resume" },
+    { "<leader>fl", "<cmd>FzfLua builtin<CR>", desc = "FzfLua builtin" },
+    { "<leader>,", "<cmd>FzfLua buffers<CR>", desc = "FzfLua buffers" },
+    {
+      "<leader>ff",
+      function() require("fzf-lua").git_files { cwd = require("lazyvim.util").root() } end,
+      desc = "FzfLua git files",
+    },
+    {
+      "<leader>fg",
+      function() require("fzf-lua").live_grep_glob { cwd = require("lazyvim.util").root() } end,
+      desc = "FzfLua live grep",
+    },
+    {
+      "<leader><leader>",
+      function() require("fzf-lua").files { cwd = require("lazyvim.util").root() } end,
+      desc = "FzfLua files",
+    },
+  },
   opts = function()
     local actions = require "fzf-lua.actions"
 

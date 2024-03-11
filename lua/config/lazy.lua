@@ -43,6 +43,8 @@ require("lazy").setup {
     notify = false, -- get a notification when changes are found
   },
 
+  concurrency = 8,
+
   performance = {
     cache = {
       enabled = true,
@@ -62,10 +64,22 @@ require("lazy").setup {
         "zipPlugin",
         "osc52", -- Wezterm doesn't support osc52 yet
         "shada",
-        -- "nvim",
+        "nvim",
         "rplugin",
         "spellfile",
       },
     },
+  },
+
+  readme = {
+    enabled = false,
+  },
+
+  profiling = {
+    -- Enables extra stats on the debug tab related to the loader cache.
+    -- Additionally gathers stats about all package.loaders
+    loader = true,
+    -- Track each new require in the Lazy profiling tab
+    require = true,
   },
 }

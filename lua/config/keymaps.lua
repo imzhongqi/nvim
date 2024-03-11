@@ -14,13 +14,10 @@ keymaps_set {
   -- Clear search with <esc>
   { "<esc>", "<cmd>noh<cr><esc>", mode = { "i", "n" }, desc = "Escape and clear hlsearch" },
 
-  {
-    "<leader>uc",
-    function()
-      Util.toggle("conceallevel", false, { 0, conceallevel })
-    end,
-    desc = "Toggle Conceal",
-  },
+  { "[o", [[<cmd>execute "normal! O"<CR>]], desc = "Put a blank line in the previous line" },
+  { "]o", [[<cmd>execute "normal! o"<CR>]], desc = "Put a blank line in the next line" },
+
+  { "<leader>uc", function() Util.toggle("conceallevel", false, { 0, conceallevel }) end, desc = "Toggle Conceal" },
 
   -- better up/down
   { "j", "v:count == 0 ? 'gj' : 'j'", mode = { "n", "x" }, expr = true },
@@ -34,9 +31,7 @@ keymaps_set {
       local winc = #vim
         .iter(vim.api.nvim_list_wins())
         :map(vim.api.nvim_win_get_config)
-        :filter(function(wc)
-          return wc.split
-        end)
+        :filter(function(wc) return wc.split end)
         :totable()
       if (not vim.g.neotree_opened and winc > 1) or (vim.g.neotree_opened and winc > 2) then
         pcall(vim.api.nvim_win_close, 0, true)
@@ -62,10 +57,10 @@ keymaps_set {
   { "<A-k>", ":m '<-2<cr>gv=gv", desc = "Move up", mode = "v" },
 
   -- buffers
-  { "<S-h>", "<cmd>bprevious<cr>", desc = "Prev buffer" },
-  { "<S-l>", "<cmd>bnext<cr>", desc = "Next buffer" },
-  { "[b", "<cmd>bprevious<cr>", desc = "Prev buffer" },
-  { "]b", "<cmd>bnext<cr>", desc = "Next buffer" },
+  -- { "<S-h>", "<cmd>bprevious<cr>", desc = "Prev buffer" },
+  -- { "<S-l>", "<cmd>bnext<cr>", desc = "Next buffer" },
+  -- { "[b", "<cmd>bprevious<cr>", desc = "Prev buffer" },
+  -- { "]b", "<cmd>bnext<cr>", desc = "Next buffer" },
   { "<leader>bb", "<cmd>e #<cr>", desc = "Switch to Other Buffer" },
   { "<leader>`", "<cmd>e #<cr>", desc = "Switch to Other Buffer" },
 
@@ -126,29 +121,22 @@ keymaps_set {
   {"<leader>ul", function() Util.toggle.number() end,  desc = "Toggle Line Numbers" },
   {"<leader>ud", function() Util.toggle.diagnostics() end,  desc = "Toggle Diagnostics" },
   {"<leader>uT", function() if vim.b.ts_highlight then vim.treesitter.stop() else vim.treesitter.start() end end,  desc = "Toggle Treesitter Highlight" },
+  { "<leader>uh", function() Util.toggle.inlay_hints() end, desc = "Toggle Inlay Hints", cond = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint },
   -- stylua: ignore end
 
-  {
-    "<leader>cd",
-    function()
-      local _, win = vim.diagnostic.open_float()
-      vim.api.nvim_set_option_value("winhighlight", "NormalFloat:Normal", { win = win })
-    end,
-    desc = "Line Diagnostics",
-  },
-
-  {
-    "<leader>uh",
-    function()
-      Util.toggle.inlay_hints()
-    end,
-    desc = "Toggle Inlay Hints",
-    cond = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint,
-  },
+  { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
 
   {
     "<leader>mt",
     function()
+      local mode = vim.api.nvim_get_mode().mode
+      local text
+      if mode == "v" or mode == "V" then
+        text = get_selected_text()
+      else
+        text = vim.api.nvim_get_current_line()
+      end
+
       local handle
       handle = vim.uv.spawn("osascript", {
         args = {
@@ -162,7 +150,7 @@ keymaps_set {
               body = {
                 action = "translateText",
                 windowLocation = "last",
-                text = get_selected_text(),
+                text = text,
               },
             }
           ),
@@ -176,7 +164,7 @@ keymaps_set {
         end
       end)
     end,
-    mode = "v",
+    mode = { "v", "n" },
     desc = "Call Bob translator",
   },
 }

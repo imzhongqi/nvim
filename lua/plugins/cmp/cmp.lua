@@ -1,9 +1,6 @@
 return {
   {
     "L3MON4D3/LuaSnip",
-    keys = function()
-      return {}
-    end,
     opts = {
       region_check_events = { "CursorMoved", "CursorHold", "InsertEnter", "CursorMoved" },
       delete_check_events = { "TextChanged", "InsertLeave" },
@@ -30,10 +27,10 @@ return {
       -- default: {}
       symbol_map = _Icons.kinds,
     },
-    config = function(_, opts)
-      require("lspkind").init(opts)
-    end,
+    config = function(_, opts) require("lspkind").init(opts) end,
   },
+
+  { "rcarriga/cmp-dap" },
 
   {
     "hrsh7th/nvim-cmp",
@@ -51,7 +48,6 @@ return {
       "lukas-reineke/cmp-under-comparator",
       "hrsh7th/cmp-nvim-lsp-document-symbol",
       "lukas-reineke/cmp-rg",
-      "rcarriga/cmp-dap",
     },
 
     opts = function()
@@ -86,9 +82,7 @@ return {
         },
 
         snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
+          expand = function(args) luasnip.lsp_expand(args.body) end,
         },
 
         formatting = {
@@ -246,9 +240,7 @@ return {
         pattern = { "dap-repl", "dapui_watches", "dapui_hover" },
         callback = function()
           cmp.setup.buffer {
-            enabled = function()
-              return vim.bo[0].buftype ~= "prompt" or require("cmp_dap").is_dap_buffer()
-            end,
+            enabled = function() return vim.bo[0].buftype ~= "prompt" or require("cmp_dap").is_dap_buffer() end,
             sources = {
               { name = "dap" },
             },

@@ -4,17 +4,16 @@ return {
   {
     "gbprod/substitute.nvim",
     event = "LazyFile",
+    keys = {
+      { "s", function() require("substitute").operator() end },
+      { "ss", function() require("substitute").line() end },
+      { "S", function() require("substitute").eol() end },
+      { "s", function() require("substitute").visual() end },
+    },
     opts = {
       highlight_substituted_text = {
         enabled = true,
       },
     },
-    keys = function()
-      vim.keymap.set("n", "s", require("substitute").operator, { noremap = true })
-      vim.keymap.set("n", "ss", require("substitute").line, { noremap = true })
-      vim.keymap.set("n", "S", require("substitute").eol, { noremap = true })
-      vim.keymap.set("x", "s", require("substitute").visual, { noremap = true })
-      return {}
-    end,
   },
 }

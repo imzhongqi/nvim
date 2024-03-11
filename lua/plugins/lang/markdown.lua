@@ -84,7 +84,7 @@ return {
       },
       linters = {
         markdownlint = {
-          args = { "-i", "/**/.**/**/gp/chats/*.md" },
+          args = { "-i", vim.fn.stdpath "data" .. "/gp/chats/*.md" },
         },
       },
     },

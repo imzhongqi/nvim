@@ -1,7 +1,7 @@
 return {
   "EdenEast/nightfox.nvim",
-  priority = 1000,
   lazy = false,
+  priority = 1000,
   opts = function()
     return {
       options = {
@@ -43,7 +43,9 @@ return {
           ["@parameter"] = { fg = "palette.cyan.dim" },
           ["@module"] = { fg = "palette.blue" },
           ["@type.builtin"] = { fg = "palette.yellow" },
-          ["FzfLuaBorder"] = { fg = "#39506d" },
+          ["FloatBorder"] = { fg = "#39506d" },
+          ["NormalFloat"] = { link = "Normal" },
+          ["FzfLuaBorder"] = { link = "FloatBorder" },
           ["TreesitterContext"] = { bg = "#222f40" },
         },
       },

@@ -1,5 +1,47 @@
 return {
   {
+    "s1n7ax/nvim-window-picker",
+    version = "2.*",
+    opts = {
+      filter_rules = {
+        include_current_win = false,
+        autoselect_one = true,
+        bo = {
+          filetype = { "neo-tree", "neo-tree-popup", "notify", "Trouble" },
+          buftype = { "terminal", "quickfix" },
+        },
+      },
+      show_prompt = false,
+      highlights = {
+        statusline = {
+          focused = {
+            fg = "#c8d3f5",
+            bg = "#1e2030",
+            bold = true,
+          },
+          unfocused = {
+            fg = "#c8d3f5",
+            bg = "#1e2030",
+            bold = true,
+          },
+        },
+        -- winbar = {
+        --   focused = {
+        --     fg = "#c8d3f5",
+        --     bg = "#1e2030",
+        --     bold = true,
+        --   },
+        --   unfocused = {
+        --     fg = "#c8d3f5",
+        --     bg = "#1e2030",
+        --     bold = true,
+        --   },
+        -- },
+      },
+    },
+  },
+
+  {
     "nvim-neo-tree/neo-tree.nvim",
     opts = function(_, opts)
       opts.window.mappings = vim.tbl_extend("force", opts.window.mappings, {
@@ -31,49 +73,10 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     dependencies = {
       "kwkarlwang/bufresize.nvim",
-      {
-        "s1n7ax/nvim-window-picker",
-        version = "2.*",
-        opts = {
-          filter_rules = {
-            include_current_win = false,
-            autoselect_one = true,
-            bo = {
-              filetype = { "neo-tree", "neo-tree-popup", "notify", "Trouble" },
-              buftype = { "terminal", "quickfix" },
-            },
-          },
-          show_prompt = false,
-          highlights = {
-            statusline = {
-              focused = {
-                fg = "#c8d3f5",
-                bg = "#1e2030",
-                bold = true,
-              },
-              unfocused = {
-                fg = "#c8d3f5",
-                bg = "#1e2030",
-                bold = true,
-              },
-            },
-            -- winbar = {
-            --   focused = {
-            --     fg = "#c8d3f5",
-            --     bg = "#1e2030",
-            --     bold = true,
-            --   },
-            --   unfocused = {
-            --     fg = "#c8d3f5",
-            --     bg = "#1e2030",
-            --     bold = true,
-            --   },
-            -- },
-          },
-        },
-      },
+      "s1n7ax/nvim-window-picker",
     },
     opts = {
+      popup_border_style = "rounded",
       default_component_configs = {
         icon = {
           folder_closed = _Icons.ui.FolderClosed,
@@ -83,7 +86,7 @@ return {
           highlight = "NeoTreeFileIcon",
         },
         modified = {
-          symbol = "",
+          symbol = "",
           highlight = "NeoTreeModified",
         },
         git_status = {
