@@ -25,12 +25,7 @@ return {
       { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
       {
         "gI",
-        function()
-          require("fzf-lua").lsp_implementations {
-            jump_to_single_result = true,
-            ignore_current_line = true,
-          }
-        end,
+        function() require("fzf-lua").lsp_implementations {} end,
         desc = "Goto Implementation",
       },
       {

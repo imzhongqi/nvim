@@ -1,7 +1,7 @@
 return {
   "EdenEast/nightfox.nvim",
-  lazy = false,
-  priority = 1000,
+  lazy = true,
+  -- priority = 1000,
   opts = function()
     return {
       options = {

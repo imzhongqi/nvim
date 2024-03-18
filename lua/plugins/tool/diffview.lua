@@ -11,9 +11,7 @@ return {
   },
   opts = {
     hooks = {
-      ["view_opened"] = function()
-        vim.keymap.set("n", "q", "<cmd>tabclose<cr>", { silent = true })
-      end,
+      ["view_opened"] = function() vim.keymap.set("n", "q", "<cmd>DiffviewClose<cr>", { silent = true }) end,
     },
 
     icons = {

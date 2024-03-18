@@ -1,26 +1,17 @@
 return {
   "monaqa/dial.nvim",
-  keys = {
-    { "<C-a>", function() require("dial.map").inc_normal "common" end, desc = "Increment", mode = { "n" } },
-    { "<C-x>", function() require("dial.map").dec_normal "common" end, desc = "Decrement", mode = { "n" } },
-    { "<C-a>", function() require("dial.map").inc_normal "visual" end, desc = "Increment", mode = { "v" } },
-    { "<C-x>", function() require("dial.map").dec_normal "visual" end, desc = "Decrement", mode = { "v" } },
+  keys = function()
+    local map = require "dial.map"
+    return {
+      { "<C-a>", map.inc_normal "common", desc = "Increment", mode = { "n" } },
+      { "<C-x>", map.dec_normal "common", desc = "Decrement", mode = { "n" } },
+      { "<C-a>", map.inc_normal "visual", desc = "Increment", mode = { "v" } },
+      { "<C-x>", map.dec_normal "visual", desc = "Decrement", mode = { "v" } },
 
-    {
-      "<C-a>",
-      function() require("dial.map").inc_normal "markdown" end,
-      desc = "Increment",
-      mode = { "n" },
-      ft = "markdown",
-    },
-    {
-      "<C-x>",
-      function() require("dial.map").dec_normal "markdown" end,
-      desc = "Decrement",
-      mode = { "n" },
-      ft = "markdown",
-    },
-  },
+      { "<C-a>", map.inc_normal "markdown", desc = "Increment", mode = { "n" }, ft = "markdown" },
+      { "<C-x>", map.dec_normal "markdown", desc = "Decrement", mode = { "n" }, ft = "markdown" },
+    }
+  end,
   opts = function()
     local augend = require "dial.augend"
 
@@ -36,6 +27,16 @@ return {
         augend.date.alias["%Y/%m/%d"],
         augend.constant.alias.alpha,
         augend.constant.alias.Alpha,
+      },
+      markdown = {
+        augend.integer.alias.decimal,
+        augend.integer.alias.hex,
+        augend.date.alias["%Y/%m/%d"],
+        augend.constant.new {
+          elements = { "[x]", "[ ]" },
+          word = false,
+          cyclic = true,
+        },
       },
       common = {
         augend.constant.new {
@@ -63,17 +64,6 @@ return {
         augend.integer.alias.decimal,
         augend.integer.alias.hex,
         augend.semver.alias.semver,
-      },
-
-      markdown = {
-        augend.integer.alias.decimal,
-        augend.integer.alias.hex,
-        augend.date.alias["%Y/%m/%d"],
-        augend.constant.new {
-          elements = { "[x]", "[ ]" },
-          word = false,
-          cyclic = true,
-        },
       },
     }
   end,

@@ -89,9 +89,7 @@ return {
           "dbui",
           "fzf",
         },
-        callback = function()
-          vim.b.miniindentscope_disable = true
-        end,
+        callback = function() vim.b.miniindentscope_disable = true end,
       })
     end,
   },

@@ -8,8 +8,8 @@ keymaps_set {
   { "<C-p>", "", mode = "i" },
   { "<C-n>", "", mode = "i" },
   { "<C-d>", "", mode = "c" },
-  { "<Cmd>undo<CR>", "<D-z>", mode = { "n", "i" } },
-  { "<Cmd>redo<CR>", "<D-Z>", mode = { "n", "i" } },
+  { "<cmd>undo<CR>", "<D-z>", mode = { "n", "i" } },
+  { "<cmd>redo<CR>", "<D-Z>", mode = { "n", "i" } },
 
   -- Clear search with <esc>
   { "<esc>", "<cmd>noh<cr><esc>", mode = { "i", "n" }, desc = "Escape and clear hlsearch" },

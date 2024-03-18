@@ -8,19 +8,19 @@ return {
     { "<leader>fl", "<cmd>FzfLua builtin<CR>", desc = "FzfLua builtin" },
     { "<leader>,", "<cmd>FzfLua buffers<CR>", desc = "FzfLua buffers" },
     {
+      "<leader><leader>",
+      [[<cmd>lua require("fzf-lua").files { cwd = require("lazyvim.util").root() }<CR>]],
+      desc = "FzfLua files",
+    },
+    {
       "<leader>ff",
-      function() require("fzf-lua").git_files { cwd = require("lazyvim.util").root() } end,
+      [[<cmd>lua require("fzf-lua").git_files { cwd = require("lazyvim.util").root() }<CR>]],
       desc = "FzfLua git files",
     },
     {
       "<leader>fg",
       function() require("fzf-lua").live_grep_glob { cwd = require("lazyvim.util").root() } end,
       desc = "FzfLua live grep",
-    },
-    {
-      "<leader><leader>",
-      function() require("fzf-lua").files { cwd = require("lazyvim.util").root() } end,
-      desc = "FzfLua files",
     },
   },
   opts = function()
@@ -82,9 +82,8 @@ return {
 
       keymap = {
         builtin = {
-          ["<C-S-H>"] = "toggle-help",
+          ["<C-S-h>"] = "toggle-help",
           ["<F2>"] = "toggle-fullscreen",
-          -- Only valid with the 'builtin' previewer
           ["<F3>"] = "toggle-preview-wrap",
           ["<F4>"] = "toggle-preview",
           ["<F5>"] = "toggle-preview-ccw",

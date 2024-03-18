@@ -20,7 +20,11 @@ return {
     local diag = integrations.diagnostic()
     local nqf = integrations.quickfix()
     local move = require "nvim-next.move"
-    local move_fn = function(fn)
+    local move_fn = function(cmd)
+      local fn = cmd
+      if type(cmd) == "string" then
+        fn = function() vim.cmd(cmd) end
+      end
       return function() fn() end
     end
 
@@ -50,6 +54,16 @@ return {
         "<S-l>",
         move.make_forward_repeatable_move(move_fn(vim.cmd.BufferLineCycleNext), move_fn(vim.cmd.BufferLineCyclePrev)),
         desc = "Next buffer",
+      },
+      {
+        "zH",
+        move.make_backward_repeatable_move(move_fn [[execute "normal! zH"]], move_fn [[execute "normal! zL"]]),
+        desc = "Move window left",
+      },
+      {
+        "zL",
+        move.make_forward_repeatable_move(move_fn [[execute "normal! zL"]], move_fn [[execute "normal! zH"]]),
+        desc = "Move window right",
       },
     }
   end,

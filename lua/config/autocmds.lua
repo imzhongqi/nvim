@@ -2,9 +2,7 @@ local util = require "util"
 local api = vim.api
 local create_autocmd = vim.api.nvim_create_autocmd
 
-local function augroup(name)
-  return vim.api.nvim_create_augroup("user_" .. name, { clear = true })
-end
+local function augroup(name) return vim.api.nvim_create_augroup("user_" .. name, { clear = true }) end
 
 create_autocmd("FileType", {
   group = augroup "close_with_q",
@@ -24,9 +22,7 @@ create_autocmd("FileType", {
   pattern = {
     "Jaq",
   },
-  callback = function()
-    vim.api.nvim_buf_set_var(0, "miniindentscope_disable", true)
-  end,
+  callback = function() vim.api.nvim_buf_set_var(0, "miniindentscope_disable", true) end,
 })
 
 create_autocmd({ "BufLeave", "FocusLost" }, {
@@ -37,9 +33,7 @@ create_autocmd({ "BufLeave", "FocusLost" }, {
   end,
 })
 
-local function lazyvim_augroup(name)
-  return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
-end
+local function lazyvim_augroup(name) return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true }) end
 
 create_autocmd("FileType", {
   group = lazyvim_augroup "wrap_spell",
@@ -53,15 +47,11 @@ create_autocmd("FileType", {
 create_autocmd("FileType", {
   group = augroup "markdown_with_wrap",
   pattern = { "markdown" },
-  callback = function()
-    vim.opt_local.wrap = true
-  end,
+  callback = function() vim.opt_local.wrap = true end,
 })
 
 create_autocmd("FileType", {
   group = augroup "set_window_highlight_with_filetype",
   pattern = { "neotest-output" },
-  callback = function()
-    vim.wo.winhighlight = "NormalFloat:Normal"
-  end,
+  callback = function() vim.wo.winhighlight = "NormalFloat:Normal" end,
 })

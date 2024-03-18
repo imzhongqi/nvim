@@ -1,21 +1,22 @@
 return {
   {
     "robitx/gp.nvim",
-    event = {
-      "BufRead */gp/chats/**.md",
-    },
-    cmd = {
-      "GpChatNew",
-      "GpChatPaste",
-      "GpChatToggle",
-      "GpRewrite",
-      "GpPrepend",
-      "GpContext",
-      "GpNextAgent",
-      "GpAgent",
-      "GpStop",
-      "GpTranslator",
-    },
+    -- event = {
+    --   "BufRead */gp/chats/**.md",
+    -- },
+    -- cmd = {
+    --   "GpChatNew",
+    --   "GpChatPaste",
+    --   "GpChatToggle",
+    --   "GpAppend",
+    --   "GpRewrite",
+    --   "GpPrepend",
+    --   "GpContext",
+    --   "GpNextAgent",
+    --   "GpAgent",
+    --   "GpStop",
+    -- },
+    event = "VeryLazy",
     keys = {
       -- Chat
       { "<C-g>c", "<Cmd>GpChatNew vsplit<CR>", mode = { "n", "i" }, desc = "New Chat" },
@@ -24,6 +25,7 @@ return {
       { "<C-g>t", ":<C-u>'<,'>GpChatToggle split<CR>", mode = { "v" }, desc = "Toggle Chat" },
       { "<C-g>f", "<Cmd>GpChatFinder<CR>", mode = { "n", "i" }, desc = "Find Chat" },
       { "<C-g>p", ":<C-u>'<,'>GpChatPaste<CR>", mode = { "v" }, desc = "Chat Paste" },
+      { "<C-g>r", ":<C-u>'<,'>GpRewrite<CR>", mode = { "v" }, desc = "Rewrite" },
     },
     opts = {
       openai_api_key = os.getenv "OPENAI_API_KEY" or {
@@ -41,25 +43,6 @@ return {
       chat_confirm_delete = false,
       style_chat_finder_border = "rounded",
       style_popup_border = "rounded",
-      hooks = {
-        Translator = function(gp, params)
-          local system_prompt = [[You are a professional,authentic translation engine,only returns translations.
-Please use professional terminology of the corresponding language (programming language) for translation.
-For example:
-```go
-// nil <Keep This Symbol>
-// value <Keep This Symbol>
-```
-The translation is:
-```go
-nil <Keep This Symbol>
-值<Keep This Symbol>
-```]]
-          local template = "Translate the content to {target_lang} Language,If it is a comment, Delete the comments before translating:"
-            .. "```{{filetype}}\n{{selection}}\n```"
-          gp.Prompt(params, gp.Target.popup, nil, "gpt-3.5-turbo-1106", template, system_prompt)
-        end,
-      },
 
       agents = {
         {
@@ -113,9 +96,5 @@ nil <Keep This Symbol>
         },
       },
     },
-
-    config = function(_, opts)
-      require("gp").setup(opts)
-    end,
   },
 }

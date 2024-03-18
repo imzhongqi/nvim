@@ -49,7 +49,35 @@ return {
       "hrsh7th/cmp-nvim-lsp-document-symbol",
       "lukas-reineke/cmp-rg",
     },
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        desc = "Setup cmp buffer dap source",
+        pattern = { "dap-repl", "dapui_watches", "dapui_hover" },
+        callback = function()
+          require("cmp").setup.buffer {
+            enabled = function() return vim.bo[0].buftype ~= "prompt" or require("cmp_dap").is_dap_buffer() end,
+            sources = {
+              { name = "dap" },
+            },
+          }
+        end,
+      })
 
+      vim.api.nvim_create_autocmd("FileType", {
+        desc = "Setup cmp buffer sql source",
+        pattern = { "mysql", "sql" },
+        callback = function()
+          local cmp = require "cmp"
+          cmp.setup.buffer {
+            sources = cmp.config.sources({
+              { name = "vim-dadbod-completion" },
+            }, {
+              { name = "buffer" },
+            }),
+          }
+        end,
+      })
+    end,
     opts = function()
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 
@@ -227,39 +255,6 @@ return {
         }, {
           { name = "buffer", keyword_length = 3 },
         }),
-      })
-
-      cmp.setup.filetype({ "gitcommit", "NeogitCommitMessage" }, {
-        sources = cmp.config.sources {
-          { name = "buffer" },
-        },
-      })
-
-      vim.api.nvim_create_autocmd("FileType", {
-        desc = "Setup cmp buffer dap source",
-        pattern = { "dap-repl", "dapui_watches", "dapui_hover" },
-        callback = function()
-          cmp.setup.buffer {
-            enabled = function() return vim.bo[0].buftype ~= "prompt" or require("cmp_dap").is_dap_buffer() end,
-            sources = {
-              { name = "dap" },
-            },
-          }
-        end,
-      })
-
-      vim.api.nvim_create_autocmd("FileType", {
-        desc = "Setup cmp buffer sql source",
-        pattern = { "mysql", "sql" },
-        callback = function()
-          cmp.setup.buffer {
-            sources = cmp.config.sources({
-              { name = "vim-dadbod-completion" },
-            }, {
-              { name = "buffer" },
-            }),
-          }
-        end,
       })
     end,
   },

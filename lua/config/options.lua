@@ -46,7 +46,7 @@ require("util").options_set {
 
   mousemoveevent = true,
 
-  timeoutlen = 300,
+  timeoutlen = 500,
   termguicolors = true, -- True color support
 
   -- sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions",
@@ -58,9 +58,7 @@ require("util").options_set {
   showmode = false, -- Dont show mode since we have a statusline
   sidescrolloff = 8, -- Columns of context
   signcolumn = "yes", -- Always show the signcolumn, otherwise it would shift the text each time
-  shortmess = function(opt)
-    opt:append { W = true, I = true, c = true, C = true }
-  end,
+  shortmess = function(opt) opt:append { W = true, I = true, c = true, C = true } end,
 
   undolevels = 10000,
   updatetime = 200, -- Save swap file and trigger CursorHold

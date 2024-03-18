@@ -21,15 +21,25 @@ return {
         -- list = false, -- disable whitespace characters
       },
     },
-    on_open = function(win)
-      vim.wo[win].fillchars = vim.go.fillchars
-    end,
+    on_open = function(win) vim.wo[win].fillchars = vim.go.fillchars end,
   },
   cmd = "ZenMode",
   keys = {
     {
       "<C-w>z",
-      "<cmd>ZenMode<CR>",
+      function()
+        local width = vim.v.count
+        if 1 < width and width <= 10 then
+          width = width / 10
+        end
+        local view = require "zen-mode.view"
+        if view.is_open() and width > 0 then
+          pcall(view.close)
+          pcall(view.open, { window = { width = width } })
+        else
+          pcall(require("zen-mode").toggle, { window = { width = width == 0 and 1 or width } })
+        end
+      end,
       desc = "Enter Zen Mode",
     },
   },

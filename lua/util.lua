@@ -29,10 +29,7 @@ local keymap_set = function(entry)
     end
   end
 
-  local ok, result = pcall(vim.keymap.set, mode, lhs, rhs, opts)
-  if not ok then
-    vim.notify "not ok "
-  end
+  pcall(vim.keymap.set, mode, lhs, rhs, opts)
 end
 
 local skip = { mode = true, cond = true }
