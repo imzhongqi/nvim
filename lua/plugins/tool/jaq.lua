@@ -1,12 +1,9 @@
 return {
   "is0n/jaq-nvim",
   keys = {
-    {
-      "<leader>ce",
-      "<cmd>Jaq<cr>",
-      desc = "run code",
-    },
+    { "<leader>ce", "<cmd>Jaq<cr>", desc = "run code" },
   },
+  cmd = { "Jaq" },
   opts = {
     cmds = {
       -- Uses vim commands
@@ -26,30 +23,36 @@ return {
     },
 
     behavior = {
-      -- Default type
       default = "terminal",
-
-      -- Start in insert mode
       startinsert = false,
-
-      -- Use `wincmd p` on startup
       wincmd = false,
-
-      -- Auto-save files
       autosave = true,
     },
 
     ui = {
       terminal = {
-        -- Window position
         position = "bot",
-
-        -- Window size
         size = 10,
-
-        -- Disable line numbers
         line_no = false,
       },
     },
   },
+  config = function(_, opts)
+    local j = require "jaq-nvim"
+
+    local fn = j.Jaq
+
+    j.Jaq = function(type)
+      if not type and opts.behavior.default == "terminal" then
+        vim.iter(vim.api.nvim_list_bufs()):each(function(bufnr)
+          if vim.bo[bufnr].filetype == "Jaq" then
+            vim.api.nvim_buf_delete(bufnr, { force = true })
+          end
+        end)
+      end
+      fn(type)
+    end
+
+    j.setup(opts)
+  end,
 }

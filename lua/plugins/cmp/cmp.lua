@@ -1,35 +1,4 @@
 return {
-  {
-    "L3MON4D3/LuaSnip",
-    opts = {
-      region_check_events = { "CursorMoved", "CursorHold", "InsertEnter", "CursorMoved" },
-      delete_check_events = { "TextChanged", "InsertLeave" },
-    },
-  },
-
-  {
-    "onsails/lspkind.nvim",
-    opts = {
-      -- defines how annotations are shown
-      -- default: symbol
-      -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-      mode = "symbol_text",
-
-      -- default symbol map
-      -- can be either 'default' (requires nerd-fonts font) or
-      -- 'codicons' for codicon preset (requires vscode-codicons font)
-      --
-      -- default: 'default'
-      preset = "codicons",
-
-      -- override preset symbols
-      --
-      -- default: {}
-      symbol_map = _Icons.kinds,
-    },
-    config = function(_, opts) require("lspkind").init(opts) end,
-  },
-
   { "rcarriga/cmp-dap" },
 
   {
@@ -54,9 +23,10 @@ return {
         desc = "Setup cmp buffer dap source",
         pattern = { "dap-repl", "dapui_watches", "dapui_hover" },
         callback = function()
-          require("cmp").setup.buffer {
+          local cmp = require "cmp"
+          cmp.setup.buffer {
             enabled = function() return vim.bo[0].buftype ~= "prompt" or require("cmp_dap").is_dap_buffer() end,
-            sources = {
+            sources = cmp.config.sources {
               { name = "dap" },
             },
           }
@@ -90,6 +60,8 @@ return {
 
       return {
         completion = {
+          ---@usage The minimum length of a word to complete on.
+          keyword_length = 1,
           completeopt = "menu,menuone,noinsert",
           autocomplete = {
             cmp_types.TriggerEvent.TextChanged,
@@ -129,8 +101,39 @@ return {
         },
 
         sources = cmp.config.sources({
-          { name = "nvim_lsp", keyword_length = 1 },
-          { name = "luasnip" },
+          {
+            name = "copilot",
+            -- keyword_length = 0,
+            max_item_count = 3,
+            trigger_characters = {
+              {
+                ".",
+                ":",
+                "(",
+                "'",
+                '"',
+                "[",
+                ",",
+                "#",
+                "*",
+                "@",
+                "|",
+                "=",
+                "-",
+                "{",
+                "/",
+                "\\",
+                "+",
+                "?",
+                " ",
+                -- "\t",
+                -- "\n",
+              },
+            },
+          },
+          { name = "otter" },
+          -- { name = "nvim_lsp", keyword_length = 1 },
+          -- { name = "luasnip" },
         }, {
           { name = "rg", keyword_length = 3 },
           { name = "buffer", keyword_length = 3 },
@@ -232,15 +235,13 @@ return {
     ---@param opts cmp.ConfigSchema
     config = function(_, opts)
       local cmp = require "cmp"
-      for _, source in ipairs(opts.sources) do
-        source.group_index = source.group_index or 1
-      end
+
       cmp.setup(opts)
 
       cmp.setup.cmdline(":", {
         completion = {
           completeopt = "menu,menuone,noinsert",
-          autocomplete = false,
+          -- autocomplete = true,
         },
         sources = cmp.config.sources({
           { name = "path" },

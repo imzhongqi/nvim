@@ -1,19 +1,17 @@
-require("lazy").setup {
-  spec = {
-    { "folke/lazy.nvim", tag = "stable" },
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    { import = "plugins" },
-    { import = "plugins.colorscheme" },
-    { import = "plugins.appearance" },
-    { import = "plugins.treesitter" },
-    { import = "plugins.lang" },
-    { import = "plugins.lang.filetype" },
-    { import = "plugins.lsp" },
-    { import = "plugins.cmp" },
-    { import = "plugins.dap" },
-    { import = "plugins.tool" },
-  },
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not vim.uv.fs_stat(lazypath) then
+  vim.fn.system {
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  }
+end
+vim.opt.runtimepath:prepend(vim.env.LAZY or lazypath)
 
+require("lazy").setup("plugins", {
   defaults = {
     lazy = true,
     version = false, -- always use the latest git commit
@@ -22,7 +20,7 @@ require("lazy").setup {
   install = {
     missing = false,
     colorscheme = {
-      "tokyonight",
+      "default",
     },
   },
 
@@ -42,8 +40,6 @@ require("lazy").setup {
     enabled = false,
     notify = false, -- get a notification when changes are found
   },
-
-  concurrency = 8,
 
   performance = {
     cache = {
@@ -72,7 +68,7 @@ require("lazy").setup {
   },
 
   readme = {
-    enabled = false,
+    enabled = true,
   },
 
   profiling = {
@@ -82,4 +78,4 @@ require("lazy").setup {
     -- Track each new require in the Lazy profiling tab
     require = true,
   },
-}
+})
