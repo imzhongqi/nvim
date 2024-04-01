@@ -27,6 +27,7 @@ require("util").options_set {
   shiftwidth = 4,
 
   formatoptions = "jcroqlnt",
+
   foldcolumn = "1",
   foldlevel = 99,
   foldlevelstart = 99,

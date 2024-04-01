@@ -5,9 +5,7 @@ return {
   opts = function()
     local builtin = require "statuscol.builtin"
 
-    local nu = function(args)
-      return args.nu or args.rnu
-    end
+    local nu = function(args) return args.nu or args.rnu end
 
     return {
       relculright = true,
@@ -22,6 +20,7 @@ return {
         -- {
         --   sign = {
         --     name = { "Dap*" },
+        --     auto = true,
         --   },
         --   condition = { nu },
         --   click = "v:lua.ScSa",

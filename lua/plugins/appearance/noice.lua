@@ -68,9 +68,10 @@ return {
     ---@type NoiceConfigViews
     views = {
       mini = {
+        zindex = 30,
         position = {
-          row = 1,
-          col = "100%",
+          row = -1,
+          col = "99.5%",
           -- col = 0,
         },
         win_options = {

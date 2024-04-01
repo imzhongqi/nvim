@@ -37,11 +37,8 @@ return {
       },
       groups = {
         all = {
+          ["NormalFloat"] = { link = "Normal" },
           ["FloatBorder"] = { fg = "#39506d" },
-          ["TreesitterContext"] = { bg = "#222f40" },
-
-          ["ScrollView"] = { bg = "#39506d" },
-          ["ScrollViewHover"] = { bg = "#3e4957" },
 
           ["@variable"] = { fg = "palette.white.dim" },
           ["@variable.member"] = { fg = "palette.orange" },
@@ -49,11 +46,16 @@ return {
           ["@parameter"] = { fg = "palette.cyan.dim" },
           ["@module"] = { fg = "palette.blue" },
           ["@type.builtin"] = { fg = "palette.yellow" },
-          ["NormalFloat"] = { link = "Normal" },
+
           ["NoicePopupBorder"] = { link = "FloatBorder" },
           ["NoicePopupmenuBorder"] = { link = "FloatBorder" },
           ["NoiceCmdlinePopupBorder"] = { link = "FloatBorder" },
           ["FzfLuaBorder"] = { link = "FloatBorder" },
+
+          ["TreesitterContext"] = { bg = "#222f40" },
+          ["ScrollView"] = { bg = "#39506d" },
+          ["ScrollViewHover"] = { bg = "#3e4957" },
+          ["WinSeparator"] = { fg = "#141b25" },
         },
       },
     }

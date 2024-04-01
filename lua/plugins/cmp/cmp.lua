@@ -131,9 +131,8 @@ return {
               },
             },
           },
-          { name = "otter" },
-          -- { name = "nvim_lsp", keyword_length = 1 },
-          -- { name = "luasnip" },
+          { name = "nvim_lsp", keyword_length = 1 },
+          { name = "luasnip" },
         }, {
           { name = "rg", keyword_length = 3 },
           { name = "buffer", keyword_length = 3 },

@@ -48,6 +48,8 @@ return {
         ["<space>"] = "none",
         ["l"] = "open",
 
+        ["P"] = { "toggle_preview", config = { use_float = false, use_image_nvim = true } },
+
         ["O"] = {
           command = function(state)
             local node = state.tree:get_node()
@@ -111,22 +113,19 @@ return {
       event_handlers = {
         {
           event = "neo_tree_window_before_open",
-          handler = function()
-            require("bufresize").block_register()
-          end,
+          handler = function() require("bufresize").block_register() end,
         },
         {
           event = "neo_tree_window_after_open",
-          handler = function()
+          handler = function(args)
+            vim.wo[args.winid].foldcolumn = "0"
             vim.g.neotree_opened = true
             require("bufresize").resize_open()
           end,
         },
         {
           event = "neo_tree_window_before_close",
-          handler = function()
-            require("bufresize").block_register()
-          end,
+          handler = function() require("bufresize").block_register() end,
         },
         {
           event = "neo_tree_window_after_close",

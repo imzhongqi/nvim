@@ -37,6 +37,7 @@ return {
         "-a",
         "openai",
       },
+      openai_api_endpoint = os.getenv "OPENAI_ENDPOINT" or "https://api.openai.com/v1/chat/completions",
       chat_conceal_model_params = false,
       whisper_language = "",
       toggle_target = "vsplit",

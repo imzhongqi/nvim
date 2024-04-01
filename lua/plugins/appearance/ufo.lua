@@ -34,7 +34,8 @@ return {
     { "zp", function() require("ufo").peekFoldedLinesUnderCursor() end, desc = "Fold Preivew" },
   },
   opts = {
-    fold_virt_text_handler = handler,
+    open_fold_hl_timeout = 150,
+    -- fold_virt_text_handler = handler,
     close_fold_kinds = { "imports" },
     preview = {
       win_config = {

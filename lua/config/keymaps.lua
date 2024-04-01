@@ -134,7 +134,8 @@ keymaps_set {
       if mode == "v" or mode == "V" then
         text = get_selected_text()
       else
-        text = vim.api.nvim_get_current_line()
+        -- text = vim.api.nvim_get_current_line()
+        text = vim.fn.expand "<cword>"
       end
 
       local handle
@@ -166,5 +167,6 @@ keymaps_set {
     end,
     mode = { "v", "n" },
     desc = "Call Bob translator",
+    cond = vim.fn.executable "osascript" == 1,
   },
 }
