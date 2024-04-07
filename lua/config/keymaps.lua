@@ -43,10 +43,10 @@ keymaps_set {
   -- { "k", [[v:count ? (v:count >= 3 ? "m'" . v:count : '') . 'k' : 'gk']], mode = "n", expr = true },
 
   -- Move to window using the <ctrl> hjkl keys
-  { "<C-h>", "<cmd>wincmd h<CR>", desc = "Go to left window" },
-  { "<C-j>", "<cmd>wincmd j<CR>", desc = "Go to lower window" },
-  { "<C-k>", "<cmd>wincmd k<CR>", desc = "Go to upper window" },
-  { "<C-l>", "<cmd>wincmd l<CR>", desc = "Go to right window" },
+  -- { "<C-h>", "<cmd>wincmd h<CR>", desc = "Go to left window" },
+  -- { "<C-j>", "<cmd>wincmd j<CR>", desc = "Go to lower window" },
+  -- { "<C-k>", "<cmd>wincmd k<CR>", desc = "Go to upper window" },
+  -- { "<C-l>", "<cmd>wincmd l<CR>", desc = "Go to right window" },
 
   -- Move Lines
   { "<A-j>", "<cmd>m .+1<cr>==", desc = "Move down" },

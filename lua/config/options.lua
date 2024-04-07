@@ -4,7 +4,7 @@ vim.g.maplocalleader = "\\"
 -- Enable LazyVim auto format
 vim.g.autoformat = true
 
-vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+vim.g.root_spec = { "lsp", { ".git", "lua", "README.md", "Cargo.toml", "Makefile", "src" }, "cwd" }
 
 require("util").options_set {
   autowrite = true, -- Enable auto write

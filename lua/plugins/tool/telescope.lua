@@ -1,6 +1,6 @@
 return {
   "nvim-telescope/telescope.nvim",
-  enabled = false,
+  enabled = true,
   dependencies = {
     {
       "nvim-telescope/telescope-live-grep-args.nvim",
@@ -10,7 +10,7 @@ return {
   keys = {
     {
       "<leader>sg",
-      ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+      "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
       desc = "Live grep with args",
     },
   },
@@ -19,9 +19,7 @@ return {
 
     local Util = require "lazyvim.util"
 
-    local open_with_trouble = function(...)
-      return require("trouble.providers.telescope").open_with_trouble(...)
-    end
+    local open_with_trouble = function(...) return require("trouble.providers.telescope").open_with_trouble(...) end
     local open_selected_with_trouble = function(...)
       return require("trouble.providers.telescope").open_selected_with_trouble(...)
     end
@@ -36,9 +34,7 @@ return {
       Util.telescope("find_files", { hidden = true, default_text = line })()
     end
 
-    Util.on_load("telescope.nvim", function()
-      require("telescope").load_extension "live_grep_args"
-    end)
+    local lga_actions = require "telescope-live-grep-args.actions"
     return {
 
       defaults = {
@@ -76,6 +72,17 @@ return {
           },
           n = {
             ["q"] = actions.close,
+          },
+        },
+      },
+      extensions = {
+        live_grep_args = {
+          auto_quoting = true,
+          mappings = {
+            i = {
+              ["<C-k>"] = lga_actions.quote_prompt(),
+              ["<C-i>"] = lga_actions.quote_prompt { postfix = " --iglob " },
+            },
           },
         },
       },
