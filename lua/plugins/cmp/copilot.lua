@@ -14,7 +14,8 @@ return {
   },
 
   {
-    "zbirenbaum/copilot-cmp",
+    -- "zbirenbaum/copilot-cmp",
+    "imzhongqi/copilot-cmp",
     dependencies = "copilot.lua",
     opts = {},
     config = function(_, opts)
@@ -31,7 +32,8 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      "zbirenbaum/copilot-cmp",
+      -- "zbirenbaum/copilot-cmp",
+      "imzhongqi/copilot-cmp",
     },
   },
 }

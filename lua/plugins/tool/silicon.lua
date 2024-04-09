@@ -5,8 +5,15 @@ return {
     theme = "gruvbox-dark",
     background = "#ffcf73",
     font = "CaskaydiaCove Nerd Font; PingFang SC",
-    line_offset = function(args) return args.line1 end,
+    line_offset = function(args)
+      if args.range == 0 then
+        return 1
+      end
+      return args.line1
+    end,
     line_pad = 10,
+    gobble = true,
+    num_separator = " ",
     output = function()
       return (vim.fn.expand "%:p:h:t" .. "/" .. vim.fn.expand "%:t"):gsub("%/", "_")
         .. "-"

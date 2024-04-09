@@ -100,11 +100,11 @@ return {
           },
         },
 
-        sources = cmp.config.sources({
+        sources = {
           {
             name = "copilot",
             -- keyword_length = 0,
-            max_item_count = 3,
+            max_item_count = 5,
             trigger_characters = {
               {
                 ".",
@@ -132,15 +132,11 @@ return {
             },
           },
           { name = "nvim_lsp", keyword_length = 1 },
+          { name = "path" },
           { name = "luasnip" },
-        }, {
-          { name = "rg", keyword_length = 3 },
           { name = "buffer", keyword_length = 3 },
-        }, {
-          {
-            name = "path",
-          },
-        }),
+          { name = "rg", keyword_length = 3 },
+        },
 
         sorting = {
           priority_weight = 2,

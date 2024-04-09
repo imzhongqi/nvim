@@ -17,6 +17,7 @@ return {
           end
         end,
       },
+      additional_vim_regex_highlighting = false,
 
       ensure_installed = {
         "bash",
@@ -46,8 +47,8 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<leader-v>",
-          node_incremental = "<leader-v>",
+          init_selection = "<M-Space>",
+          node_incremental = "<M-Space>",
           scope_incremental = false,
           node_decremental = "<bs>",
         },

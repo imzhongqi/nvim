@@ -39,7 +39,7 @@ return {
     close_fold_kinds_for_ft = {
       default = {
         "imports",
-        "comment",
+        -- "comment",
         -- "region",
       },
     },
