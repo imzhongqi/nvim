@@ -67,6 +67,19 @@ return {
           end,
           desc = "open_with_system_defaults",
         },
+        ["T"] = {
+          command = function(state)
+            local node = state.tree:get_node()
+            local P = require "plenary.path"
+            local dir = P:new(node.path)
+            if not dir:is_dir() then
+              dir = dir:parent()
+            end
+
+            require("toggleterm.terminal").Terminal:new({ dir = dir.filename }):toggle()
+          end,
+          desc = "open_in_terminal",
+        },
       })
     end,
   },

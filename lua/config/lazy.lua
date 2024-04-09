@@ -30,7 +30,10 @@ require("lazy").setup("plugins", {
 
   ui = {
     border = "solid",
-    size = { width = 1, height = 0.9 },
+    size = {
+      width = 1,
+      height = 1,
+    },
   },
 
   checker = { enabled = false }, -- automatically check for plugin updates

@@ -1,4 +1,6 @@
 return {
+  { "nvim-lua/plenary.nvim" },
+
   { "folke/lazy.nvim", tag = "stable" },
   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
   { import = "plugins" },

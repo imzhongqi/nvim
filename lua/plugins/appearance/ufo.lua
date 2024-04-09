@@ -35,8 +35,14 @@ return {
   },
   opts = {
     open_fold_hl_timeout = 150,
-    -- fold_virt_text_handler = handler,
-    close_fold_kinds = { "imports" },
+    fold_virt_text_handler = handler,
+    close_fold_kinds_for_ft = {
+      default = {
+        "imports",
+        "comment",
+        -- "region",
+      },
+    },
     preview = {
       win_config = {
         border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },

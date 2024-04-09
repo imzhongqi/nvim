@@ -82,7 +82,7 @@ return {
 
       keymap = {
         builtin = {
-          ["<C-S-h>"] = "toggle-help",
+          ["<C-h>"] = "toggle-help",
           ["<F2>"] = "toggle-fullscreen",
           ["<F3>"] = "toggle-preview-wrap",
           ["<F4>"] = "toggle-preview",
