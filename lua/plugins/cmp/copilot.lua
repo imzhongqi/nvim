@@ -17,6 +17,9 @@ return {
     -- "zbirenbaum/copilot-cmp",
     "imzhongqi/copilot-cmp",
     dependencies = "copilot.lua",
+    keys = {
+      { "<leader>ac", "<cmd>Copilot toggle<CR>", mode = "n", desc = "Toggle Copilot" },
+    },
     opts = {},
     config = function(_, opts)
       local copilot_cmp = require "copilot_cmp"

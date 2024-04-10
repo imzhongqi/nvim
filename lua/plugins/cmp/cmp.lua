@@ -17,6 +17,7 @@ return {
       "lukas-reineke/cmp-under-comparator",
       "hrsh7th/cmp-nvim-lsp-document-symbol",
       "lukas-reineke/cmp-rg",
+      "ray-x/cmp-treesitter",
     },
     init = function()
       vim.api.nvim_create_autocmd("FileType", {
@@ -54,9 +55,14 @@ return {
       local cmp = require "cmp"
       local lspkind = require "lspkind"
       local luasnip = require "luasnip"
-      local cmp_types = require "cmp.types.cmp"
-      local ConfirmBehavior = cmp_types.ConfirmBehavior
-      -- local SelectBehavior = cmp_types.SelectBehavior
+
+      local has_words_before = function()
+        if vim.api.nvim_get_option_value("buftype", {}) == "prompt" then
+          return false
+        end
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match "^%s*$" == nil
+      end
 
       return {
         completion = {
@@ -64,7 +70,7 @@ return {
           keyword_length = 1,
           completeopt = "menu,menuone,noinsert",
           autocomplete = {
-            cmp_types.TriggerEvent.TextChanged,
+            cmp.TriggerEvent.TextChanged,
           },
         },
 
@@ -94,7 +100,7 @@ return {
             ellipsis_char = "...", -- 
             show_labelDetails = true,
             before = function(entry, vim_item)
-              -- vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
+              vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
               return vim_item
             end,
           },
@@ -103,30 +109,30 @@ return {
         sources = {
           {
             name = "copilot",
-            group_index = 1,
-            keyword_length = 1,
-            max_item_count = 5,
+            group_index = 2,
+            -- keyword_length = 0,
+            max_item_count = 3,
             trigger_characters = {
               {
                 ".",
-                -- ":",
-                -- "(",
-                -- "'",
-                -- '"',
-                -- "[",
-                -- ",",
-                -- "#",
-                -- "*",
-                -- "@",
-                -- "|",
-                -- "=",
-                -- "-",
-                -- "{",
-                -- "/",
-                -- "\\",
-                -- "+",
-                -- "?",
-                -- " ",
+                ":",
+                "(",
+                "'",
+                '"',
+                "[",
+                ",",
+                "#",
+                "*",
+                "@",
+                "|",
+                "=",
+                "-",
+                "{",
+                "/",
+                "\\",
+                "+",
+                "?",
+                " ",
                 -- "\t",
                 -- "\n",
               },
@@ -134,12 +140,11 @@ return {
           },
           {
             name = "nvim_lsp",
-            group_index = 1,
-            keyword_length = 1,
+            -- keyword_length = 1,
           },
           {
             name = "luasnip",
-            group_index = 1,
+            group_index = 2,
             keyword_length = 2,
           },
           {
@@ -152,32 +157,40 @@ return {
             keyword_length = 3,
           },
           {
+            name = "treesitter",
+            group_index = 2,
+          },
+          {
             name = "rg",
             group_index = 2,
             keyword_length = 3,
           },
         },
 
-        -- sorting = {
-        --   priority_weight = 2,
-        --   comparators = {
-        --     cmp.config.compare.offset,
-        --     -- cmp.config.compare.scopes,
-        --     cmp.config.compare.exact,
-        --     cmp.config.compare.score,
-        --     cmp.config.compare.recently_used,
-        --     require("cmp-under-comparator").under,
-        --     cmp.config.compare.kind,
-        --     cmp.config.compare.sort_text,
-        --     cmp.config.compare.length,
-        --     cmp.config.compare.order,
-        --   },
-        -- },
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            require("copilot_cmp.comparators").prioritize,
 
-        preselect = cmp_types.PreselectMode.Item,
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            require("cmp-under-comparator").under,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          },
+        },
+
+        preselect = cmp.PreselectMode.Item,
         mapping = cmp.mapping.preset.insert {
           ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
           ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+          ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select }, { "i" }),
+          ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select }, { "i" }),
           ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
           ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
 
@@ -189,10 +202,10 @@ return {
             c = cmp.mapping.close(),
           },
           ["<C-y>"] = cmp.mapping {
-            i = cmp.mapping.confirm { behavior = ConfirmBehavior.Replace, select = false },
+            i = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false },
             c = function(fallback)
               if cmp.visible() then
-                cmp.confirm { behavior = ConfirmBehavior.Replace, select = false }
+                cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false }
               else
                 fallback()
               end
@@ -200,7 +213,7 @@ return {
           },
           ["<C-l>"] = cmp.mapping(function()
             if cmp.visible() then
-              cmp.confirm { behavior = ConfirmBehavior.Replace, select = false }
+              cmp.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false }
             else
               cmp.complete()
             end
@@ -210,8 +223,9 @@ return {
           ["<C-CR>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 
           ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
+            if cmp.visible() and has_words_before() then
+              -- cmp.select_next_item()
+              cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
             -- elseif luasnip.expand_or_locally_jumpable() then
             --   luasnip.expand_or_jump()
             -- elseif has_words_before() then

@@ -29,9 +29,12 @@ return {
     },
     opts = {
       HelpLine = 0,
-      DiffAutoOpen = 0,
+      DiffAutoOpen = 1,
+      SetFocusWhenToggle = 1,
+      WindowLayout = 2,
       HighlightChangedWithSign = 0,
       TreeNodeShape = "",
+      SplitWidth = 24,
     },
     config = function(_, opts)
       for k, v in pairs(opts) do

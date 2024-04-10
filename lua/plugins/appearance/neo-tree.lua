@@ -44,6 +44,15 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
     opts = function(_, opts)
+      local dirname = function(state)
+        local node = state.tree:get_node()
+        local path = node.path
+        if node.type ~= "directory" then
+          path = require("plenary.path"):new(path):parent().filename
+        end
+        return path
+      end
+
       opts.window.mappings = vim.tbl_extend("force", opts.window.mappings, {
         ["<space>"] = "none",
         ["l"] = "open",
@@ -68,17 +77,16 @@ return {
           desc = "open_with_system_defaults",
         },
         ["T"] = {
-          command = function(state)
-            local node = state.tree:get_node()
-            local P = require "plenary.path"
-            local dir = P:new(node.path)
-            if not dir:is_dir() then
-              dir = dir:parent()
-            end
-
-            require("toggleterm.terminal").Terminal:new({ dir = dir.filename }):toggle()
-          end,
+          command = function(state) require("toggleterm.terminal").Terminal:new({ dir = dirname(state) }):toggle() end,
           desc = "open_in_terminal",
+        },
+        ["ff"] = {
+          command = function(state) require("fzf-lua").files { cwd = dirname(state) } end,
+          desc = "find_files",
+        },
+        ["fg"] = {
+          command = function(state) require("fzf-lua").live_grep_glob { cwd = dirname(state) } end,
+          desc = "grep_files",
         },
       })
     end,
@@ -131,8 +139,7 @@ return {
         {
           event = "neo_tree_window_after_open",
           handler = function(args)
-            vim.wo[args.winid].foldcolumn = "0"
-            vim.g.neotree_opened = true
+            vim.wo[args.winid].foldcolumn = "0" -- disable fold column
             require("bufresize").resize_open()
           end,
         },
@@ -142,10 +149,7 @@ return {
         },
         {
           event = "neo_tree_window_after_close",
-          handler = function()
-            vim.g.neotree_opened = false
-            require("bufresize").resize_close()
-          end,
+          handler = function() require("bufresize").resize_close() end,
         },
       },
 

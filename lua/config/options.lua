@@ -12,7 +12,9 @@ require("util").options_set {
   backup = false,
   writebackup = false,
   swapfile = true,
+
   undofile = true,
+  undodir = vim.fn.stdpath "cache" .. "/undo",
 
   clipboard = "unnamedplus", -- Sync with system clipboard
   completeopt = "menu,menuone,noselect",

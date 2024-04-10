@@ -12,7 +12,7 @@ return {
       return args.line1
     end,
     line_pad = 10,
-    gobble = true,
+    gobble = false,
     num_separator = " ",
     output = function()
       return (vim.fn.expand "%:p:h:t" .. "/" .. vim.fn.expand "%:t"):gsub("%/", "_")
