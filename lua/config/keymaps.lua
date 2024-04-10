@@ -5,7 +5,7 @@ local get_selected_text = require("util").get_selected_text
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
 
 keymaps_set {
-  { "<C-p>", "", mode = "i" },
+  -- { "<C-p>", "", mode = "i" },
   { "<C-n>", "", mode = "i" },
   { "<C-d>", "", mode = "c" },
   { "<cmd>undo<CR>", "<D-z>", mode = { "n", "i" } },

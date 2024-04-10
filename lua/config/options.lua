@@ -33,7 +33,7 @@ require("util").options_set {
   foldlevelstart = 99,
   foldenable = true,
 
-  pumblend = 10,
+  pumblend = 0,
   pumheight = 10,
 
   ignorecase = true, -- Ignore case

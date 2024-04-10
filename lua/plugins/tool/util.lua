@@ -86,34 +86,6 @@ return {
     },
   },
 
-  {
-    "mbbill/undotree",
-    cmd = {
-      "UndotreeToggle",
-      "UndotreeFocus",
-      "UndotreeShow",
-      "UndotreeHide",
-      "UndotreePersistUndo",
-    },
-    keys = {
-      {
-        "<leader>mu",
-        vim.cmd.UndotreeToggle,
-        desc = "Toggle Undotree",
-      },
-    },
-    opts = {
-      HelpLine = 0,
-      DiffAutoOpen = 0,
-      HighlightChangedWithSign = 0,
-      TreeNodeShape = "",
-    },
-    config = function(_, opts)
-      for k, v in pairs(opts) do
-        vim.g["undotree_" .. k] = v
-      end
-    end,
-  },
 
   {
     "folke/persistence.nvim",

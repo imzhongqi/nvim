@@ -103,56 +103,76 @@ return {
         sources = {
           {
             name = "copilot",
-            -- keyword_length = 0,
+            group_index = 1,
+            keyword_length = 1,
             max_item_count = 5,
             trigger_characters = {
               {
                 ".",
-                ":",
-                "(",
-                "'",
-                '"',
-                "[",
-                ",",
-                "#",
-                "*",
-                "@",
-                "|",
-                "=",
-                "-",
-                "{",
-                "/",
-                "\\",
-                "+",
-                "?",
-                " ",
+                -- ":",
+                -- "(",
+                -- "'",
+                -- '"',
+                -- "[",
+                -- ",",
+                -- "#",
+                -- "*",
+                -- "@",
+                -- "|",
+                -- "=",
+                -- "-",
+                -- "{",
+                -- "/",
+                -- "\\",
+                -- "+",
+                -- "?",
+                -- " ",
                 -- "\t",
                 -- "\n",
               },
             },
           },
-          { name = "nvim_lsp", keyword_length = 1 },
-          { name = "path" },
-          { name = "luasnip" },
-          { name = "buffer", keyword_length = 3 },
-          { name = "rg", keyword_length = 3 },
-        },
-
-        sorting = {
-          priority_weight = 2,
-          comparators = {
-            cmp.config.compare.offset,
-            -- cmp.config.compare.scopes,
-            cmp.config.compare.exact,
-            cmp.config.compare.score,
-            cmp.config.compare.recently_used,
-            require("cmp-under-comparator").under,
-            cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
-            cmp.config.compare.length,
-            cmp.config.compare.order,
+          {
+            name = "nvim_lsp",
+            group_index = 1,
+            keyword_length = 1,
+          },
+          {
+            name = "luasnip",
+            group_index = 1,
+            keyword_length = 2,
+          },
+          {
+            name = "path",
+            group_index = 2,
+          },
+          {
+            name = "buffer",
+            group_index = 2,
+            keyword_length = 3,
+          },
+          {
+            name = "rg",
+            group_index = 2,
+            keyword_length = 3,
           },
         },
+
+        -- sorting = {
+        --   priority_weight = 2,
+        --   comparators = {
+        --     cmp.config.compare.offset,
+        --     -- cmp.config.compare.scopes,
+        --     cmp.config.compare.exact,
+        --     cmp.config.compare.score,
+        --     cmp.config.compare.recently_used,
+        --     require("cmp-under-comparator").under,
+        --     cmp.config.compare.kind,
+        --     cmp.config.compare.sort_text,
+        --     cmp.config.compare.length,
+        --     cmp.config.compare.order,
+        --   },
+        -- },
 
         preselect = cmp_types.PreselectMode.Item,
         mapping = cmp.mapping.preset.insert {
@@ -192,10 +212,12 @@ return {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
-            elseif luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
+            -- elseif luasnip.expand_or_locally_jumpable() then
+            --   luasnip.expand_or_jump()
             -- elseif has_words_before() then
             --   cmp.complete()
+            elseif require("luasnip").expand_or_jumpable() then
+              vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
             else
               fallback() --Fallback to tabout of `ultimate-autopair` as expected
             end
@@ -207,8 +229,10 @@ return {
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
+            -- elseif luasnip.jumpable(-1) then
+            --   luasnip.jump(-1)
+            elseif require("luasnip").jumpable(-1) then
+              vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
             else
               fallback()
             end
