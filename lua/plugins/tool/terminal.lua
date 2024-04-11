@@ -2,12 +2,12 @@ return {
   {
     "akinsho/toggleterm.nvim",
     version = "*",
-    cmd = { "ToggleTerm" },
+    cmd = { "ToggleTerm", "TermExec" },
     keys = function()
       return {
         { [[<C-\>]] },
         {
-          "<leader>fo",
+          "<leader>ft",
           function()
             local filepath = vim.fn.expand "%:h"
             if not require("plenary.path"):new(filepath):is_dir() then
@@ -15,23 +15,28 @@ return {
             end
             require("toggleterm.terminal").Terminal:new({ dir = filepath }):toggle()
           end,
-          desc = "open file in terminal",
+          desc = "Open file in terminal",
         },
       }
     end,
+
     opts = {
-      -- size = function(term)
-      --   if term.direction == "horizontal" then
-      --     return 10
-      --   elseif term.direction == "vertical" then
-      --     return vim.o.columns * 0.4
-      --   end
-      -- end,
-      open_mapping = [[<C-\>]],
+      size = function(term)
+        if term.direction == "horizontal" then
+          return 10
+        elseif term.direction == "vertical" then
+          return 100
+        end
+      end,
+      on_create = function() vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], { buffer = 0 }) end,
+      open_mapping = [[<c-\>]],
       direction = "horizontal",
-      -- start_in_insert = true,
       shade_terminals = false,
       -- shading_factor = -10,
+      -- start_in_insert = false,
+      -- insert_mappings = false,
+      persist_size = false,
+      close_on_exit = true,
       highlights = {
         Normal = { link = "Normal" },
         NormalNC = { link = "NormalNC" },

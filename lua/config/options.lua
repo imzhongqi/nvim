@@ -52,12 +52,14 @@ require("util").options_set {
   timeoutlen = 500,
   termguicolors = true, -- True color support
 
-  -- sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions",
+  sessionoptions = "buffers,curdir,folds,help,tabpages,winpos,terminal",
   shiftround = true,
   smartcase = true, -- Don't ignore case with capitals
   smartindent = true, -- Insert indents automatically
-  spelllang = { "en" },
+
   spell = false,
+  spelllang = { "en_us" },
+
   showmode = false, -- Dont show mode since we have a statusline
   sidescrolloff = 8, -- Columns of context
   signcolumn = "yes", -- Always show the signcolumn, otherwise it would shift the text each time

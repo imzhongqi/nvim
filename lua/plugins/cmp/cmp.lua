@@ -11,13 +11,14 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-calc",
       "hrsh7th/cmp-cmdline",
+      "saadparwaiz1/cmp_luasnip",
       "onsails/lspkind.nvim",
       "lukas-reineke/cmp-under-comparator",
-      "hrsh7th/cmp-nvim-lsp-document-symbol",
       "lukas-reineke/cmp-rg",
-      "ray-x/cmp-treesitter",
+      -- "ray-x/cmp-treesitter",
+      "hrsh7th/cmp-nvim-lsp-document-symbol",
     },
     init = function()
       vim.api.nvim_create_autocmd("FileType", {
@@ -81,7 +82,7 @@ return {
             col_offset = -3,
           },
           documentation = {
-            max_width = 50,
+            -- max_width = 100,
             border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
             winhighlight = "Normal:CmpPmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
           },
@@ -156,10 +157,7 @@ return {
             group_index = 2,
             keyword_length = 3,
           },
-          {
-            name = "treesitter",
-            group_index = 2,
-          },
+          -- { name = "treesitter", group_index = 2 },
           {
             name = "rg",
             group_index = 2,
@@ -174,12 +172,13 @@ return {
 
             cmp.config.compare.offset,
             cmp.config.compare.exact,
+            -- cmp.config.compare.scopes,
             cmp.config.compare.score,
             cmp.config.compare.recently_used,
             require("cmp-under-comparator").under,
             cmp.config.compare.locality,
             cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
+            -- cmp.config.compare.sort_text,
             cmp.config.compare.length,
             cmp.config.compare.order,
           },
@@ -285,9 +284,9 @@ return {
 
       cmp.setup.cmdline({ "/", "?" }, {
         sources = cmp.config.sources({
-          { name = "nvim_lsp_document_symbol" },
+          { name = "buffer" },
         }, {
-          { name = "buffer", keyword_length = 3 },
+          { name = "nvim_lsp_document_symbol" },
         }),
       })
     end,

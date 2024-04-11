@@ -51,10 +51,42 @@ return {
         mode = { "n" },
       },
 
-      { "<M-S-h>", function() require("smart-splits").resize_left() end, desc = "Resize left", mode = { "n" } },
-      { "<M-S-j>", function() require("smart-splits").resize_down() end, desc = "Resize down", mode = { "n" } },
-      { "<M-S-k>", function() require("smart-splits").resize_up() end, desc = "Resize up", mode = { "n" } },
-      { "<M-S-l>", function() require("smart-splits").resize_right() end, desc = "Resize right", mode = { "n" } },
+      {
+        "<M-S-h>",
+        function()
+          require("smart-splits").resize_left()
+          require("bufresize").register()
+        end,
+        desc = "Resize left",
+        mode = { "n" },
+      },
+      {
+        "<M-S-j>",
+        function()
+          require("smart-splits").resize_down()
+          require("bufresize").register()
+        end,
+        desc = "Resize down",
+        mode = { "n" },
+      },
+      {
+        "<M-S-k>",
+        function()
+          require("smart-splits").resize_up()
+          require("bufresize").register()
+        end,
+        desc = "Resize up",
+        mode = { "n" },
+      },
+      {
+        "<M-S-l>",
+        function()
+          require("smart-splits").resize_right()
+          require("bufresize").register()
+        end,
+        desc = "Resize right",
+        mode = { "n" },
+      },
 
       {
         "<leader>bsh",

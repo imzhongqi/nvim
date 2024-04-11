@@ -64,6 +64,24 @@ function M.options_set(opts)
   end
 end
 
+--- Copy from https://github.com/LunarVim/LunarVim/blob/master/lua/lvim/core/autocmds.lua
+--- Create autocommand groups based on the passed definitions
+--- Also creates the augroup automatically if it doesn't exist
+---@param definitions table contains a tuple of event, opts, see `:h nvim_create_autocmd`
+function M.define_autocmds(definitions)
+  for _, entry in ipairs(definitions) do
+    local event = entry[1]
+    local opts = entry[2]
+    if type(opts.group) == "string" and opts.group ~= "" then
+      local exists, _ = pcall(vim.api.nvim_get_autocmds, { group = opts.group })
+      if not exists then
+        vim.api.nvim_create_augroup(opts.group, {})
+      end
+    end
+    vim.api.nvim_create_autocmd(event, opts)
+  end
+end
+
 function M.has_suffix(str, suffix)
   local suffix_length = string.len(suffix)
   local str_length = string.len(str)
