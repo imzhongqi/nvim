@@ -17,14 +17,9 @@ return {
     },
     keys = {
       {
-        "<leader>muu",
+        "<leader>ou",
         "<cmd>UndotreeToggle<CR>",
         desc = "Toggle Undotree",
-      },
-      {
-        "<leader>mup",
-        "<cmd>UndotreePersistUndo<CR>",
-        desc = "Undotree Persist Undo",
       },
     },
     opts = {

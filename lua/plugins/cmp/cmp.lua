@@ -141,6 +141,7 @@ return {
           },
           {
             name = "nvim_lsp",
+            group_index = 2,
             -- keyword_length = 1,
           },
           {

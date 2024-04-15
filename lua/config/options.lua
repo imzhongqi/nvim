@@ -14,7 +14,8 @@ require("util").options_set {
   swapfile = true,
 
   undofile = true,
-  undodir = vim.fn.stdpath "cache" .. "/undo",
+
+  undodir = _Util.stdpath("cache", "undo"),
 
   clipboard = "unnamedplus", -- Sync with system clipboard
   completeopt = "menu,menuone,noselect",
@@ -52,7 +53,7 @@ require("util").options_set {
   timeoutlen = 500,
   termguicolors = true, -- True color support
 
-  sessionoptions = "buffers,curdir,folds,help,tabpages,winpos,terminal",
+  sessionoptions = "buffers,curdir,folds,help,tabpages,winpos",
   shiftround = true,
   smartcase = true, -- Don't ignore case with capitals
   smartindent = true, -- Insert indents automatically

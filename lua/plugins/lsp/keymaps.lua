@@ -2,6 +2,9 @@ return {
   "neovim/nvim-lspconfig",
   init = function()
     vim.list_extend(require("lazyvim.plugins.lsp.keymaps").get(), {
+      { "<leader>cl", false },
+      { "<leader>cli", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+
       { "<c-k>", false, mode = "i" },
 
       {

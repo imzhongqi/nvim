@@ -87,10 +87,10 @@ keymaps_set {
   { "N", "'nN'[v:searchforward]", mode = "x", expr = true, desc = "Prev search result" },
   { "N", "'nN'[v:searchforward]", mode = "o", expr = true, desc = "Prev search result" },
 
-  { "<leader>mlr", "<cmd>LspRestart<CR>", desc = "Lsp Restart" },
-  { "<leader>mls", "<cmd>LspStart<CR>", desc = "Lsp Start" },
-  { "<leader>mlx", "<cmd>LspStop<CR>", desc = "Lsp Stop" },
-  { "<leader>mll", "<cmd>LspLog<CR>", desc = "Lsp Log" },
+  { "<leader>clr", "<cmd>LspRestart<CR>", desc = "Lsp Restart" },
+  { "<leader>cls", "<cmd>LspStart<CR>", desc = "Lsp Start" },
+  { "<leader>clx", "<cmd>LspStop<CR>", desc = "Lsp Stop" },
+  { "<leader>cll", "<cmd>LspLog<CR>", desc = "Lsp Log" },
 
   { "<leader>fn", "<cmd>enew<cr>", desc = "New File" },
 
@@ -134,7 +134,7 @@ keymaps_set {
   { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
 
   {
-    "<leader>mt",
+    "<leader>oo",
     function()
       local mode = vim.api.nvim_get_mode().mode
       local text
@@ -173,7 +173,13 @@ keymaps_set {
       end)
     end,
     mode = { "v", "n" },
-    desc = "Call Bob translator",
+    desc = "Open Bob translator",
     cond = vim.fn.executable "osascript" == 1,
+  },
+
+  {
+    "<leader>gb",
+    LazyVim.lazygit.blame_line,
+    desc = "Git Blame Line",
   },
 }

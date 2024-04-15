@@ -19,12 +19,19 @@ return {
         ["<leader><tab>"] = { name = "+tabs" },
         ["<leader>a"] = { name = "+ai" },
         ["<leader>b"] = { name = "+buffer" },
+
         ["<leader>c"] = { name = "+code" },
+        ["<leader>cl"] = { name = "+lsp" },
+
         ["<leader>f"] = { name = "+file/find" },
+
         ["<leader>g"] = { name = "+git" },
         ["<leader>gh"] = { name = "+hunks" },
-        ["<leader>m"] = { name = "+misc" },
-        ["<leader>ml"] = { name = "+lsp" },
+
+        ["<leader>o"] = { name = "+open" },
+        ["<leader>ot"] = { name = "+Open Terminal" },
+        ["<leader>od"] = { name = "+Open Database UI" },
+
         ["<leader>q"] = { name = "+quit/session" },
         ["<leader>s"] = { name = "+search" },
         ["<leader>u"] = { name = "+ui" },

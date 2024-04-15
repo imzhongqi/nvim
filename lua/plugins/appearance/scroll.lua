@@ -33,19 +33,53 @@ return {
     },
     keys = function()
       local scroll = function(lines, move_cursor, time, easing_function, info)
-        return function() require("neoscroll").scroll(lines, move_cursor, time, easing_function, info) end
+        return function() require("neoscroll").scroll(lines(), move_cursor, time, easing_function, info) end
       end
 
       return {
-        { "<C-u>", scroll(-vim.wo.scroll, true, 80), desc = "Scroll Up" },
-        { "<C-d>", scroll(vim.wo.scroll, true, 80), desc = "Scroll Down" },
-        { "<C-b>", scroll(-vim.fn.winheight(0) + 1, true, 100), desc = "Scroll Forward" },
-        { "<C-f>", scroll(vim.fn.winheight(0) - 1, true, 100), desc = "Scroll Forward" },
-        { "<C-y>", scroll(-0.10, false, 100), desc = "Scroll window upward in the buffer" },
-        { "<C-e>", scroll(0.10, false, 100), desc = "Scroll window downward in the buffer" },
-        { "zt", function() require("neoscroll").zt(250) end },
-        { "zz", function() require("neoscroll").zz(250) end },
-        { "zb", function() require("neoscroll").zb(250) end },
+        {
+          "<C-u>",
+          scroll(function() return -vim.wo.scroll end, true, 80),
+          desc = "Scroll Up",
+        },
+        {
+          "<C-d>",
+          scroll(function() return vim.wo.scroll end, true, 80),
+          desc = "Scroll Down",
+        },
+        {
+          "<C-b>",
+          scroll(function() return -vim.fn.winheight(0) + 1 end, true, 100),
+          desc = "Scroll Forward",
+        },
+        {
+          "<C-f>",
+          scroll(function() return vim.fn.winheight(0) - 1 end, true, 100),
+          desc = "Scroll Forward",
+        },
+
+        {
+          "<C-y>",
+          scroll(function() return -0.10 end, false, 100),
+          desc = "Scroll window upward in the buffer",
+        },
+        {
+          "<C-e>",
+          scroll(function() return 0.10 end, false, 100),
+          desc = "Scroll window downward in the buffer",
+        },
+        {
+          "zt",
+          function() require("neoscroll").zt(250) end,
+        },
+        {
+          "zz",
+          function() require("neoscroll").zz(250) end,
+        },
+        {
+          "zb",
+          function() require("neoscroll").zb(250) end,
+        },
       }
     end,
   },

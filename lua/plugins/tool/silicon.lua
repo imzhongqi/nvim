@@ -15,10 +15,12 @@ return {
     gobble = false,
     num_separator = " ",
     output = function()
-      return (vim.fn.expand "%:p:h:t" .. "/" .. vim.fn.expand "%:t"):gsub("%/", "_")
+      return (
+        _Util.path_join(vim.fn.expand "%:p:h:t", vim.fn.expand "%:t"):gsub("%/", "#")
         .. "-"
         .. os.date "!%Y%m%d%H%M%S"
         .. ".png"
+      )
     end,
   },
   config = function(_, opts)

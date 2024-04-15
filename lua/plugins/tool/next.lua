@@ -20,6 +20,8 @@ return {
     local diag = integrations.diagnostic()
     local nqf = integrations.quickfix()
     local move = require "nvim-next.move"
+    local backward = move.make_backward_repeatable_move
+    local forward = move.make_forward_repeatable_move
     local move_fn = function(cmd)
       local fn = cmd
       if type(cmd) == "string" then
@@ -36,33 +38,34 @@ return {
 
       {
         "[b",
-        move.make_backward_repeatable_move(move_fn(vim.cmd.BufferLineMovePrev), move_fn(vim.cmd.BufferLineMoveNext)),
+        backward(move_fn(vim.cmd.BufferLineMovePrev), move_fn(vim.cmd.BufferLineMoveNext)),
         desc = "Move buffer to previous",
       },
       {
         "]b",
-        move.make_forward_repeatable_move(move_fn(vim.cmd.BufferLineMoveNext), move_fn(vim.cmd.BufferLineMovePrev)),
+        forward(move_fn(vim.cmd.BufferLineMoveNext), move_fn(vim.cmd.BufferLineMovePrev)),
         desc = "Move buffer to next",
       },
 
       {
         "<S-h>",
-        move.make_backward_repeatable_move(move_fn(vim.cmd.BufferLineCyclePrev), move_fn(vim.cmd.BufferLineCycleNext)),
+        backward(move_fn(vim.cmd.BufferLineCyclePrev), move_fn(vim.cmd.BufferLineCycleNext)),
         desc = "Prev buffer",
       },
       {
         "<S-l>",
-        move.make_forward_repeatable_move(move_fn(vim.cmd.BufferLineCycleNext), move_fn(vim.cmd.BufferLineCyclePrev)),
+        forward(move_fn(vim.cmd.BufferLineCycleNext), move_fn(vim.cmd.BufferLineCyclePrev)),
         desc = "Next buffer",
       },
+
       {
         "zH",
-        move.make_backward_repeatable_move(move_fn [[execute "normal! zH"]], move_fn [[execute "normal! zL"]]),
+        backward(move_fn [[execute "normal! zH"]], move_fn [[execute "normal! zL"]]),
         desc = "Move window left",
       },
       {
         "zL",
-        move.make_forward_repeatable_move(move_fn [[execute "normal! zL"]], move_fn [[execute "normal! zH"]]),
+        forward(move_fn [[execute "normal! zL"]], move_fn [[execute "normal! zH"]]),
         desc = "Move window right",
       },
     }

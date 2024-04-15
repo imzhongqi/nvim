@@ -1,18 +1,7 @@
 return {
   {
     "kwkarlwang/bufresize.nvim",
-    opts = {
-      register = {
-        trigger_events = { "BufWinEnter", "WinEnter" },
-        keys = {},
-      },
-      resize = {
-        trigger_events = {
-          "VimResized",
-        },
-        increment = 1,
-      },
-    },
+    opts = {},
   },
   {
     "mrjones2014/smart-splits.nvim",
@@ -58,7 +47,7 @@ return {
           require("bufresize").register()
         end,
         desc = "Resize left",
-        mode = { "n" },
+        mode = { "t", "n" },
       },
       {
         "<M-S-j>",
@@ -67,7 +56,7 @@ return {
           require("bufresize").register()
         end,
         desc = "Resize down",
-        mode = { "n" },
+        mode = { "t", "n" },
       },
       {
         "<M-S-k>",
@@ -76,7 +65,7 @@ return {
           require("bufresize").register()
         end,
         desc = "Resize up",
-        mode = { "n" },
+        mode = { "t", "n" },
       },
       {
         "<M-S-l>",
@@ -85,7 +74,7 @@ return {
           require("bufresize").register()
         end,
         desc = "Resize right",
-        mode = { "n" },
+        mode = { "t", "n" },
       },
 
       {

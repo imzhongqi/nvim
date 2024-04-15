@@ -3,9 +3,9 @@ return {
   cmd = { "Outline", "OutlineOpen" },
   keys = {
     {
-      "<leader>uo",
+      "<leader>os",
       "<cmd>Outline<CR>",
-      desc = "Toggle Outline",
+      desc = "Toggle Symbol Outline",
     },
   },
   opts = {

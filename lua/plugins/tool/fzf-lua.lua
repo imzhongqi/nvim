@@ -1,15 +1,26 @@
+local Util = require "util"
 local with_suffix = function(name) return name .. _Icons.fzflua.suffix end
+
+local function history_path(filename) return Util.stdpath("cache", filename) end
 
 return {
   "ibhagwan/fzf-lua",
   cmd = { "FzfLua" },
   keys = {
     { "<leader>fr", "<cmd>FzfLua resume<CR>", desc = "FzfLua resume" },
-    { "<leader>fl", "<cmd>FzfLua builtin<CR>", desc = "FzfLua builtin" },
-    { "<leader>,", "<cmd>FzfLua buffers<CR>", desc = "FzfLua buffers" },
+    { "<C-S-p>", "<cmd>FzfLua builtin<CR>", desc = "FzfLua builtin" },
+    {
+      "<leader>,",
+      function() require("fzf-lua").buffers {} end,
+      desc = "FzfLua buffers",
+    },
     {
       "<leader><leader>",
-      [[<cmd>lua require("fzf-lua").files { cwd = require("lazyvim.util").root() }<CR>]],
+      function()
+        require("fzf-lua").files {
+          cwd = require("lazyvim.util").root(),
+        }
+      end,
       desc = "FzfLua files",
     },
     {
@@ -88,15 +99,15 @@ return {
           ["<F4>"] = "toggle-preview",
           ["<F5>"] = "toggle-preview-ccw",
           ["<F6>"] = "toggle-preview-cw",
-          ["<S-down>"] = "preview-page-down",
           ["<S-up>"] = "preview-page-up",
+          ["<S-down>"] = "preview-page-down",
           ["<S-left>"] = "preview-page-reset",
         },
         fzf = {
-          ["ctrl-z"] = "abort",
-          ["ctrl-u"] = "unix-line-discard",
           ["ctrl-f"] = "half-page-down",
           ["ctrl-d"] = "half-page-up",
+          ["ctrl-z"] = "abort",
+          ["ctrl-u"] = "unix-line-discard",
           ["ctrl-a"] = "beginning-of-line",
           ["ctrl-e"] = "end-of-line",
           ["alt-a"] = "toggle-all",
@@ -159,6 +170,9 @@ return {
 
       files = {
         prompt = with_suffix "Files",
+        fzf_opts = {
+          ["--history"] = history_path "fzf-lua-files-history",
+        },
       },
 
       oldfiles = {
@@ -178,6 +192,9 @@ return {
         rg_glob = true, -- default to glob parsing?
         glob_flag = "--iglob", -- for case sensitive globs use '--glob'
         glob_separator = "%s%-%-", -- query separator pattern (lua): ' --'
+        fzf_opts = {
+          ["--history"] = history_path "fzf-lua-grep-history",
+        },
         actions = {
           ["ctrl-g"] = { actions.grep_lgrep },
           ["ctrl-r"] = { actions.toggle_ignore },
