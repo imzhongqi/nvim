@@ -42,7 +42,6 @@ return {
 
     local save_options = vim.deepcopy(options, false)
     vim.api.nvim_create_user_command("SiliconSave", function(args)
-      vim.print(args)
       save_options.to_clipboard = false
       if args.args and args.args ~= "" then
         save_options.output = args.args
@@ -52,6 +51,7 @@ return {
       desc = "convert range to code image representation and save to path",
       force = false,
       range = true,
+      nargs = 1,
     })
   end,
 }
