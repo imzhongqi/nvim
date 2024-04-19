@@ -3,5 +3,6 @@ _G._Util = require "util"
 
 require "config.lazy"
 require "config.config"
+require "config.cmd"
 
 vim.lsp.set_log_level "error"

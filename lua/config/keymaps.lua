@@ -24,28 +24,7 @@ keymaps_set {
   { "<Down>", "v:count == 0 ? 'gj' : 'j'", mode = { "n", "x" }, expr = true },
   { "k", "v:count == 0 ? 'gk' : 'k'", mode = { "n", "x" }, expr = true },
   { "<Up>", "v:count == 0 ? 'gk' : 'k'", mode = { "n", "x" }, expr = true },
-  {
-    "<C-w>c",
-    function()
-      require("mini.bufremove").delete()
-      local wins = vim
-        .iter(vim.api.nvim_list_wins())
-        :map(function(id) return { id = id, config = vim.api.nvim_win_get_config(id) } end)
-        :filter(function(w)
-          -- only filter split windows
-          if w.config.split then
-            -- only close main windows
-            return vim.bo[vim.api.nvim_win_get_buf(w.id)].buftype == ""
-          end
-          return false
-        end)
-        :totable()
-      if #wins > 1 then
-        pcall(vim.api.nvim_win_close, 0, true)
-      end
-    end,
-    desc = "Remove buffer and close window",
-  },
+  { "<C-w>c", "<Cmd>BufRemove<CR>", desc = "Remove buffer and close window" },
   -- { "j", [[v:count ? (v:count >= 3 ? "m'" . v:count : '') . 'j' : 'gj']], mode = "n", expr = true },
   -- { "k", [[v:count ? (v:count >= 3 ? "m'" . v:count : '') . 'k' : 'gk']], mode = "n", expr = true },
 

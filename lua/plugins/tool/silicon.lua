@@ -16,7 +16,7 @@ return {
     num_separator = " ",
     output = function()
       return (
-        _Util.path_join(vim.fn.expand "%:p:h:t", vim.fn.expand "%:t"):gsub("%/", "#")
+        _Util.path_join(vim.fn.expand "%:p:h:t", vim.fn.expand "%:t"):gsub("%/", "%%")
         .. "-"
         .. os.date "!%Y%m%d%H%M%S"
         .. ".png"
@@ -51,7 +51,7 @@ return {
       desc = "convert range to code image representation and save to path",
       force = false,
       range = true,
-      nargs = 1,
+      nargs = "*",
     })
   end,
 }
