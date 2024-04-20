@@ -147,25 +147,4 @@ util.define_autocmds {
       callback = function() require("bufresize").resize() end,
     },
   },
-
-  {
-    "BufAdd",
-    {
-      callback = function(args)
-        if args.file == "" and vim.fn.buflisted(args.buf) ~= 0 then
-          vim.api.nvim_create_autocmd("BufHidden", {
-            group = augroup "delete_hidden_buffer",
-            buffer = args.buf,
-            once = true,
-            callback = function()
-              if not vim.bo[args.buf].modified then
-                vim.bo[args.buf].buflisted = false
-                vim.schedule(function() vim.api.nvim_buf_delete(args.buf, { force = true }) end)
-              end
-            end,
-          })
-        end
-      end,
-    },
-  },
 }
