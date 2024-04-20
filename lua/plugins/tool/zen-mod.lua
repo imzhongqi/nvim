@@ -43,4 +43,16 @@ return {
       desc = "Enter Zen Mode",
     },
   },
+  config = function(_, opts)
+    require("zen-mode").setup(opts)
+    local view = require "zen-mode.view"
+    local close = view.close
+
+    view.close = function()
+      local status_ok = pcall(close)
+      if not status_ok then
+        vim.cmd(string.format("q %d", view.win))
+      end
+    end
+  end,
 }

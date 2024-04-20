@@ -69,19 +69,17 @@ return {
           end
         end
 
-        local opts = { buffer = 0 }
-
-        vim.keymap.set({ "t", "n" }, "<c-w>", [[<C-\><C-n><C-w>]], opts)
+        vim.keymap.set({ "t", "n" }, "<c-w>", [[<C-\><C-n><C-w>]], { buffer = 0, desc = "Esc" })
         vim.keymap.set({ "t", "n" }, [[<C-\><C-\>]], function()
           vim
             .iter(require("toggleterm.terminal").get_all())
             :map(function(t) return { buffer = t.bufnr } end)
             :each(toggle_keymap(not vim.g.toggleterm_keymap_loaded))
           vim.g.toggleterm_keymap_loaded = not vim.g.toggleterm_keymap_loaded
-        end, opts)
+        end, { buffer = 0, desc = "Toggle terminal keymap" })
 
         if vim.g.toggleterm_keymap_loaded then
-          toggle_keymap(true)(opts)
+          toggle_keymap(true) { buffer = 0 }
         end
       end,
       open_mapping = [[<c-,>]],
