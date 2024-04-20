@@ -29,6 +29,7 @@ return {
     },
     opts = function()
       return {
+        style_popup_max_width = 80,
         openai_api_key = os.getenv "OPENAI_API_KEY" or {
           "security",
           "find-generic-password",

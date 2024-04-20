@@ -149,17 +149,22 @@ util.define_autocmds {
   },
 
   {
-    "BufRead",
+    "BufAdd",
     {
-      group = augroup "buffer_enter_remove_blank_buffer",
-      pattern = "*",
       callback = function(args)
-        vim.schedule(function()
-          vim
-            .iter(vim.api.nvim_list_bufs())
-            :filter(function(bufnr) return vim.fn.buflisted(bufnr) ~= 0 and vim.api.nvim_buf_get_name(bufnr) == "" end)
-            :each(function(bufnr) vim.api.nvim_buf_delete(bufnr, { force = true }) end)
-        end)
+        if args.file == "" and vim.fn.buflisted(args.buf) ~= 0 then
+          vim.api.nvim_create_autocmd("BufHidden", {
+            group = augroup "delete_hidden_buffer",
+            buffer = args.buf,
+            once = true,
+            callback = function()
+              if not vim.bo[args.buf].modified then
+                vim.bo[args.buf].buflisted = false
+                vim.schedule(function() vim.api.nvim_buf_delete(args.buf, { force = true }) end)
+              end
+            end,
+          })
+        end
       end,
     },
   },

@@ -56,6 +56,8 @@ return {
           ["ScrollView"] = { bg = "#39506d" },
           ["ScrollViewHover"] = { bg = "#3e4957" },
           ["WinSeparator"] = { fg = "#141b25" },
+
+          ["LspReferenceText"] = { bg = "#222f40" },
         },
       },
     }

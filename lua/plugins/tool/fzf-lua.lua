@@ -8,7 +8,7 @@ return {
   cmd = { "FzfLua" },
   keys = {
     { "<leader>fr", "<cmd>FzfLua resume<CR>", desc = "FzfLua resume" },
-    { "<C-S-p>", "<cmd>FzfLua builtin<CR>", desc = "FzfLua builtin" },
+    { "<C-S-p>", "<cmd>FzfLua builtin<CR>", desc = "FzfLua builtin", mode = { "n", "v" } },
     {
       "<leader>,",
       function() require("fzf-lua").buffers {} end,
