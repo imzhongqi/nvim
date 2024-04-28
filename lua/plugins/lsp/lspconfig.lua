@@ -9,7 +9,7 @@ return {
       },
     },
     inlay_hints = {
-      enabled = false,
+      enabled = true,
     },
     servers = {
       lua_ls = {
@@ -22,11 +22,11 @@ return {
     },
   },
   init = function()
-    require("util.lsp").on_attach(function(client, buffer)
-      if client.supports_method "textDocument/inlayHint" then
-        vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
-      end
-    end)
+    -- require("util.lsp").on_attach(function(client, buffer)
+    --   if client.supports_method "textDocument/inlayHint" then
+    --     vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
+    --   end
+    -- end)
 
     vim.list_extend(require("lazyvim.plugins.lsp.keymaps").get(), {
       { "<leader>cl", false },

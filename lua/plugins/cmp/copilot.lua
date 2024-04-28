@@ -1,4 +1,4 @@
-return {
+return _Util.Disabled {
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",

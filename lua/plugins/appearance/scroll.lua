@@ -2,6 +2,9 @@ return {
   {
     "dstein64/nvim-scrollview",
     event = "VeryLazy",
+    keys = {
+      { "<leader>uv", "<Cmd>ScrollViewToggle<CR>", desc = "Toggle ScrollView" },
+    },
     opts = {
       folds = 1000,
       excluded_filetypes = {
@@ -12,7 +15,7 @@ return {
       current_only = true,
       signs_on_startup = { "diagnostics", "search", "marks" },
       signs_overflow = "right",
-      winblend_gui = 50,
+      winblend_gui = 80,
 
       diagnostics_severities = {
         vim.diagnostic.severity.HINT,
@@ -26,6 +29,7 @@ return {
   },
   {
     "karb94/neoscroll.nvim",
+    pin = true,
     opts = {
       -- hide_cursor = false,
       stop_eof = true,

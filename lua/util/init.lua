@@ -181,4 +181,16 @@ M.stdpath = function(what, ...)
   return M.path_join(path, ...)
 end
 
+M.Cond = function(cond)
+  return function(...)
+    if cond then
+      return ...
+    end
+
+    return {}
+  end
+end
+M.Disabled = M.Cond(false)
+M.Enabled = M.Cond(true)
+
 return M

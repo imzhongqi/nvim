@@ -1,6 +1,5 @@
 local Util = require "lazyvim.util"
 local keymaps_set = require("util").keymaps_set
-local get_selected_text = require("util").get_selected_text
 
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
 
@@ -114,51 +113,11 @@ keymaps_set {
 
   {
     "<leader>oo",
-    function()
-      local mode = vim.api.nvim_get_mode().mode
-      local text
-      if mode == "v" or mode == "V" then
-        text = get_selected_text()
-      else
-        -- text = vim.api.nvim_get_current_line()
-        text = vim.fn.expand "<cword>"
-      end
-
-      local handle
-      handle = vim.uv.spawn("osascript", {
-        args = {
-          "-l",
-          "JavaScript",
-          "-e",
-          string.format(
-            'Application("com.hezongyidev.Bob").request(JSON.stringify(%s))',
-            vim.json.encode {
-              path = "translate",
-              body = {
-                action = "translateText",
-                windowLocation = "last",
-                text = text,
-              },
-            }
-          ),
-        },
-      }, function(exit_code)
-        if exit_code ~= 0 then
-          vim.notify(string.format("failed to run script, exit code: %d", exit_code), vim.log.levels.ERROR)
-        end
-        if handle and not handle:is_closing() then
-          handle:close()
-        end
-      end)
-    end,
+    "<Cmd>OpenBob<CR>",
     mode = { "v", "n" },
     desc = "Open Bob translator",
     cond = vim.fn.executable "osascript" == 1,
   },
 
-  {
-    "<leader>gb",
-    LazyVim.lazygit.blame_line,
-    desc = "Git Blame Line",
-  },
+  { "<leader>gb", LazyVim.lazygit.blame_line, desc = "Git Blame Line" },
 }

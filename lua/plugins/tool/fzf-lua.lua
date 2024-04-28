@@ -3,6 +3,34 @@ local with_suffix = function(name) return name .. _Icons.fzflua.suffix end
 
 local function history_path(filename) return Util.stdpath("cache", filename) end
 
+local switch_cwd = function(_, opts)
+  local cwd = vim.uv.cwd()
+  if not opts.cwd or opts.cwd == cwd then
+    cwd = require("lazyvim.util").root.get()
+  end
+  opts.__call_fn {
+    resume = true,
+    cwd = cwd,
+  }
+end
+
+local function replace_prompt(o)
+  if o.prompt and type(o.prompt) == "string" then
+    local prompt_name = o.prompt:match "(%w+)> "
+    if prompt_name then
+      o.prompt = with_suffix(prompt_name)
+    end
+  end
+
+  if type(o) == "table" then
+    for k, v in pairs(o) do
+      if type(k) == "string" and k:match "^%w" and type(v) == "table" then
+        replace_prompt(v)
+      end
+    end
+  end
+end
+
 return {
   "ibhagwan/fzf-lua",
   cmd = { "FzfLua" },
@@ -25,12 +53,20 @@ return {
     },
     {
       "<leader>ff",
-      [[<cmd>lua require("fzf-lua").git_files { cwd = require("lazyvim.util").root() }<CR>]],
+      function()
+        require("fzf-lua").git_files {
+          cwd = require("lazyvim.util").root(),
+        }
+      end,
       desc = "FzfLua git files",
     },
     {
       "<leader>fg",
-      function() require("fzf-lua").live_grep_glob { cwd = require("lazyvim.util").root() } end,
+      function()
+        require("fzf-lua").live_grep_glob {
+          cwd = require("lazyvim.util").root(),
+        }
+      end,
       desc = "FzfLua live grep",
     },
   },
@@ -126,7 +162,9 @@ return {
           ["ctrl-t"] = actions.file_tabedit,
           ["alt-q"] = actions.file_sel_to_qf,
           ["alt-l"] = actions.file_sel_to_ll,
+          ["ctrl-x"] = switch_cwd,
         },
+
         buffers = {
           ["default"] = actions.buf_edit,
           ["ctrl-s"] = actions.buf_split,
@@ -141,10 +179,6 @@ return {
         },
       },
 
-      builtin = {
-        prompt = with_suffix "Builtin",
-      },
-
       previewers = {
         codeaction_native = {
           pager = [[delta --width=$COLUMNS --hunk-header-style="omit" --file-style="omit" --syntax-theme=TwoDark --minus-style='#ffffff "#2f2837"' --plus-style='#ffffff "#26343c"']],
@@ -152,7 +186,6 @@ return {
       },
 
       buffers = {
-        prompt = with_suffix "Buffers",
         file_icons = true, -- show file icons?
         color_icons = true, -- colorize file|git icons
         sort_lastused = true, -- sort buffers() by last used
@@ -164,30 +197,22 @@ return {
       },
 
       tabs = {
-        prompt = with_suffix "Tabs",
         tab_marker = "",
       },
 
       files = {
-        prompt = with_suffix "Files",
         fzf_opts = {
           ["--history"] = history_path "fzf-lua-files-history",
         },
       },
 
       oldfiles = {
-        prompt = with_suffix "History",
         cwd_only = false,
         stat_file = true, -- verify files exist on disk
         include_current_session = false, -- include bufs from current session
       },
-      commands = {
-        prompt = with_suffix "Commands",
-      },
 
       grep = {
-        prompt = with_suffix "Rg",
-        input_prompt = with_suffix "Grep For",
         search = "",
         rg_glob = true, -- default to glob parsing?
         glob_flag = "--iglob", -- for case sensitive globs use '--glob'
@@ -207,22 +232,6 @@ return {
           ["M"] = { icon = _Icons.fzflua.git.modified, color = "yellow" },
           ["D"] = { icon = _Icons.fzflua.git.deleted, color = "red" },
         },
-
-        files = {
-          prompt = with_suffix "GitFiles",
-        },
-      },
-
-      changes = {
-        prompt = with_suffix "Changes",
-      },
-
-      diagnostics = {
-        prompt = with_suffix "Diagnostics",
-      },
-
-      highlights = {
-        prompt = with_suffix "Highlights",
       },
 
       lsp = {
@@ -232,11 +241,7 @@ return {
           prompt_postfix = _Icons.fzflua.suffix,
           symbol_icons = _Icons.kinds,
         },
-        finder = {
-          prompt = with_suffix "LSP Finder",
-        },
         code_actions = {
-          prompt = with_suffix "Code Actions",
           previewer = "codeaction_native",
         },
       },
@@ -244,8 +249,12 @@ return {
   end,
 
   config = function(_, opts)
+    require("fzf-lua.config")._action_to_helpstr[switch_cwd] = "switch-cwd"
+
+    replace_prompt(require("fzf-lua.defaults").defaults)
+
     local fzf = require "fzf-lua"
-    fzf.setup(opts)
+    fzf.setup(opts, true)
     fzf.register_ui_select()
   end,
 }

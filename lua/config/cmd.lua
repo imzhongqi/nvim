@@ -45,3 +45,39 @@ vim.api.nvim_create_user_command("BufRemove", function()
 end, {
   desc = "Delete the buffer, but do not delete the buffer with an empty Buftype",
 })
+
+vim.api.nvim_create_user_command("OpenBob", function()
+  local mode = vim.api.nvim_get_mode().mode
+  local text
+  if mode == "v" or mode == "V" then
+    text = _Util.get_selected_text()
+  else
+    text = vim.fn.expand "<cword>"
+  end
+
+  vim.uv.spawn("osascript", {
+    args = {
+      "-l",
+      "JavaScript",
+      "-e",
+      string.format(
+        'Application("com.hezongyidev.Bob").request(JSON.stringify(%s))',
+        vim.json.encode {
+          path = "translate",
+          body = {
+            action = "translateText",
+            windowLocation = "last",
+            text = text,
+          },
+        }
+      ),
+    },
+  }, function(exit_code)
+    if exit_code ~= 0 then
+      vim.notify(string.format("failed to open Bob, exit code: %d", exit_code), vim.log.levels.ERROR)
+    end
+  end)
+end, {
+  nargs = "*",
+  desc = "Open Bob",
+})

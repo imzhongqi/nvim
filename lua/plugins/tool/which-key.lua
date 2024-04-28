@@ -8,7 +8,18 @@ return {
         winblend = 20,
       },
 
-      plugins = { spelling = true },
+      icons = {
+        breadcrumb = "»",
+        separator = "➜",
+        group = "+",
+      },
+
+      plugins = {
+        spelling = true,
+        presets = {
+          nav = false,
+        },
+      },
 
       defaults = {
         mode = { "n", "v" },
@@ -24,13 +35,15 @@ return {
         ["<leader>cl"] = { name = "+lsp" },
 
         ["<leader>f"] = { name = "+file/find" },
+        ["<leader>t"] = { name = "+test" },
 
         ["<leader>g"] = { name = "+git" },
         ["<leader>gh"] = { name = "+hunks" },
 
         ["<leader>o"] = { name = "+open" },
-        ["<leader>ot"] = { name = "+Open Terminal" },
-        ["<leader>od"] = { name = "+Open Database UI" },
+        ["<leader>ot"] = { name = "+Terminal" },
+        ["<leader>oa"] = { name = "+AI" },
+        ["<leader>od"] = { name = "+Database UI" },
 
         ["<leader>q"] = { name = "+quit/session" },
         ["<leader>s"] = { name = "+search" },

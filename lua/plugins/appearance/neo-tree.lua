@@ -77,15 +77,31 @@ return {
           desc = "open_with_system_defaults",
         },
         ["T"] = {
-          command = function(state) require("toggleterm.terminal").Terminal:new({ dir = dirname(state) }):toggle() end,
+          command = function(state)
+            require("toggleterm.terminal").Terminal
+              :new({
+                dir = dirname(state),
+              })
+              :toggle()
+          end,
           desc = "open_in_terminal",
         },
+
+        ["f"] = false, -- disable Search mapping
         ["ff"] = {
-          command = function(state) require("fzf-lua").files { cwd = dirname(state) } end,
+          command = function(state)
+            require("fzf-lua").files {
+              cwd = dirname(state),
+            }
+          end,
           desc = "find_files",
         },
         ["fg"] = {
-          command = function(state) require("fzf-lua").live_grep_glob { cwd = dirname(state) } end,
+          command = function(state)
+            require("fzf-lua").live_grep_glob {
+              cwd = dirname(state),
+            }
+          end,
           desc = "grep_files",
         },
       })

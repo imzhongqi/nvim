@@ -30,11 +30,16 @@ return {
       return function() fn() end
     end
 
+    local marks = require "marks"
+
     require("util").keymaps_set {
       { "[d", diag.goto_prev(), desc = "Previous diagnostic" },
       { "]d", diag.goto_next(), desc = "Next diagnostic" },
       { "[q", nqf.cprevious, desc = "Previous quickfix item" },
       { "]q", nqf.cnext, desc = "Next quickfix item" },
+
+      { "[m", backward(move_fn(marks.prev), move_fn(marks.next)), desc = "Previous marks" },
+      { "]m", forward(move_fn(marks.next), move_fn(marks.prev)), desc = "Next marks" },
 
       {
         "[b",

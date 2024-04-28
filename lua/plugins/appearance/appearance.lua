@@ -26,11 +26,11 @@ return {
       notification = {
         window = {
           normal_hl = "Comment", -- Base highlight group in the notification window
-          winblend = 100, -- Background color opacity in the notification window
+          winblend = 80, -- Background color opacity in the notification window
           border = "none", -- Border around the notification window
-          zindex = 45, -- Stacking priority of the notification window
+          zindex = 30, -- Stacking priority of the notification window
           max_width = 0, -- Maximum width of the notification window
-          max_height = 0, -- Maximum height of the notification window
+          max_height = 5, -- Maximum height of the notification window
           x_padding = 2, -- Padding from right edge of window boundary
           y_padding = 0, -- Padding from bottom edge of window boundary
           align = "bottom", -- How to align the notification window
@@ -46,6 +46,7 @@ return {
       filetypes_denylist = {
         "dropbar_menu",
       },
+      should_enable = function(bufnr) return vim.bo[bufnr].buftype == "" end,
     },
   },
 

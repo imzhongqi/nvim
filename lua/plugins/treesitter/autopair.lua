@@ -1,18 +1,18 @@
 return {
   { "echasnovski/mini.pairs", enabled = false },
 
-  -- {
-  --   "altermo/ultimate-autopair.nvim",
-  --   event = { "InsertEnter", "CmdlineEnter" },
-  --   branch = "v0.6", --recommended as each new version will have breaking changes
-  --   opts = {
-  --     tabout = {
-  --       enable = true,
-  --       map = "<A-tab>", --string or table
-  --       cmap = "<A-tab>", --string or table
-  --     },
-  --   },
-  -- },
+  {
+    "altermo/ultimate-autopair.nvim",
+    event = { "InsertEnter", "CmdlineEnter" },
+    branch = "v0.6", --recommended as each new version will have breaking changes
+    opts = {
+      tabout = {
+        enable = true,
+        map = "<C-x>", --string or table
+        cmap = "<C-x>", --string or table
+      },
+    },
+  },
 
   {
     "windwp/nvim-autopairs",

@@ -135,7 +135,7 @@ util.define_autocmds {
     "TermOpen",
     {
       group = augroup "terminal_nonum",
-      command = "setlocal nonumber norelativenumber",
+      command = "setlocal nonumber norelativenumber foldcolumn=1 stc=",
     },
   },
 

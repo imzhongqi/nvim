@@ -50,7 +50,6 @@ return {
           { "t", "<C-j>", [[<cmd>wincmd j<CR>]] },
           { "t", "<C-k>", [[<cmd>wincmd k<CR>]] },
           { "t", "<C-l>", [[<cmd>wincmd l<CR>]] },
-          { "t", "<C-w>", [[<C-\><C-n><C-w>]] },
         }
 
         vim.g.toggleterm_keymap_loaded = vim.g.toggleterm_keymap_loaded or true
@@ -69,7 +68,6 @@ return {
           end
         end
 
-        vim.keymap.set({ "t", "n" }, "<c-w>", [[<C-\><C-n><C-w>]], { buffer = 0, desc = "Esc" })
         vim.keymap.set({ "t", "n" }, [[<C-\><C-\>]], function()
           vim
             .iter(require("toggleterm.terminal").get_all())

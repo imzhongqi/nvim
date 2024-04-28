@@ -66,6 +66,8 @@ require("util").options_set {
   signcolumn = "yes", -- Always show the signcolumn, otherwise it would shift the text each time
   shortmess = function(opt) opt:append { W = true, I = true, c = true, C = true } end,
 
+  smoothscroll = true,
+
   undolevels = 10000,
   updatetime = 200, -- Save swap file and trigger CursorHold
 

@@ -27,9 +27,7 @@ return {
         },
       },
       setup = {
-        rust_analyzer = function(_, opts)
-          return true
-        end,
+        rust_analyzer = function(_, opts) return true end,
       },
     },
   },
@@ -84,7 +82,7 @@ return {
             cargo = {
               allFeatures = true,
               loadOutDirsFromCheck = true,
-              runBuildScripts = true,
+              buildScripts = true,
             },
             -- Add clippy lints for Rust.
             checkOnSave = {
@@ -92,6 +90,11 @@ return {
               command = "clippy",
               extraArgs = { "--no-deps" },
             },
+            -- completion = {
+            --   postfix = {
+            --     enable = false,
+            --   },
+            -- },
             procMacro = {
               enable = true,
               ignored = {
@@ -104,9 +107,7 @@ return {
         },
       },
     },
-    config = function(_, opts)
-      vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {})
-    end,
+    config = function(_, opts) vim.g.rustaceanvim = vim.tbl_deep_extend("force", {}, opts or {}) end,
   },
 
   {

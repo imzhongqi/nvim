@@ -24,9 +24,7 @@ return {
             if vim.wo.diff then
               return "[h"
             end
-            vim.schedule(function()
-              ngs.prev_hunk()
-            end)
+            vim.schedule(function() ngs.prev_hunk() end)
             return "<Ignore>"
           end,
           "Next Hunk",
@@ -36,9 +34,7 @@ return {
             if vim.wo.diff then
               return "[h"
             end
-            vim.schedule(function()
-              ngs.prev_hunk()
-            end)
+            vim.schedule(function() ngs.prev_hunk() end)
             return "<Ignore>"
           end,
           "Prev Hunk",
@@ -47,19 +43,9 @@ return {
         ["<leader>ghu"] = { gs.undo_stage_hunk, "Undo Stage Hunk" },
         ["<leader>ghR"] = { gs.reset_buffer, "Reset Buffer" },
         ["<leader>ghp"] = { gs.preview_hunk, "Preview Buffer" },
-        ["<leader>ghb"] = {
-          function()
-            gs.blame_line { full = true }
-          end,
-          "Blame Line",
-        },
+        ["<leader>ghb"] = { function() gs.blame_line { full = true } end, "Blame Line" },
         ["<leader>ghd"] = { gs.diffthis, "Diff This" },
-        ["<leader>ghD"] = {
-          function()
-            gs.diffthis "~"
-          end,
-          "Diff This ~",
-        },
+        ["<leader>ghD"] = { function() gs.diffthis "~" end, "Diff This ~" },
       }, { mode = "n" })
 
       wk.register({
