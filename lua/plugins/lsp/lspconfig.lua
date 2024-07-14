@@ -15,7 +15,14 @@ return {
       lua_ls = {
         settings = {
           Lua = {
-            hint = { enable = true },
+            hint = {
+              enable = true,
+              setType = false,
+              paramType = true,
+              paramName = true,
+              semicolon = "Disable",
+              arrayIndex = "Disable",
+            },
           },
         },
       },

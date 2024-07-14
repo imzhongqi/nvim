@@ -1,6 +1,7 @@
 return {
   "ghostbuster91/nvim-next",
   event = "VeryLazy",
+  vscode = true,
   config = function()
     local next = require "nvim-next"
     local builtins = require "nvim-next.builtins"
@@ -30,39 +31,11 @@ return {
       return function() fn() end
     end
 
-    local marks = require "marks"
-
     require("util").keymaps_set {
       { "[d", diag.goto_prev(), desc = "Previous diagnostic" },
       { "]d", diag.goto_next(), desc = "Next diagnostic" },
       { "[q", nqf.cprevious, desc = "Previous quickfix item" },
       { "]q", nqf.cnext, desc = "Next quickfix item" },
-
-      { "[m", backward(move_fn(marks.prev), move_fn(marks.next)), desc = "Previous marks" },
-      { "]m", forward(move_fn(marks.next), move_fn(marks.prev)), desc = "Next marks" },
-
-      {
-        "[b",
-        backward(move_fn(vim.cmd.BufferLineMovePrev), move_fn(vim.cmd.BufferLineMoveNext)),
-        desc = "Move buffer to previous",
-      },
-      {
-        "]b",
-        forward(move_fn(vim.cmd.BufferLineMoveNext), move_fn(vim.cmd.BufferLineMovePrev)),
-        desc = "Move buffer to next",
-      },
-
-      {
-        "<S-h>",
-        backward(move_fn(vim.cmd.BufferLineCyclePrev), move_fn(vim.cmd.BufferLineCycleNext)),
-        desc = "Prev buffer",
-      },
-      {
-        "<S-l>",
-        forward(move_fn(vim.cmd.BufferLineCycleNext), move_fn(vim.cmd.BufferLineCyclePrev)),
-        desc = "Next buffer",
-      },
-
       {
         "zH",
         backward(move_fn [[execute "normal! zH"]], move_fn [[execute "normal! zL"]]),
@@ -74,5 +47,35 @@ return {
         desc = "Move window right",
       },
     }
+
+    if not vim.g.vscode then
+      local marks = require "marks"
+      require("util").keymaps_set {
+        { "[m", backward(move_fn(marks.prev), move_fn(marks.next)), desc = "Previous marks" },
+        { "]m", forward(move_fn(marks.next), move_fn(marks.prev)), desc = "Next marks" },
+
+        {
+          "[b",
+          backward(move_fn(vim.cmd.BufferLineMovePrev), move_fn(vim.cmd.BufferLineMoveNext)),
+          desc = "Move buffer to previous",
+        },
+        {
+          "]b",
+          forward(move_fn(vim.cmd.BufferLineMoveNext), move_fn(vim.cmd.BufferLineMovePrev)),
+          desc = "Move buffer to next",
+        },
+
+        {
+          "<S-h>",
+          backward(move_fn(vim.cmd.BufferLineCyclePrev), move_fn(vim.cmd.BufferLineCycleNext)),
+          desc = "Prev buffer",
+        },
+        {
+          "<S-l>",
+          forward(move_fn(vim.cmd.BufferLineCycleNext), move_fn(vim.cmd.BufferLineCyclePrev)),
+          desc = "Next buffer",
+        },
+      }
+    end
   end,
 }

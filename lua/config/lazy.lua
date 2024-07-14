@@ -18,7 +18,7 @@ require("lazy").setup("plugins", {
   },
 
   install = {
-    missing = false,
+    missing = true,
     colorscheme = {
       "default",
     },
@@ -32,7 +32,7 @@ require("lazy").setup("plugins", {
     border = "solid",
     size = {
       width = 1,
-      height = 1,
+      height = 0.9,
     },
   },
 

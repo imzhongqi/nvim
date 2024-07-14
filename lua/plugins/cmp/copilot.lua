@@ -38,5 +38,32 @@ return _Util.Disabled {
       -- "zbirenbaum/copilot-cmp",
       "imzhongqi/copilot-cmp",
     },
+    opts = function(_, opts)
+      table.insert(opts.sorting.comparators, 1, require("copilot_cmp.comparators").prioritize)
+      table.insert(opts.sources, {
+        name = "copilot",
+        trigger_characters = {
+          ".",
+          ":",
+          "(",
+          "'",
+          '"',
+          "[",
+          ",",
+          "#",
+          "*",
+          "@",
+          "|",
+          "=",
+          "-",
+          "{",
+          "/",
+          "\\",
+          "+",
+          "?",
+          " ",
+        },
+      })
+    end,
   },
 }

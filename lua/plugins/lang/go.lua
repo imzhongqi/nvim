@@ -1,12 +1,14 @@
 return {
   {
     "ray-x/go.nvim",
+    enabled = false,
     dependencies = { -- optional packages
       "ray-x/guihua.lua",
     },
     ft = { "go", "gomod", "gowork" },
     opts = {
       disable_defaults = true,
+      diagnostic = false,
     },
   },
 
@@ -22,16 +24,16 @@ return {
           settings = {
             gopls = {
               gofumpt = true,
-              codelenses = {
-                gc_details = false,
-                generate = true,
-                regenerate_cgo = true,
-                run_govulncheck = true,
-                test = true,
-                tidy = true,
-                upgrade_dependency = true,
-                vendor = true,
-              },
+              -- codelenses = {
+              --   gc_details = false,
+              --   generate = true,
+              --   regenerate_cgo = true,
+              --   run_govulncheck = true,
+              --   test = true,
+              --   tidy = true,
+              --   upgrade_dependency = true,
+              --   vendor = true,
+              -- },
               hints = {
                 assignVariableTypes = true,
                 compositeLiteralFields = true,

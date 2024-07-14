@@ -1,11 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Enable LazyVim auto format
-vim.g.autoformat = true
-
-vim.g.root_spec = { "lsp", { ".git", "lua", "README.md", "Cargo.toml", "Makefile", "src" }, "cwd" }
-
 require("util").options_set {
   autowrite = true, -- Enable auto write
 
@@ -65,6 +60,8 @@ require("util").options_set {
   sidescrolloff = 8, -- Columns of context
   signcolumn = "yes", -- Always show the signcolumn, otherwise it would shift the text each time
   shortmess = function(opt) opt:append { W = true, I = true, c = true, C = true } end,
+
+  statuscolumn = "",
 
   smoothscroll = true,
 

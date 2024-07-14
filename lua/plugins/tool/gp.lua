@@ -30,22 +30,34 @@ return {
     opts = function()
       return {
         style_popup_max_width = 80,
-        openai_api_key = os.getenv "OPENAI_API_KEY" or {
-          "security",
-          "find-generic-password",
-          "-w",
-          "-s",
-          "openai",
-          "-a",
-          "openai",
-        },
-        openai_api_endpoint = os.getenv "OPENAI_ENDPOINT" or "https://api.openai.com/v1/chat/completions",
         chat_conceal_model_params = false,
         whisper_language = "",
         toggle_target = "vsplit",
         chat_confirm_delete = false,
         style_chat_finder_border = "rounded",
         style_popup_border = "rounded",
+        providers = {
+          openai = {
+            endpoint = os.getenv "OPENAI_ENDPOINT" or "https://api.openai.com/v1/chat/completions",
+            secret = os.getenv "OPENAI_API_KEY" or {
+              "security",
+              "find-generic-password",
+              "-w",
+              "-s",
+              "openai",
+              "-a",
+              "openai",
+            },
+          },
+          copilot = {
+            endpoint = "https://api.githubcopilot.com/chat/completions",
+            secret = {
+              "bash",
+              "-c",
+              "cat ~/.config/github-copilot/hosts.json | sed -e 's/.*oauth_token...//;s/\".*//'",
+            },
+          },
+        },
 
         agents = {
           {
@@ -54,6 +66,16 @@ return {
             command = false,
             -- string with model name or table with model name and parameters
             model = { model = "gpt-4-1106-preview", temperature = 1.1, top_p = 1 },
+            -- system prompt (use this to specify the persona/role of the AI)
+            system_prompt = "You are a general AI assistant.\n"
+              .. "Please do not reply with some context that everyone knows, it will be redundant\n",
+          },
+          {
+            name = "ChatGPT4o",
+            chat = true,
+            command = false,
+            -- string with model name or table with model name and parameters
+            model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
             -- system prompt (use this to specify the persona/role of the AI)
             system_prompt = "You are a general AI assistant.\n"
               .. "Please do not reply with some context that everyone knows, it will be redundant\n",

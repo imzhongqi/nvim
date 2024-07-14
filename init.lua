@@ -1,4 +1,4 @@
-_G._Icons = require "icons"
+_G._Icons = require "config.icons"
 _G._Util = require "util"
 
 require "config.lazy"

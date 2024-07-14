@@ -18,8 +18,9 @@ return {
       local next_integrations = require "nvim-next.integrations"
       local ngs = next_integrations.gitsigns(gs)
 
-      wk.register({
-        ["]h"] = {
+      wk.add({
+        {
+          "]h",
           function()
             if vim.wo.diff then
               return "[h"
@@ -27,9 +28,10 @@ return {
             vim.schedule(function() ngs.prev_hunk() end)
             return "<Ignore>"
           end,
-          "Next Hunk",
+          desc = "Next Hunk",
         },
-        ["[h"] = {
+        {
+          "[h",
           function()
             if vim.wo.diff then
               return "[h"
@@ -37,24 +39,24 @@ return {
             vim.schedule(function() ngs.prev_hunk() end)
             return "<Ignore>"
           end,
-          "Prev Hunk",
+          desc = "Prev Hunk",
         },
-        ["<leader>ghS"] = { gs.stage_buffer, "Stage Buffer" },
-        ["<leader>ghu"] = { gs.undo_stage_hunk, "Undo Stage Hunk" },
-        ["<leader>ghR"] = { gs.reset_buffer, "Reset Buffer" },
-        ["<leader>ghp"] = { gs.preview_hunk, "Preview Buffer" },
-        ["<leader>ghb"] = { function() gs.blame_line { full = true } end, "Blame Line" },
-        ["<leader>ghd"] = { gs.diffthis, "Diff This" },
-        ["<leader>ghD"] = { function() gs.diffthis "~" end, "Diff This ~" },
+        { "<leader>ghS", gs.stage_buffer, desc = "Stage Buffer" },
+        { "<leader>ghu", gs.undo_stage_hunk, desc = "Undo Stage Hunk" },
+        { "<leader>ghR", gs.reset_buffer, desc = "Reset Buffer" },
+        { "<leader>ghp", gs.preview_hunk, desc = "Preview Buffer" },
+        { "<leader>ghb", function() gs.blame_line { full = true } end, desc = "Blame Line" },
+        { "<leader>ghd", gs.diffthis, desc = "Diff This" },
+        { "<leader>ghD", function() gs.diffthis "~" end, desc = "Diff This ~" },
       }, { mode = "n" })
 
-      wk.register({
-        ["<leader>ghs"] = { "<Cmd>Gitsigns stage_hunk<CR>", "Stage Hunk" },
-        ["<leader>ghr"] = { "<Cmd>Gitsigns reset_hunk<CR>", "Reset Hunk" },
+      wk.add({
+        { "<leader>ghs", "<Cmd>Gitsigns stage_hunk<CR>", desc = "Stage Hunk" },
+        { "<leader>ghr", "<Cmd>Gitsigns reset_hunk<CR>", desc = "Reset Hunk" },
       }, { mode = { "n", "v" } })
 
-      wk.register({
-        ["ih"] = { "<Cmd><C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk" },
+      wk.add({
+        { "ih", "<Cmd><C-U>Gitsigns select_hunk<CR>", desc = "GitSigns Select Hunk" },
       }, { mode = { "o", "x" } })
     end,
   },

@@ -17,7 +17,7 @@ local icons = {
 
   fzflua = {
     suffix = "❯ ",
-    pointer = "  ",
+    pointer = "▌",
     scrollbar = "▊",
     marker = " ",
 

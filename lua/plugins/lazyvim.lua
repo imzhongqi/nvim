@@ -1,7 +1,15 @@
-local icons = require "icons"
+local icons = require "config.icons"
+
+vim.g.lazyvim_picker = "fzf"
+
+-- Enable LazyVim auto format
+vim.g.autoformat = true
+
+vim.g.root_spec = { "lsp", { ".git", "lua", "README.md", "Cargo.toml", "Makefile", "src" }, "cwd" }
 
 return {
   "LazyVim/LazyVim",
+  lazy = false,
   version = false,
 
   opts = {

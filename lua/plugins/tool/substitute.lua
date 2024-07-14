@@ -3,6 +3,7 @@ return {
 
   {
     "gbprod/substitute.nvim",
+    vscode = true,
     keys = {
       { "s", function() require("substitute").operator() end },
       { "ss", function() require("substitute").line() end },

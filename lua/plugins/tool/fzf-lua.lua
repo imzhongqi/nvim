@@ -130,6 +130,8 @@ return {
       keymap = {
         builtin = {
           ["<C-h>"] = "toggle-help",
+          ["<C-S-j>"] = "preview-page-down",
+          ["<C-S-k>"] = "preview-page-up",
           ["<F2>"] = "toggle-fullscreen",
           ["<F3>"] = "toggle-preview-wrap",
           ["<F4>"] = "toggle-preview",

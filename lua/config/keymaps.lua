@@ -7,6 +7,7 @@ keymaps_set {
   -- { "<C-p>", "", mode = "i" },
   { "<C-n>", "", mode = "i" },
   { "<C-d>", "", mode = "c" },
+  { "<Tab>", "", mode = "c" },
   { "<cmd>undo<CR>", "<D-z>", mode = { "n", "i" } },
   { "<cmd>redo<CR>", "<D-Z>", mode = { "n", "i" } },
 
@@ -47,6 +48,7 @@ keymaps_set {
   -- { "[b", "<cmd>bprevious<cr>", desc = "Prev buffer" },
   -- { "]b", "<cmd>bnext<cr>", desc = "Next buffer" },
   { "<leader>bb", "<cmd>e #<cr>", desc = "Switch to Other Buffer" },
+  { "<leader>bd", "<cmd>lua require('mini.bufremove').delete()<cr>", desc = "Delete Buffer" },
   { "<leader>`", "<cmd>e #<cr>", desc = "Switch to Other Buffer" },
 
   -- Clear search, diff update and redraw
