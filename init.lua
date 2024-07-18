@@ -5,4 +5,4 @@ require "config.lazy"
 require "config.config"
 require "config.cmd"
 
-vim.lsp.set_log_level "error"
+vim.lsp.set_log_level "debug"

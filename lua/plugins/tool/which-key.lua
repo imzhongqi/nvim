@@ -2,8 +2,11 @@ return {
   "folke/which-key.nvim",
 
   opts = {
-    window = {
-      winblend = 20,
+    win = {
+      no_overlap = true,
+      wo = {
+        winblend = 20,
+      },
     },
 
     icons = {
@@ -48,6 +51,13 @@ return {
   },
   config = function(_, opts)
     local wk = require "which-key"
+    wk.add {
+      "<C-w>c",
+      "<Cmd>BufRemove<CR>",
+      desc = "remove buffer",
+      mode = "n",
+      noremap = true,
+    }
     wk.setup(opts)
   end,
 }

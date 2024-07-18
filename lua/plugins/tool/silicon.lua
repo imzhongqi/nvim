@@ -14,6 +14,7 @@ return {
     line_pad = 10,
     gobble = false,
     num_separator = " ",
+    language = function() return vim.bo.filetype end,
     output = function()
       return (
         _Util.path_join(vim.fn.expand "%:p:h:t", vim.fn.expand "%:t"):gsub("%/", "%%")
@@ -33,6 +34,7 @@ return {
         vim.notify "disable copy to clipboard, because the lines are too many."
         options.to_clipboard = false
       end
+      options.output = not options.to_clipboard
       silicon.start(args, options)
     end, {
       desc = "convert range to code image representation",

@@ -67,7 +67,7 @@ return {
     priority = 1001,
     opts = {
       window = { open = "alternate" },
-      -- nest_if_no_args = true,
+      nest_if_no_args = true,
     },
   },
 
@@ -85,7 +85,6 @@ return {
       },
     },
   },
-
 
   {
     "folke/persistence.nvim",

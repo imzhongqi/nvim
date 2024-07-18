@@ -25,8 +25,9 @@ local keymap_set = function(entry)
   local mode = entry.mode or "n"
   local lhs = entry[1]
   local rhs = entry[2]
-  local opts = M.opts(entry) ---@type vim.api.keyset.keymap
+  local opts = M.opts(entry)
 
+  opts.noremap = not opts.remap
   opts.silent = opts.silent or true
 
   if entry.cond ~= nil then
@@ -36,7 +37,7 @@ local keymap_set = function(entry)
     end
   end
 
-  pcall(vim.keymap.set, mode, lhs, rhs, opts)
+  vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 local skip = { mode = true, cond = true }

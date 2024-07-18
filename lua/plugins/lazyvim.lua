@@ -51,4 +51,9 @@ return {
       kinds = icons.kinds_with_space,
     },
   },
+  init = function()
+    if vim.g.vscode then
+      vim.lsp.inlay_hint.enable(false)
+    end
+  end,
 }

@@ -43,6 +43,9 @@ return {
           "vim",
           "vimdoc",
           "yaml",
+          "go",
+          "gomod",
+          "gosum",
         },
 
         incremental_selection = {

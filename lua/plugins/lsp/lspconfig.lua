@@ -9,7 +9,7 @@ return {
       },
     },
     inlay_hints = {
-      enabled = true,
+      enabled = false,
     },
     servers = {
       lua_ls = {
